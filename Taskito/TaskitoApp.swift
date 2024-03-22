@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct TaskitoApp: App {
     var body: some Scene {
-        WindowGroup {
+        MenuBarExtra("Taskito", systemImage: "hammer") {
             ContentView()
-        }
+        }.menuBarExtraStyle(.window)
     }
 }

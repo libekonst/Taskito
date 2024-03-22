@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		843ECE822BADBC9200BA5908 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE812BADBC9200BA5908 /* TimeFormatter.swift */; };
 		84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */; };
 		84CAB7AB2BA0F8DC002350A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */; };
 		84CAB7AD2BA0F8DD002350A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		843ECE812BADBC9200BA5908 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		84CAB7A52BA0F8DC002350A9 /* Taskito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoApp.swift; sourceTree = "<group>"; };
 		84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		843ECE802BADBB5E00BA5908 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				843ECE812BADBC9200BA5908 /* TimeFormatter.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		84CAB79C2BA0F8DC002350A9 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 		84CAB7A72BA0F8DC002350A9 /* Taskito */ = {
 			isa = PBXGroup;
 			children = (
+				843ECE802BADBB5E00BA5908 /* Models */,
 				84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */,
 				84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */,
 				84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */,
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84CAB7AB2BA0F8DC002350A9 /* ContentView.swift in Sources */,
+				843ECE822BADBC9200BA5908 /* TimeFormatter.swift in Sources */,
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
