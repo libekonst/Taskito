@@ -23,6 +23,7 @@ enum TimeFormatter {
             return formatter
         }()
     }
+    
 
     static func formatSeconds(_ seconds: Int) -> String {
         return Duration.seconds(seconds).formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))

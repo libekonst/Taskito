@@ -12,17 +12,12 @@ struct ContentView: View {
     @State private var timeElapsed = 0
     @State private var isCounting = false
 
-    @State private var selectedMinutes = 30
-    @State private var selectedSeconds = 00
-    var totalSecondsCountdown: Int {
-        return minutesToSeconds(selectedMinutes) + selectedSeconds
-    }
+    @ObservedObject private var countdown = Countdown()
 
     var secondsRemaining: Int {
-        if timeElapsed < totalSecondsCountdown {
-            return totalSecondsCountdown - timeElapsed
-        }
-        else { return 0 }
+        guard timeElapsed < countdown.secondsTotal else { return 0 }
+
+        return countdown.secondsTotal - timeElapsed
     }
 
     var isFreshTimer: Bool {
@@ -44,39 +39,25 @@ struct ContentView: View {
             Spacer()
 
             if isFreshTimer {
+                CountdownDurationForm(onSubmit: { minutes, seconds in
+                    print("onSubmit")
+                    resetCountdown()
+                    startTimer()
+                    countdown.minutes = minutes
+                    countdown.seconds = seconds
+                })
+            }
+
+            else {
                 HStack {
-                    TextField("Minutes", value: $selectedMinutes, formatter: TimeFormatter.Restrictions.minutes, onEditingChanged: { _ in
-                        resetCountdown()
-                    })
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                    Text(":")
-                    TextField("Seconds", value: $selectedSeconds, formatter: TimeFormatter.Restrictions.seconds, onEditingChanged: { _ in
-                        resetCountdown()
-                    })
-                    .padding()
+                    Text(formattedTime)
+                        .font(.largeTitle)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 5)
+                        .background(.black.opacity(0.75))
+                        .clipShape(.capsule)
                 }
-            }
-
-            else { HStack {
-                Text(formattedTime)
-
-                Text("\(secondsRemaining)")
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 5)
-                    .background(.black.opacity(0.75))
-                    .clipShape(.capsule)
-                Text(":")
-                Text(Date(), style: .date)
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 5)
-                    .background(.black.opacity(0.75))
-                    .clipShape(.capsule)
-            }
             }
 
             Spacer()
@@ -92,18 +73,13 @@ struct ContentView: View {
                         pauseTimer()
                     }
                 }
-                else {
-                    Button("Play") {
-                        startTimer()
-                    }
-                }
             }
         }
         .padding()
         .onReceive(timer) { time in
             guard isCounting else { return }
 
-            guard timeElapsed < selectedSeconds else {
+            guard timeElapsed < countdown.secondsTotal else {
                 return pauseTimer()
             }
 
@@ -129,12 +105,6 @@ struct ContentView: View {
         isCounting = true
     }
 }
-
-func minutesToSeconds(_ minutes: Int) -> Int {
-    return minutes * 60
-}
-
-
 
 #Preview {
     ContentView()
