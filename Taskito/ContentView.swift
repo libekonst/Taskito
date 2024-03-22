@@ -9,23 +9,13 @@ import SwiftUI
 
 // TODO: add both minutes and seconds input
 struct ContentView: View {
-    @State private var timeElapsed = 0
-    @State private var isCounting = false
-
     @ObservedObject private var countdown = Countdown()
 
-    var secondsRemaining: Int {
-        guard timeElapsed < countdown.secondsTotal else { return 0 }
+    @State private var isTimerRunning = false
 
-        return countdown.secondsTotal - timeElapsed
-    }
-
+    // @todo simplify
     var isFreshTimer: Bool {
-        return !isCounting && timeElapsed == 0
-    }
-
-    var formattedTime: String {
-        return TimeFormatter.formatSeconds(secondsRemaining)
+        return !isTimerRunning && countdown.elapsedSeconds == 0
     }
 
     let timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -50,7 +40,7 @@ struct ContentView: View {
 
             else {
                 HStack {
-                    Text(formattedTime)
+                    Text(TimeFormatter.formatSeconds(countdown.timeRemaining))
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .padding(.horizontal, 20)
@@ -68,7 +58,7 @@ struct ContentView: View {
                     }
                 }
 
-                if isCounting {
+                if isTimerRunning {
                     Button("Pause") {
                         pauseTimer()
                     }
@@ -77,32 +67,32 @@ struct ContentView: View {
         }
         .padding()
         .onReceive(timer) { time in
-            guard isCounting else { return }
+            guard isTimerRunning else { return }
 
-            guard timeElapsed < countdown.secondsTotal else {
+            guard countdown.timeRemaining > 0 else {
                 return pauseTimer()
             }
 
-            timeElapsed += 1
+            countdown.elapsedSeconds += 1
             print(time)
         }
     }
 
     private func resetCountdown() {
-        timeElapsed = 0
+        countdown.elapsedSeconds = 0
     }
 
     private func pauseTimer() {
-        isCounting = false
+        isTimerRunning = false
     }
 
     private func stopTimer() {
         pauseTimer()
-        timeElapsed = 0
+        countdown.elapsedSeconds = 0
     }
 
     private func startTimer() {
-        isCounting = true
+        isTimerRunning = true
     }
 }
 
