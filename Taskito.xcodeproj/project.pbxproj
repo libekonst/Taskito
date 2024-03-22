@@ -87,6 +87,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		843ECE872BADD48D00BA5908 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				843ECE832BADCF6300BA5908 /* CountdownDurationForm.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		84CAB79C2BA0F8DC002350A9 = {
 			isa = PBXGroup;
 			children = (
@@ -110,10 +118,10 @@
 		84CAB7A72BA0F8DC002350A9 /* Taskito */ = {
 			isa = PBXGroup;
 			children = (
+				843ECE872BADD48D00BA5908 /* Views */,
 				843ECE802BADBB5E00BA5908 /* Models */,
 				84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */,
 				84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */,
-				843ECE832BADCF6300BA5908 /* CountdownDurationForm.swift */,
 				84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */,
 				84CAB7B12BA0F8DD002350A9 /* Taskito.entitlements */,
 				84CAB7AE2BA0F8DD002350A9 /* Preview Content */,
