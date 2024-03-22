@@ -25,7 +25,7 @@ struct CountdownDurationForm: View {
                         .padding()
                 }
             }
-            Button("Play") {
+            Button("Start") {
                 print("Play clicked")
                 onSubmit(minutes, seconds)
             }
