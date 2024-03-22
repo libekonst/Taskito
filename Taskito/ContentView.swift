@@ -39,30 +39,13 @@ struct ContentView: View {
             }
 
             else {
-                HStack {
-                    Text(TimeFormatter.formatSeconds(countdown.timeRemaining))
-                        .font(.largeTitle)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 5)
-                        .background(.black.opacity(0.75))
-                        .clipShape(.capsule)
-                }
-            }
-
-            Spacer()
-            HStack {
-                if !isFreshTimer {
-                    Button("Stop") {
-                        stopTimer()
-                    }
-                }
-
-                if isTimerRunning {
-                    Button("Pause") {
-                        pauseTimer()
-                    }
-                }
+                CountdownView(
+                    countdown: countdown,
+                    onPlay: startTimer,
+                    onPause: pauseTimer,
+                    onStop: stopTimer,
+                    isTimerRunning: isTimerRunning
+                )
             }
         }
         .padding()
@@ -88,7 +71,7 @@ struct ContentView: View {
 
     private func stopTimer() {
         pauseTimer()
-        countdown.elapsedSeconds = 0
+        resetCountdown()
     }
 
     private func startTimer() {
@@ -99,3 +82,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
