@@ -10,8 +10,10 @@ import SwiftUI
 // TODO: add both minutes and seconds input
 struct ContentView: View {
     @ObservedObject private var countdown = Countdown()
+    @State private var isTimerRunning = true
 
-    @State private var isTimerRunning = false
+    @Namespace private var animationNamespace
+    @Namespace private var clockAnim
 
     // @todo simplify
     var isFreshTimer: Bool {
@@ -23,11 +25,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Spacer()
-
             if isFreshTimer {
                 CountdownDurationForm(onSubmit: { minutes, seconds in
                     print("onSubmit")
@@ -35,25 +32,24 @@ struct ContentView: View {
                     startTimer()
                     countdown.minutes = minutes
                     countdown.seconds = seconds
-                })
+                }).matchedGeometryEffect(id: clockAnim, in: animationNamespace)
             }
 
             else {
                 CountdownView(
-                    countdown: countdown,
-                    onPlay: startTimer,
-                    onPause: pauseTimer,
+                    timeRemaining: countdown.timeRemaining,
+                    onPlayPause: startTimer,
                     onStop: stopTimer,
                     isTimerRunning: isTimerRunning
-                )
+                ).matchedGeometryEffect(id: clockAnim, in: animationNamespace)
             }
         }
-        .padding()
+//        .padding()
         .onReceive(timer) { time in
             guard isTimerRunning else { return }
 
             guard countdown.timeRemaining > 0 else {
-                return pauseTimer()
+                return isTimerRunning = false
             }
 
             countdown.elapsedSeconds += 1
@@ -62,20 +58,20 @@ struct ContentView: View {
     }
 
     private func resetCountdown() {
-        countdown.elapsedSeconds = 0
-    }
-
-    private func pauseTimer() {
-        isTimerRunning = false
+        withAnimation(.interactiveSpring) {
+            countdown.elapsedSeconds = 0
+        }
     }
 
     private func stopTimer() {
-        pauseTimer()
+        isTimerRunning = false
         resetCountdown()
     }
 
     private func startTimer() {
-        isTimerRunning = true
+        withAnimation(.interactiveSpring) {
+            isTimerRunning.toggle()
+        }
     }
 }
 
