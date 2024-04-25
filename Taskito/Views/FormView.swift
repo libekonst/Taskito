@@ -27,6 +27,7 @@ struct FormView: View {
                     Text(":")
                         .font(.system(size: 72, weight: .thin, design: .rounded))
                         .frame(height: 72)
+                        .padding(.horizontal, -8)
 
                     TextField(
                         "Seconds",
@@ -48,7 +49,6 @@ struct FormView: View {
                     .padding(.horizontal)
                     .background(.black.opacity(0.1))
                     .containerShape(Capsule())
-//                    .focusEffectDisabled()
 
                     Spacer()
                 }

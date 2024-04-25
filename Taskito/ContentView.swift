@@ -12,9 +12,6 @@ struct ContentView: View {
     @ObservedObject private var countdown = Countdown()
     @State private var isTimerRunning = true
 
-    @Namespace private var animationNamespace
-    @Namespace private var clockAnim
-
     // @todo simplify
     var isFreshTimer: Bool {
         return !isTimerRunning && countdown.elapsedSeconds == 0
@@ -32,7 +29,8 @@ struct ContentView: View {
                     startTimer()
                     countdown.minutes = minutes
                     countdown.seconds = seconds
-                }).matchedGeometryEffect(id: clockAnim, in: animationNamespace)
+                })
+                .transition(.opacity)
             }
 
             else {
@@ -41,10 +39,10 @@ struct ContentView: View {
                     onPlayPause: startTimer,
                     onStop: stopTimer,
                     isTimerRunning: isTimerRunning
-                ).matchedGeometryEffect(id: clockAnim, in: animationNamespace)
+                )
+                .transition(.opacity)
             }
         }
-//        .padding()
         .onReceive(timer) { time in
             guard isTimerRunning else { return }
 
@@ -78,4 +76,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
