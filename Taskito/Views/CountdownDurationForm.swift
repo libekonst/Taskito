@@ -10,29 +10,66 @@ import SwiftUI
 struct CountdownDurationForm: View {
     var onSubmit: (_ minutes: Int, _ seconds: Int) -> Void
 
-    @State private var minutes = 30
+    @State private var minutes = 25
     @State private var seconds = 00
 
     var body: some View {
-        Form {
-            HStack {
-                Section(header: Text("Select time")) {
-                    TextField("Minutes", value: $minutes, formatter: TimeFormatter.Restrictions.minutes)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+        VStack {
+            Form {
+                HStack(alignment: .top, content: {
+                    TextField(
+                        "Minutes",
+                        value: $minutes,
+                        formatter: TimeFormatter.Restrictions.minutes
+                    )
+                    .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
+
                     Text(":")
-                    TextField("Seconds", value: $seconds, formatter: TimeFormatter.Restrictions.seconds)
-                        .padding()
+                        .font(.system(size: 72, weight: .thin, design: .rounded))
+                        .frame(height: 72)
+
+                    TextField(
+                        "Seconds",
+                        value: $seconds,
+                        formatter: TimeFormatter.Restrictions.seconds
+                    )
+                    .textFieldStyle(PlainNumericInputStyle())
+
+                })
+
+                HStack {
+                    Spacer()
+
+                    Button("START") {
+                        onSubmit(minutes, seconds)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.vertical, 6)
+                    .padding(.horizontal)
+                    .background(.black.opacity(0.1))
+                    .containerShape(Capsule())
+//                    .focusEffectDisabled()
+
+                    Spacer()
                 }
-            }
-            Button("Start") {
-                print("Play clicked")
+
+            }.onSubmit {
+                print("form submitted")
                 onSubmit(minutes, seconds)
             }
-        }.onSubmit {
-            print("form submitted")
-            onSubmit(minutes, seconds)
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+private struct PlainNumericInputStyle: TextFieldStyle {
+    var justify: TextAlignment = .leading
+
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .labelsHidden()
+            .textFieldStyle(.plain)
+            .font(.system(size: 72, weight: .thin, design: .rounded))
+            .multilineTextAlignment(justify)
     }
 }
 
