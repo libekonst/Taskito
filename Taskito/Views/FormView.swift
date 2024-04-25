@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DurationForm: View {
+struct FormView: View {
     var onSubmit: (_ minutes: Int, _ seconds: Int) -> Void
 
     @State private var minutes = 25
@@ -74,7 +74,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
 }
 
 #Preview {
-    DurationForm(onSubmit: { _, _ in
+    FormView(onSubmit: { _, _ in
         print("onSubmit called")
     })
 }

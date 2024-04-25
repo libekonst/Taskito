@@ -26,7 +26,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if isFreshTimer {
-                DurationForm(onSubmit: { minutes, seconds in
+                FormView(onSubmit: { minutes, seconds in
                     print("onSubmit")
                     resetCountdown()
                     startTimer()
