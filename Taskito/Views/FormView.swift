@@ -44,6 +44,7 @@ struct FormView: View {
                     Button("START") {
                         onSubmit(minutes, seconds)
                     }
+                    .keyboardShortcut(.defaultAction)
                     .buttonStyle(.plain)
                     .padding(.vertical, 6)
                     .padding(.horizontal)
