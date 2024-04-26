@@ -21,7 +21,7 @@ struct CountdownView: View {
                 Spacer()
 
                 Text(TimeFormatter.formatSeconds(timeRemaining))
-                    .font(.system(size: 72, weight: .thin, design: .rounded))
+                    .font(.system(size: 60, weight: .thin, design: .rounded))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 5)
 

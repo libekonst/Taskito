@@ -56,7 +56,7 @@ struct ContentView: View {
     }
 
     private func resetCountdown() {
-        withAnimation(.interactiveSpring) {
+        withAnimation(.interactiveSpring(duration: 0.2)) {
             countdown.elapsedSeconds = 0
         }
     }
@@ -67,7 +67,7 @@ struct ContentView: View {
     }
 
     private func startTimer() {
-        withAnimation(.interactiveSpring) {
+        withAnimation(.interactiveSpring(duration: 0.2)) {
             isTimerRunning.toggle()
         }
     }
