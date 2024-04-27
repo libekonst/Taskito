@@ -10,7 +10,7 @@ import SwiftUI
 // TODO: add both minutes and seconds input
 struct ContentView: View {
     @ObservedObject private var countdown = Countdown()
-    @State private var isTimerRunning = true
+    @State private var isTimerRunning = false
 
     // @todo simplify
     var isFreshTimer: Bool {
@@ -43,6 +43,7 @@ struct ContentView: View {
                 .transition(.opacity)
             }
         }
+        .frame(width: 450, height: 280, alignment: .center)
         .onReceive(timer) { time in
             guard isTimerRunning else { return }
 
