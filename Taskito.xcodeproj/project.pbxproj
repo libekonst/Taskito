@@ -18,6 +18,7 @@
 		84CAB7BB2BA0F8DE002350A9 /* TaskitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7BA2BA0F8DE002350A9 /* TaskitoTests.swift */; };
 		84CAB7C52BA0F8DE002350A9 /* TaskitoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */; };
 		84CAB7C72BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */; };
+		84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		84CAB7C02BA0F8DE002350A9 /* TaskitoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskitoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITests.swift; sourceTree = "<group>"; };
 		84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		843ECE872BADD48D00BA5908 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */,
 				843ECE892BAE02D300BA5908 /* CountdownView.swift */,
 				843ECE832BADCF6300BA5908 /* FormView.swift */,
 			);
@@ -292,6 +295,7 @@
 				843ECE842BADCF6300BA5908 /* FormView.swift in Sources */,
 				843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */,
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
+				84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */,
 				843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
