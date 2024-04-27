@@ -20,7 +20,7 @@ struct CountdownView: View {
             VStack {
                 Spacer()
 
-                Text(TimerPolicy.toMinuteSecond(seconds: timeRemaining))
+                Text(TimerPolicy.toReadableTime(seconds: timeRemaining))
                     .font(.system(size: 60, weight: .thin, design: .rounded))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 5)

@@ -17,7 +17,7 @@ enum TimerPolicy {
         return formatter
     }()
 
-    static func toMinuteSecond(seconds: Int) -> String {
+    static func toReadableTime(seconds: Int) -> String {
         return Duration.seconds(seconds).formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
     }
 
