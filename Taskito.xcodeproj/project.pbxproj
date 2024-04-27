@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		843ECE822BADBC9200BA5908 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE812BADBC9200BA5908 /* TimeFormatter.swift */; };
+		843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE812BADBC9200BA5908 /* TimerPolicy.swift */; };
 		843ECE842BADCF6300BA5908 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE832BADCF6300BA5908 /* FormView.swift */; };
 		843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE852BADCFED00BA5908 /* Countdown.swift */; };
 		843ECE8A2BAE02D300BA5908 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE892BAE02D300BA5908 /* CountdownView.swift */; };
@@ -38,7 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		843ECE812BADBC9200BA5908 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		843ECE812BADBC9200BA5908 /* TimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPolicy.swift; sourceTree = "<group>"; };
 		843ECE832BADCF6300BA5908 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		843ECE852BADCFED00BA5908 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Countdown.swift; path = Taskito/Countdown.swift; sourceTree = SOURCE_ROOT; };
 		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/CountdownView.swift; sourceTree = SOURCE_ROOT; };
@@ -84,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				843ECE852BADCFED00BA5908 /* Countdown.swift */,
-				843ECE812BADBC9200BA5908 /* TimeFormatter.swift */,
+				843ECE812BADBC9200BA5908 /* TimerPolicy.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -290,7 +290,7 @@
 				843ECE8A2BAE02D300BA5908 /* CountdownView.swift in Sources */,
 				84CAB7AB2BA0F8DC002350A9 /* ContentView.swift in Sources */,
 				843ECE842BADCF6300BA5908 /* FormView.swift in Sources */,
-				843ECE822BADBC9200BA5908 /* TimeFormatter.swift in Sources */,
+				843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */,
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
 				843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */,
 			);

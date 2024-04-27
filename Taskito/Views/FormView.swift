@@ -23,7 +23,7 @@ struct FormView: View {
                     TextField(
                         "Minutes",
                         value: $minutes,
-                        formatter: TimeFormatter.Restrictions.minutes
+                        formatter: TimerPolicy.Formatter
                     )
                     .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
                     .focused($focus, equals: .minutes)
@@ -32,9 +32,8 @@ struct FormView: View {
                     }
                     .onReceive(Just(minutes), perform: { x in
                         let count = String(minutes).count
-                        let upperLimit = 2
 
-                        if count == upperLimit {
+                        if count >= TimerPolicy.Limits.digitCount {
                             focus = .seconds
                         }
                     })
@@ -47,7 +46,7 @@ struct FormView: View {
                     TextField(
                         "Seconds",
                         value: $seconds,
-                        formatter: TimeFormatter.Restrictions.minutes
+                        formatter: TimerPolicy.Formatter
                     )
                     .textFieldStyle(PlainNumericInputStyle())
                     .focused($focus, equals: .seconds)
