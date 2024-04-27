@@ -27,13 +27,6 @@ struct FormView: View {
                     )
                     .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
                     .focused($focus, equals: .minutes)
-                    .onReceive(Just(minutes), perform: { _ in
-                        let count = String(minutes).count
-
-                        if count >= TimerPolicy.Limits.digitCount {
-                            focus = .seconds
-                        }
-                    })
 
                     Text(":")
                         .font(.system(size: 72, weight: .thin, design: .rounded))
@@ -64,8 +57,16 @@ struct FormView: View {
 
                     Spacer()
                 }
+                .padding(.top)
             }
-            .defaultFocus($focus, .minutes)
+            .onChange(of: minutes) {
+                if String(minutes).count >= TimerPolicy.Limits.digitCount {
+                    focus = .seconds
+                }
+            }
+            .onAppear {
+                focus = .minutes
+            }
             .onSubmit {
                 onSubmit(minutes, seconds)
             }
