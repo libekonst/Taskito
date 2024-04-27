@@ -27,10 +27,7 @@ struct FormView: View {
                     )
                     .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
                     .focused($focus, equals: .minutes)
-                    .onAppear {
-                        self.focus = .minutes
-                    }
-                    .onReceive(Just(minutes), perform: { x in
+                    .onReceive(Just(minutes), perform: { _ in
                         let count = String(minutes).count
 
                         if count >= TimerPolicy.Limits.digitCount {
@@ -68,10 +65,12 @@ struct FormView: View {
                     Spacer()
                 }
             }
+            .defaultFocus($focus, .minutes)
             .onSubmit {
                 onSubmit(minutes, seconds)
             }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
