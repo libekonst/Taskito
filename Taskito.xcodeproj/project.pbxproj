@@ -54,7 +54,7 @@
 		84CAB7C02BA0F8DE002350A9 /* TaskitoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskitoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITests.swift; sourceTree = "<group>"; };
 		84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
+		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/Views/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
