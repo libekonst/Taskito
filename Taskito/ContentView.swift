@@ -12,7 +12,9 @@ struct ContentView: View {
     @ObservedObject private var countdown = Countdown()
     @State private var isTimerRunning = false
 
-    // @todo simplify
+    // TODO: simplify
+    // TODO: remember last selection
+    // TODO: back to form on Done
     var isFreshTimer: Bool {
         return !isTimerRunning && countdown.elapsedSeconds == 0
     }

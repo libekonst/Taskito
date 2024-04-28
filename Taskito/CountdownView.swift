@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// TODO icon buttons color on light scheme
 struct CountdownView: View {
     var timeRemaining: Int
     var onPlayPause: () -> Void
