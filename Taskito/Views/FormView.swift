@@ -45,15 +45,17 @@ struct FormView: View {
                 HStack {
                     Spacer()
 
-                    Button("START") {
+                    Button(action: {
                         onSubmit(minutes, seconds)
-                    }
+                    }, label: {
+                        Text("START")
+                            .padding(.vertical, 6)
+                            .padding(.horizontal)
+                            .background(.black.opacity(0.1))
+                            .containerShape(Capsule())
+                    })
                     .keyboardShortcut(.defaultAction)
                     .buttonStyle(.plain)
-                    .padding(.vertical, 6)
-                    .padding(.horizontal)
-                    .background(.black.opacity(0.1))
-                    .containerShape(Capsule())
 
                     Spacer()
                 }
