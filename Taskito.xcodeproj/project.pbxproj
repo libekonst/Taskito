@@ -11,6 +11,7 @@
 		843ECE842BADCF6300BA5908 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE832BADCF6300BA5908 /* FormView.swift */; };
 		843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE852BADCFED00BA5908 /* Countdown.swift */; };
 		843ECE8A2BAE02D300BA5908 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE892BAE02D300BA5908 /* CountdownView.swift */; };
+		8458A5BD2BEF98ED002C5BEE /* StandardTimerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */; };
 		84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */; };
 		84CAB7AB2BA0F8DC002350A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */; };
 		84CAB7AD2BA0F8DD002350A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		843ECE832BADCF6300BA5908 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		843ECE852BADCFED00BA5908 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Countdown.swift; path = Taskito/Models/Countdown.swift; sourceTree = SOURCE_ROOT; };
 		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/Views/CountdownView.swift; sourceTree = SOURCE_ROOT; };
+		8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTimerPolicy.swift; sourceTree = "<group>"; };
 		84CAB7A52BA0F8DC002350A9 /* Taskito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoApp.swift; sourceTree = "<group>"; };
 		84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				843ECE812BADBC9200BA5908 /* TimerPolicy.swift */,
+				8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */,
 				843ECE852BADCFED00BA5908 /* Countdown.swift */,
 			);
 			path = Models;
@@ -297,6 +300,7 @@
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
 				84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */,
 				843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */,
+				8458A5BD2BEF98ED002C5BEE /* StandardTimerPolicy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
