@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-// TODO: add both minutes and seconds input
 struct ContentView: View {
     @ObservedObject private var countdown = Countdown()
     @State private var isTimerRunning = false
+
+    private let timerPolicy = StandardTimerPolicy()
 
     // TODO: simplify
     // TODO: remember last selection
@@ -26,13 +27,14 @@ struct ContentView: View {
         VStack {
             if isFreshTimer {
                 FormView(onSubmit: { minutes, seconds in
-                    print("onSubmit")
-                    resetCountdown()
-                    startTimer()
-                    countdown.minutes = minutes
-                    countdown.seconds = seconds
-                })
-                .transition(.opacity)
+                             print("onSubmit")
+                             resetCountdown()
+                             startTimer()
+                             countdown.minutes = minutes
+                             countdown.seconds = seconds
+                         },
+                         timerPolicy: timerPolicy)
+                    .transition(.opacity)
             }
 
             else {
@@ -40,7 +42,8 @@ struct ContentView: View {
                     timeRemaining: countdown.timeRemaining,
                     onPlayPause: startTimer,
                     onStop: stopTimer,
-                    isTimerRunning: isTimerRunning
+                    isTimerRunning: isTimerRunning,
+                    timerPolicy: timerPolicy
                 )
                 .transition(.opacity)
             }

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FormView: View {
     var onSubmit: (_ minutes: Int, _ seconds: Int) -> Void
+    var timerPolicy: TimerPolicy
 
     @State private var minutes = 25
     @State private var seconds = 00
@@ -23,7 +24,7 @@ struct FormView: View {
                     TextField(
                         "Minutes",
                         value: $minutes,
-                        formatter: TimerPolicy.Formatter
+                        formatter: timerPolicy.formatter
                     )
                     .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
                     .focused($focus, equals: .minutes)
@@ -36,7 +37,7 @@ struct FormView: View {
                     TextField(
                         "Seconds",
                         value: $seconds,
-                        formatter: TimerPolicy.Formatter
+                        formatter: timerPolicy.formatter
                     )
                     .textFieldStyle(PlainNumericInputStyle())
                     .focused($focus, equals: .seconds)
@@ -62,7 +63,7 @@ struct FormView: View {
                 .padding(.top)
             }
             .onChange(of: minutes) {
-                if String(minutes).count >= TimerPolicy.Limits.digitCount {
+                if String(minutes).count >= timerPolicy.limits.digitCount {
                     focus = .seconds
                 }
             }
@@ -96,5 +97,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
 #Preview {
     FormView(onSubmit: { _, _ in
         print("onSubmit called")
-    })
+    },
+    timerPolicy: StandardTimerPolicy()
+    )
 }

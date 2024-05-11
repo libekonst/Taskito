@@ -12,6 +12,7 @@ struct CountdownView: View {
     var onPlayPause: () -> Void
     var onStop: () -> Void
     var isTimerRunning: Bool
+    var timerPolicy: TimerPolicy
 
 
     var body: some View {
@@ -19,7 +20,7 @@ struct CountdownView: View {
             VStack {
                 Spacer()
 
-                Text(TimerPolicy.toReadableTime(seconds: timeRemaining))
+                Text(timerPolicy.toReadableTime(seconds: timeRemaining))
                     .font(.system(size: 60, weight: .thin, design: .rounded))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 5)
@@ -67,7 +68,8 @@ struct CountdownView: View {
                 onStop: {
                     print("X tapped", Date())
                 },
-                isTimerRunning: isTimerRunning
+                isTimerRunning: isTimerRunning,
+                timerPolicy: StandardTimerPolicy()
             )
         }
     }
