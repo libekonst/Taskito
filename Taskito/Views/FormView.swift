@@ -12,6 +12,7 @@ struct FormView: View {
     var onSubmit: (_ minutes: Int, _ seconds: Int) -> Void
     var timerPolicy: TimerPolicy
 
+    // TODO: remember last selection
     @State private var minutes = 25
     @State private var seconds = 00
 
@@ -96,8 +97,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
 
 #Preview {
     FormView(onSubmit: { _, _ in
-        print("onSubmit called")
-    },
-    timerPolicy: StandardTimerPolicy()
-    )
+                 print("onSubmit called")
+             },
+             timerPolicy: StandardTimerPolicy())
 }

@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct CountdownView: View {
-    var timeRemaining: Int
+    var secondsRemaining: Int
     var onPlayPause: () -> Void
-    var onStop: () -> Void
+    var onReset: () -> Void
     var isTimerRunning: Bool
     var timerPolicy: TimerPolicy
-
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 Spacer()
 
-                Text(timerPolicy.toReadableTime(seconds: timeRemaining))
+                Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
                     .font(.system(size: 60, weight: .thin, design: .rounded))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 5)
@@ -41,7 +40,7 @@ struct CountdownView: View {
                 onPlayPause()
             }
 
-            Button(role: .cancel, action: onStop, label: {
+            Button(role: .cancel, action: onReset, label: {
                 Image(systemName: "xmark")
                     .frame(minWidth: 36, minHeight: 36)
                     .contentShape(Rectangle())
@@ -63,9 +62,9 @@ struct CountdownView: View {
 
         var body: some View {
             CountdownView(
-                timeRemaining: timeRemaining,
+                secondsRemaining: timeRemaining,
                 onPlayPause: { isTimerRunning.toggle() },
-                onStop: {
+                onReset: {
                     print("X tapped", Date())
                 },
                 isTimerRunning: isTimerRunning,
