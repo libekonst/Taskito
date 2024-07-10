@@ -12,6 +12,12 @@ struct ContentView: View {
 
     @ObservedObject var countdownStore = CountdownStore()
 
+    init() {
+        countdownStore.onTimerCompleted {
+            print("Timer done ✅")
+        }
+    }
+
     var body: some View {
         VStack {
             if countdownStore.isTimerDepleted {

@@ -17,8 +17,10 @@ private let SECONDS_IN_MINUTE = 60
 // Calculate the elapsed time ✅
 // Is timer running flag ✅
 // Is timer depleted ✅
-// Notify on depleted
+// Notify on depleted ✅
 // Show success view
+
+typealias EventHandler = () -> Void
 
 class CountdownStore: ObservableObject {
     private var timer: Cancellable?
@@ -48,6 +50,7 @@ class CountdownStore: ObservableObject {
             .sink { [self] _ in
                 if self.isTimerDepleted {
                     self.timer?.cancel()
+                    notifyTimerCompleted()
                 }
                 else {
                     self.secondsElapsed += 1
@@ -67,6 +70,16 @@ class CountdownStore: ObservableObject {
         else {
             startTimer()
         }
+    }
+
+    // Notify timer completed
+    private var onTimerCompletedPublisher = EventPublisher<Void>()
+    func onTimerCompleted(handler: @escaping () -> Void) {
+        onTimerCompletedPublisher.register(handler)
+    }
+
+    private func notifyTimerCompleted() {
+        onTimerCompletedPublisher.publish(())
     }
 
     // Reset timer and start over
