@@ -20,7 +20,7 @@ private let SECONDS_IN_MINUTE = 60
 // Notify on depleted ✅
 // Show success view
 
-typealias EventHandler = () -> Void
+private typealias EventHandler = () -> Void
 
 class CountdownStore: ObservableObject {
     private var timer: Cancellable?
