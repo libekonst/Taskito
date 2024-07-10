@@ -10,16 +10,6 @@ import Foundation
 
 private let SECONDS_IN_MINUTE = 60
 
-// Start function that receives minutes/seconds as input ✅
-// Store the selection ✅
-// Start the countdown ✅
-// Calculate the remaining time ✅
-// Calculate the elapsed time ✅
-// Is timer running flag ✅
-// Is timer depleted ✅
-// Notify on depleted ✅
-// Show success view
-
 private typealias EventHandler = () -> Void
 
 class CountdownStore: ObservableObject {
