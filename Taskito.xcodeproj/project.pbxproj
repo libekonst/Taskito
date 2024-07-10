@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE812BADBC9200BA5908 /* TimerPolicy.swift */; };
 		843ECE842BADCF6300BA5908 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE832BADCF6300BA5908 /* FormView.swift */; };
-		843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE852BADCFED00BA5908 /* Countdown.swift */; };
 		843ECE8A2BAE02D300BA5908 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE892BAE02D300BA5908 /* CountdownView.swift */; };
+		84572B802C3B65A800A2D509 /* CountdownStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84572B7F2C3B65A800A2D509 /* CountdownStore.swift */; };
+		84572B842C3F02E400A2D509 /* EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84572B832C3F02E400A2D509 /* EventPublisher.swift */; };
 		8458A5BD2BEF98ED002C5BEE /* StandardTimerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */; };
 		84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */; };
 		84CAB7AB2BA0F8DC002350A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7AA2BA0F8DC002350A9 /* ContentView.swift */; };
@@ -42,8 +43,9 @@
 /* Begin PBXFileReference section */
 		843ECE812BADBC9200BA5908 /* TimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPolicy.swift; sourceTree = "<group>"; };
 		843ECE832BADCF6300BA5908 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
-		843ECE852BADCFED00BA5908 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Countdown.swift; path = Taskito/Models/Countdown.swift; sourceTree = SOURCE_ROOT; };
 		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/Views/CountdownView.swift; sourceTree = SOURCE_ROOT; };
+		84572B7F2C3B65A800A2D509 /* CountdownStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownStore.swift; sourceTree = "<group>"; };
+		84572B832C3F02E400A2D509 /* EventPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPublisher.swift; sourceTree = "<group>"; };
 		8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTimerPolicy.swift; sourceTree = "<group>"; };
 		84CAB7A52BA0F8DC002350A9 /* Taskito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoApp.swift; sourceTree = "<group>"; };
@@ -89,7 +91,7 @@
 			children = (
 				843ECE812BADBC9200BA5908 /* TimerPolicy.swift */,
 				8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */,
-				843ECE852BADCFED00BA5908 /* Countdown.swift */,
+				84572B7F2C3B65A800A2D509 /* CountdownStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -102,6 +104,14 @@
 				843ECE892BAE02D300BA5908 /* CountdownView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		84572B822C3F02CB00A2D509 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				84572B832C3F02E400A2D509 /* EventPublisher.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		84CAB79C2BA0F8DC002350A9 = {
@@ -127,6 +137,7 @@
 		84CAB7A72BA0F8DC002350A9 /* Taskito */ = {
 			isa = PBXGroup;
 			children = (
+				84572B822C3F02CB00A2D509 /* Utilities */,
 				843ECE872BADD48D00BA5908 /* Views */,
 				843ECE802BADBB5E00BA5908 /* Models */,
 				84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */,
@@ -298,9 +309,10 @@
 				843ECE842BADCF6300BA5908 /* FormView.swift in Sources */,
 				843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */,
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
+				84572B802C3B65A800A2D509 /* CountdownStore.swift in Sources */,
 				84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */,
-				843ECE862BADCFED00BA5908 /* Countdown.swift in Sources */,
 				8458A5BD2BEF98ED002C5BEE /* StandardTimerPolicy.swift in Sources */,
+				84572B842C3F02E400A2D509 /* EventPublisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
