@@ -13,6 +13,10 @@ struct ContentView: View {
     @ObservedObject var countdownStore = CountdownStore()
 
     init() {
+        countdownStore.onTimerStarted {
+            print("Timer started ⏱️")
+        }
+
         countdownStore.onTimerCompleted {
             print("Timer done ✅")
         }
