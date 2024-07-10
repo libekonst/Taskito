@@ -36,11 +36,12 @@ class CountdownStore: ObservableObject {
         return secondsTotal - secondsElapsed
     }
 
+    /** The timer has counted down to 0 and has stopped. */
     var isTimerDepleted: Bool {
         return secondsElapsed >= secondsTotal
     }
 
-    // Play / Pause timer
+    // Play / Pause actions
     func startTimer() {
         guard !isRunning else { return }
 
@@ -50,7 +51,7 @@ class CountdownStore: ObservableObject {
             .sink { [self] _ in
                 if self.isTimerDepleted {
                     self.timer?.cancel()
-                    notifyTimerCompleted()
+                    self.notifyTimerCompleted()
                 }
                 else {
                     self.secondsElapsed += 1
@@ -72,17 +73,7 @@ class CountdownStore: ObservableObject {
         }
     }
 
-    // Notify timer completed
-    private var onTimerCompletedPublisher = EventPublisher<Void>()
-    func onTimerCompleted(handler: @escaping () -> Void) {
-        onTimerCompletedPublisher.register(handler)
-    }
-
-    private func notifyTimerCompleted() {
-        onTimerCompletedPublisher.publish(())
-    }
-
-    // Reset timer and start over
+    // Reset timer and start over actions
     func resetTimer() {
         pauseTimer()
         secondsTotal = 0
@@ -93,5 +84,15 @@ class CountdownStore: ObservableObject {
         resetTimer()
         secondsTotal = minutes * SECONDS_IN_MINUTE + seconds
         startTimer()
+    }
+
+    // Notify timer completed
+    private var onTimerCompletedPublisher = EventPublisher<Void>()
+    func onTimerCompleted(handler: @escaping () -> Void) {
+        onTimerCompletedPublisher.register(handler)
+    }
+
+    private func notifyTimerCompleted() {
+        onTimerCompletedPublisher.publish(())
     }
 }
