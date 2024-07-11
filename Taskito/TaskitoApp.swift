@@ -9,13 +9,15 @@ import SwiftUI
 
 @main
 struct TaskitoApp: App {
+    @ObservedObject private var countdownStore = CountdownStore()
+    private let timerPolicy = StandardTimerPolicy()
+
     var body: some Scene {
         MenuBarExtra {
-            ContentView()
+            ContentView(countdownStore: countdownStore)
         } label: {
-            MenuBarLabel()
+            MenuBarLabel(countdownStore: countdownStore, timerPolicy: timerPolicy)
         }
         .menuBarExtraStyle(.window)
     }
 }
-

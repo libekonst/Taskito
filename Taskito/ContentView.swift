@@ -10,14 +10,16 @@ import SwiftUI
 struct ContentView: View {
     private let timerPolicy = StandardTimerPolicy()
 
-    @ObservedObject var countdownStore = CountdownStore()
+    @ObservedObject var countdownStore: CountdownStore
 
-    init() {
-        countdownStore.onTimerStarted {
+    init(countdownStore: CountdownStore) {
+        self.countdownStore = countdownStore
+
+        self.countdownStore.onTimerStarted {
             print("Timer started ⏱️")
         }
 
-        countdownStore.onTimerCompleted {
+        self.countdownStore.onTimerCompleted {
             print("Timer done ✅")
         }
     }
@@ -56,5 +58,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(countdownStore: CountdownStore())
 }
