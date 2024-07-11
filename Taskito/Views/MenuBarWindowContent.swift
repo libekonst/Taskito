@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MenuBarWindowContent: View {
     private let timerPolicy = StandardTimerPolicy()
 
     @ObservedObject var countdownStore: CountdownStore
@@ -58,5 +58,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(countdownStore: CountdownStore())
+    MenuBarWindowContent(countdownStore: CountdownStore())
 }

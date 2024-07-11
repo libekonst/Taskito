@@ -14,7 +14,7 @@ struct TaskitoApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            ContentView(countdownStore: countdownStore)
+            MenuBarWindowContent(countdownStore: countdownStore)
         } label: {
             MenuBarLabel(countdownStore: countdownStore, timerPolicy: timerPolicy)
         }
