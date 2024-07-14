@@ -8,8 +8,31 @@
 import SwiftUI
 
 struct MenuBarLabel: View {
+    @ObservedObject var countdownStore: CountdownStore
+    var timerPolicy: TimerPolicy
+    
+    @State private var view: ViewState = .idle
+
     var body: some View {
-        DefaultView()
+        Group {
+            switch view {
+            case .idle:
+                DefaultView()
+            case .timerRunning:
+                CountingView(timeLeft: timerPolicy.toReadableTime(seconds: countdownStore.secondsRemaining))
+            case .timerDone:
+                DoneView()
+            }
+        }.onAppear {
+            // TODO: fix onReset should go on .idle view
+            countdownStore.onTimerStarted {
+                view = .timerRunning
+            }
+
+            countdownStore.onTimerCompleted {
+                view = .timerDone
+            }
+        }
     }
 }
 
@@ -23,7 +46,7 @@ private struct DefaultView: View {
 }
 
 private struct CountingView: View {
-    var timeLeft: String = "Taskito"
+    var timeLeft: String
 
     var body: some View {
         HStack {
@@ -40,6 +63,12 @@ private struct DoneView: View {
             Text(" Done!")
         }
     }
+}
+
+private enum ViewState {
+    case idle
+    case timerRunning
+    case timerDone
 }
 
 #Preview {

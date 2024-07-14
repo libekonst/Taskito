@@ -7,17 +7,20 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    private let timerPolicy = StandardTimerPolicy()
+struct MenuBarWindowContent: View {
+    @ObservedObject var countdownStore: CountdownStore
+    var timerPolicy: TimerPolicy
+    
 
-    @ObservedObject var countdownStore = CountdownStore()
+    init(countdownStore: CountdownStore, timerPolicy: TimerPolicy) {
+        self.countdownStore = countdownStore
+        self.timerPolicy = timerPolicy
 
-    init() {
-        countdownStore.onTimerStarted {
+        self.countdownStore.onTimerStarted {
             print("Timer started ⏱️")
         }
 
-        countdownStore.onTimerCompleted {
+        self.countdownStore.onTimerCompleted {
             print("Timer done ✅")
         }
     }
@@ -56,5 +59,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MenuBarWindowContent(countdownStore: CountdownStore(), timerPolicy: StandardTimerPolicy())
 }
