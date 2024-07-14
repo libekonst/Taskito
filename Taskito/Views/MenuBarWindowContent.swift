@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct MenuBarWindowContent: View {
-    private let timerPolicy = StandardTimerPolicy()
-
     @ObservedObject var countdownStore: CountdownStore
+    var timerPolicy: TimerPolicy
+    
 
-    init(countdownStore: CountdownStore) {
+    init(countdownStore: CountdownStore, timerPolicy: TimerPolicy) {
         self.countdownStore = countdownStore
+        self.timerPolicy = timerPolicy
 
         self.countdownStore.onTimerStarted {
             print("Timer started ⏱️")
@@ -58,5 +59,5 @@ struct MenuBarWindowContent: View {
 }
 
 #Preview {
-    MenuBarWindowContent(countdownStore: CountdownStore())
+    MenuBarWindowContent(countdownStore: CountdownStore(), timerPolicy: StandardTimerPolicy())
 }
