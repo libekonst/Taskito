@@ -10,7 +10,7 @@ import SwiftUI
 struct MenuBarLabel: View {
     @ObservedObject var countdownStore: CountdownStore
     var timerPolicy: TimerPolicy
-    
+
     @State private var view: ViewState = .idle
 
     var body: some View {

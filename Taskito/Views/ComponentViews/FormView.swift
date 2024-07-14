@@ -9,12 +9,10 @@ import Combine
 import SwiftUI
 
 struct FormView: View {
-    var onSubmit: (_ minutes: Int, _ seconds: Int) -> Void
+    var onSubmit: () -> Void
+    @Binding var minutes: Int
+    @Binding var seconds: Int
     var timerPolicy: TimerPolicy
-
-    // TODO: remember last selection
-    @State private var minutes = 25
-    @State private var seconds = 00
 
     @FocusState private var focus: FocusedField?
 
@@ -47,15 +45,18 @@ struct FormView: View {
                 HStack {
                     Spacer()
 
-                    Button(action: {
-                        onSubmit(minutes, seconds)
-                    }, label: {
-                        Text("START")
-                            .padding(.vertical, 6)
-                            .padding(.horizontal)
-                            .background(.black.opacity(0.1))
-                            .containerShape(Capsule())
-                    })
+                    Button(
+                        action: {
+                            onSubmit()
+                        },
+                        label: {
+                            Text("START")
+                                .padding(.vertical, 6)
+                                .padding(.horizontal)
+                                .background(.black.opacity(0.1))
+                                .containerShape(Capsule())
+                        }
+                    )
                     .keyboardShortcut(.defaultAction)
                     .buttonStyle(.plain)
 
@@ -72,7 +73,7 @@ struct FormView: View {
                 focus = .minutes
             }
             .onSubmit {
-                onSubmit(minutes, seconds)
+                onSubmit()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -96,8 +97,21 @@ private struct PlainNumericInputStyle: TextFieldStyle {
 }
 
 #Preview {
-    FormView(onSubmit: { _, _ in
-                 print("onSubmit called")
-             },
-             timerPolicy: StandardTimerPolicy())
+    struct StatefulPreview: View {
+        @State var minutes = 1
+        @State var seconds = 10
+
+        var body: some View {
+            FormView(
+                onSubmit: {
+                    print("onSubmit called")
+                },
+                minutes: $minutes,
+                seconds: $seconds,
+                timerPolicy: StandardTimerPolicy()
+            )
+        }
+    }
+
+    return StatefulPreview()
 }

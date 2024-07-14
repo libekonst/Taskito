@@ -10,7 +10,9 @@ import SwiftUI
 struct MenuBarWindowContent: View {
     @ObservedObject var countdownStore: CountdownStore
     var timerPolicy: TimerPolicy
-    
+
+    @State private var minutes = 25
+    @State private var seconds = 00
 
     init(countdownStore: CountdownStore, timerPolicy: TimerPolicy) {
         self.countdownStore = countdownStore
@@ -29,12 +31,11 @@ struct MenuBarWindowContent: View {
         VStack {
             if countdownStore.isTimerDepleted {
                 FormView(
-                    onSubmit: { minutes, seconds in
-                        countdownStore.createNewTimer(
-                            minutes: minutes,
-                            seconds: seconds
-                        )
+                    onSubmit: {
+                        countdownStore.createNewTimer(minutes: minutes, seconds: seconds)
                     },
+                    minutes: $minutes,
+                    seconds: $seconds,
                     timerPolicy: timerPolicy
                 )
                 .transition(.opacity)
