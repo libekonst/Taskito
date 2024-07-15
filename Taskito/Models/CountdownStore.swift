@@ -10,8 +10,6 @@ import Foundation
 
 private let SECONDS_IN_MINUTE = 60
 
-private typealias EventHandler = () -> Void
-
 class CountdownStore: ObservableObject {
     private var timer: Cancellable?
 
