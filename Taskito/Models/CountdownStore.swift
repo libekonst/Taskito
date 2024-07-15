@@ -85,26 +85,14 @@ class CountdownStore: ObservableObject {
         resetTimer()
         secondsTotal = minutes * SECONDS_IN_MINUTE + seconds
         resumeTimer()
-        notifyTimerStarted()
     }
 
-    // -- Notify timer started
-    private var onTimerStartedPublisher = EventPublisher<Void>()
-    /** Registers an event listener that is notified when a new timer is created. */
-    func onTimerStarted(_ handler: @escaping () -> Void) {
-        onTimerStartedPublisher.register(handler)
-    }
-
-    private func notifyTimerStarted() {
-        onTimerStartedPublisher.publish(())
-    }
-
-    // Notify timer completed
+    // -- Notify timer completed
     private var onTimerCompletedPublisher = EventPublisher<Void>()
     private func notifyTimerCompleted() {
         onTimerCompletedPublisher.publish(())
     }
-    /** Fires an event when the timer counts to 0 and finishes successfully.  */
+    /** Fires an event when the timer successfully finishes counting down to 0.  */
     func onTimerCompleted(handler: @escaping () -> Void) {
         onTimerCompletedPublisher.register(handler)
     }
