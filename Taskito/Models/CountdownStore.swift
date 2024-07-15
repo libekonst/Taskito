@@ -34,7 +34,6 @@ class CountdownStore: ObservableObject {
         return secondsTotal - secondsElapsed
     }
 
-    // -- Play / Pause actions
     /** Resumes a paused timer or initializes a fresh one. */
     func resumeTimer() {
         guard !isRunning else { return }
@@ -44,9 +43,8 @@ class CountdownStore: ObservableObject {
             .autoconnect()
             .sink { [self] _ in
                 if self.isTimerDepleted {
-                    self.timer?.cancel()
+                    self.resetTimer()
                     self.notifyTimerCompleted()
-                    self.isRunning = false
                 }
                 else {
                     self.secondsElapsed += 1
@@ -70,12 +68,12 @@ class CountdownStore: ObservableObject {
         }
     }
 
-    // -- Reset timer and start over actions\
     /** Cancels the current timer and clears the remaining time. */
     func resetTimer() {
-        pauseTimer()
+        isRunning = false
         secondsTotal = 0
         secondsElapsed = 0
+        timer?.cancel()
     }
 
     /** Creates a fresh timer instance and immediately starts counting down. */
