@@ -48,6 +48,7 @@ class CountdownStore: ObservableObject {
                 if self.isTimerDepleted {
                     self.timer?.cancel()
                     self.notifyTimerCompleted()
+                    self.isRunning = false
                 }
                 else {
                     self.secondsElapsed += 1
