@@ -50,7 +50,7 @@ private struct IdleView: View {
     var body: some View {
         HStack {
             Image(systemName: "stopwatch")
-            Text("Taskito ヾ(＾ᴥ＾)ノ")
+            Text("Taskitoヾ(＾ᴥ＾)ノ")
         }
     }
 }
