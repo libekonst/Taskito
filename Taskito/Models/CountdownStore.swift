@@ -15,24 +15,30 @@ private typealias EventHandler = () -> Void
 class CountdownStore: ObservableObject {
     private var timer: Cancellable?
 
+    /** The timer is currently counting down. This will be false either when the timer is paused or cancelled. */
     @Published var isRunning = false
+
+    /** The total seconds that have been scheduled for countdown. */
     @Published var secondsTotal: Int = 0
+
+    /** Seconds that have passed while the timer was running. This value is to 0 when the timer finishes or is somehow depleted. Pausing will not affect this. */
     @Published var secondsElapsed: Int = 0
 
-    /** Seconds remaining before the timer is depleted. The timer stops when it counts to 0. */
+    /** The timer has either finished counting down to 0 or it has ben cancelled. */
+    var isTimerDepleted: Bool {
+        return secondsElapsed >= secondsTotal
+    }
+
+    /** Seconds remaining until the timer is depleted. The timer stops when it counts to 0. */
     var secondsRemaining: Int {
         guard !isTimerDepleted else { return 0 }
 
         return secondsTotal - secondsElapsed
     }
 
-    /** The timer has counted down to 0 and has stopped. */
-    var isTimerDepleted: Bool {
-        return secondsElapsed >= secondsTotal
-    }
-
-    // Play / Pause actions
-    func startTimer() {
+    // -- Play / Pause actions
+    /** Resumes a paused timer or initializes a fresh one. */
+    func resumeTimer() {
         guard !isRunning else { return }
 
         isRunning = true
@@ -49,36 +55,41 @@ class CountdownStore: ObservableObject {
             }
     }
 
+    /** Pauses a running timer. It can later be resumed. */
     func pauseTimer() {
         isRunning = false
         timer?.cancel()
     }
 
+    /** Toggles between pausing and resuming the timer. */
     func toggleTimer() {
         if isRunning {
             pauseTimer()
         }
         else {
-            startTimer()
+            resumeTimer()
         }
     }
 
-    // Reset timer and start over actions
+    // -- Reset timer and start over actions\
+    /** Cancels the current timer and clears the remaining time. */
     func resetTimer() {
         pauseTimer()
         secondsTotal = 0
         secondsElapsed = 0
     }
 
+    /** Creates a fresh timer instance and immediately starts counting down. */
     func createNewTimer(minutes: Int, seconds: Int) {
         resetTimer()
         secondsTotal = minutes * SECONDS_IN_MINUTE + seconds
-        startTimer()
+        resumeTimer()
         notifyTimerStarted()
     }
 
-    // Notify timer started
+    // -- Notify timer started
     private var onTimerStartedPublisher = EventPublisher<Void>()
+    /** Registers an event listener that is notified when a new timer is created. */
     func onTimerStarted(_ handler: @escaping () -> Void) {
         onTimerStartedPublisher.register(handler)
     }
@@ -89,11 +100,11 @@ class CountdownStore: ObservableObject {
 
     // Notify timer completed
     private var onTimerCompletedPublisher = EventPublisher<Void>()
-    func onTimerCompleted(handler: @escaping () -> Void) {
-        onTimerCompletedPublisher.register(handler)
-    }
-
     private func notifyTimerCompleted() {
         onTimerCompletedPublisher.publish(())
+    }
+    /** Fires an event when the timer counts to 0 and finishes successfully.  */
+    func onTimerCompleted(handler: @escaping () -> Void) {
+        onTimerCompletedPublisher.register(handler)
     }
 }
