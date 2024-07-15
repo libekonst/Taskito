@@ -11,36 +11,46 @@ struct MenuBarLabel: View {
     @ObservedObject var countdownStore: CountdownStore
     var timerPolicy: TimerPolicy
 
-    @State private var view: ViewState = .idle
+    private var view: ViewState {
+        if countdownStore.isRunning {
+            return .timerRunning
+        }
+
+        if !countdownStore.isTimerDepleted {
+            return .timerPaused
+        }
+
+        return .idle
+    }
 
     var body: some View {
-        Group {
-            switch view {
-            case .idle:
-                DefaultView()
-            case .timerRunning:
-                CountingView(timeLeft: timerPolicy.toReadableTime(seconds: countdownStore.secondsRemaining))
-            case .timerDone:
-                DoneView()
-            }
-        }.onAppear {
-            // TODO: fix onReset should go on .idle view
-            countdownStore.onTimerStarted {
-                view = .timerRunning
-            }
+        if countdownStore.isRunning {
+            CountingView(
+                timeLeft: timerPolicy.toReadableTime(
+                    seconds: countdownStore.secondsRemaining
+                )
+            )
+        }
 
-            countdownStore.onTimerCompleted {
-                view = .timerDone
-            }
+        else if !countdownStore.isTimerDepleted {
+            PauseView(
+                timeLeft: timerPolicy.toReadableTime(
+                    seconds: countdownStore.secondsRemaining
+                )
+            )
+        }
+
+        else {
+            IdleView()
         }
     }
 }
 
-private struct DefaultView: View {
+private struct IdleView: View {
     var body: some View {
         HStack {
             Image(systemName: "stopwatch")
-            Text("Taskito")
+            Text("Taskito (◕‿◕✿)")
         }
     }
 }
@@ -50,17 +60,19 @@ private struct CountingView: View {
 
     var body: some View {
         HStack {
-            Image(systemName: "stopwatch")
+            Image(systemName: "stopwatch.fill")
             Text(timeLeft)
         }
     }
 }
 
-private struct DoneView: View {
+private struct PauseView: View {
+    var timeLeft: String
+
     var body: some View {
         HStack {
-            Image(systemName: "clock.badge.checkmark.fill")
-            Text(" Done!")
+            Image(systemName: "stopwatch")
+            Text(timeLeft + " ᶘ ᵒᴥᵒᶅ")
         }
     }
 }
@@ -68,17 +80,17 @@ private struct DoneView: View {
 private enum ViewState {
     case idle
     case timerRunning
-    case timerDone
+    case timerPaused
 }
 
 #Preview {
     VStack {
         Group {
-            DefaultView()
+            IdleView()
 
             CountingView(timeLeft: "20:15")
 
-            DoneView()
+            PauseView(timeLeft: "19:23")
         }
         .padding()
         .background(.gray.opacity(0.1))
