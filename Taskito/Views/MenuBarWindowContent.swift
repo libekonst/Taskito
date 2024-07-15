@@ -29,7 +29,6 @@ struct MenuBarWindowContent: View {
             }
 
             else {
-                // TODO: rename
                 CountdownView(
                     secondsRemaining: countdownStore.secondsRemaining,
                     onPlayPause: withAnimation(.interactiveSpring(duration: 0.2)) {
