@@ -14,19 +14,6 @@ struct MenuBarWindowContent: View {
     @State private var minutes = 25
     @State private var seconds = 00
 
-    init(countdownStore: CountdownStore, timerPolicy: TimerPolicy) {
-        self.countdownStore = countdownStore
-        self.timerPolicy = timerPolicy
-
-        self.countdownStore.onTimerStarted {
-            print("Timer started ⏱️")
-        }
-
-        self.countdownStore.onTimerCompleted {
-            print("Timer done ✅")
-        }
-    }
-
     var body: some View {
         VStack {
             if countdownStore.isTimerDepleted {
@@ -60,5 +47,8 @@ struct MenuBarWindowContent: View {
 }
 
 #Preview {
-    MenuBarWindowContent(countdownStore: CountdownStore(), timerPolicy: StandardTimerPolicy())
+    MenuBarWindowContent(
+        countdownStore: CountdownStore(),
+        timerPolicy: StandardTimerPolicy()
+    )
 }
