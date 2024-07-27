@@ -11,18 +11,6 @@ struct MenuBarLabel: View {
     @ObservedObject var countdownStore: CountdownStore
     var timerPolicy: TimerPolicy
 
-    private var view: ViewState {
-        if countdownStore.isRunning {
-            return .timerRunning
-        }
-
-        if !countdownStore.isTimerDepleted {
-            return .timerPaused
-        }
-
-        return .idle
-    }
-
     var body: some View {
         if countdownStore.isRunning {
             CountingView(
@@ -40,6 +28,10 @@ struct MenuBarLabel: View {
             )
         }
 
+        else if countdownStore.isTimerDepleted {
+            FlashingDoneView()
+        }
+
         else {
             IdleView()
         }
@@ -50,7 +42,7 @@ private struct IdleView: View {
     var body: some View {
         HStack {
             Image(systemName: "stopwatch")
-            Text("Taskito ୧(• ◡•)")
+            Text("Taskito")
         }
     }
 }
@@ -77,10 +69,42 @@ private struct PauseView: View {
     }
 }
 
-private enum ViewState {
-    case idle
-    case timerRunning
-    case timerPaused
+private struct FlashingDoneView: View {
+    @State private var isShowingClockView = false
+    @State private var isTimerActive = true
+
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        HStack {
+            Image(systemName: "stopwatch")
+            if isTimerActive && !isShowingClockView {
+                Text(" ٩(ˊᗜˋ*)ﾉ")
+            }
+            else {
+                Text("00:00")
+            }
+        }
+        .onReceive(timer, perform: { _ in
+            isShowingClockView.toggle()
+        })
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7.8) {
+                invalidateTimer()
+            }
+        }
+        .onDisappear {
+            invalidateTimer()
+        }
+        .onTapGesture { // TODO: invalidate when the window opens
+            invalidateTimer()
+        }
+    }
+
+    private func invalidateTimer() {
+        isTimerActive = false
+        timer.upstream.connect().cancel()
+    }
 }
 
 #Preview {
@@ -91,10 +115,12 @@ private enum ViewState {
             CountingView(timeLeft: "20:15")
 
             PauseView(timeLeft: "19:23")
+
+            FlashingDoneView()
         }
         .padding()
         .background(.gray.opacity(0.1))
         .cornerRadius(8)
     }
-    .frame(width: 200, height: 200)
+    .frame(width: 200, height: 400)
 }
