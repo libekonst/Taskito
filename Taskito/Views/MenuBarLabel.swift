@@ -68,39 +68,28 @@ private struct PauseView: View {
 
 private struct FlashingDoneView: View {
     @State private var isShowingClockView = false
-    @State private var isTimerActive = true
+    @State private var runCount = 0
 
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 1, tolerance: 7800, on: .main, in: .common).autoconnect()
 
     var body: some View {
         HStack {
             Image(systemName: "stopwatch")
-            if isTimerActive && !isShowingClockView {
-                Text(" ٩(ˊᗜˋ*)ﾉ")
-            }
-            else {
+            if isShowingClockView {
                 Text("00:00")
             }
-        }
-        .onReceive(timer, perform: { _ in
-            isShowingClockView.toggle()
-        })
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7.8) {
-                invalidateTimer()
+            else {
+                Text(" ٩(ˊᗜˋ*)ﾉ")
             }
         }
-        .onDisappear {
-            invalidateTimer()
-        }
-        .onTapGesture { // TODO: invalidate when the window opens
-            invalidateTimer()
-        }
-    }
+        .onReceive(timer) { _ in
+            runCount += 1
+            isShowingClockView.toggle()
 
-    private func invalidateTimer() {
-        isTimerActive = false
-        timer.upstream.connect().cancel()
+            if runCount == 5 {
+                timer.upstream.connect().cancel()
+            }
+        }
     }
 }
 
