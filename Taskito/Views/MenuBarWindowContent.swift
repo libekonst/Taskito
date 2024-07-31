@@ -11,8 +11,8 @@ struct MenuBarWindowContent: View {
     @ObservedObject var countdownStore: CountdownStore
     var timerPolicy: TimerPolicy
 
-    @State private var minutes = 25
-    @State private var seconds = 00
+    @AppStorage("latestMinutesSelection") private var minutes = 25
+    @AppStorage("latestSecondsSelection") private var seconds = 00
 
     var body: some View {
         VStack {
