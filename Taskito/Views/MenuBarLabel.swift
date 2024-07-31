@@ -60,8 +60,8 @@ private struct PauseView: View {
 
     var body: some View {
         HStack {
-            Image(systemName: "stopwatch")
-            Text(timeLeft + " ᶘ ᵒᴥᵒᶅ")
+            Image(systemName: "clock.badge")
+            Text(timeLeft)
         }
     }
 }
