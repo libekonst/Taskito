@@ -12,28 +12,25 @@ struct MenuBarLabel: View {
     var timerPolicy: TimerPolicy
 
     var body: some View {
-        if countdownStore.isRunning {
+        switch countdownStore.timerState {
+        case .completed:
+            FlashingDoneView()
+        case .cancelled:
+            IdleView()
+        case .idle:
+            IdleView()
+        case .running:
             CountingView(
                 timeLeft: timerPolicy.toReadableTime(
                     seconds: countdownStore.secondsRemaining
                 )
             )
-        }
-
-        else if !countdownStore.isTimerDepleted {
+        case .paused:
             PauseView(
                 timeLeft: timerPolicy.toReadableTime(
                     seconds: countdownStore.secondsRemaining
                 )
             )
-        }
-
-        else if countdownStore.isTimerDepleted {
-            FlashingDoneView()
-        }
-
-        else {
-            IdleView()
         }
     }
 }

@@ -16,26 +16,28 @@ struct MenuBarWindowContent: View {
 
     var body: some View {
         VStack {
-            if countdownStore.isTimerDepleted {
-                FormView(
-                    onSubmit: {
-                        countdownStore.createNewTimer(minutes: minutes, seconds: seconds)
-                    },
-                    minutes: $minutes,
-                    seconds: $seconds,
-                    timerPolicy: timerPolicy
-                )
-                .transition(.opacity)
-            }
-
-            else {
+            switch countdownStore.timerState {
+            case .paused,
+                 .running:
                 CountdownView(
                     secondsRemaining: countdownStore.secondsRemaining,
                     onPlayPause: withAnimation(.interactiveSpring(duration: 0.2)) {
-                        countdownStore.toggleTimer
+                        countdownStore.togglePlayPauseTimer
                     },
-                    onReset: countdownStore.resetTimer,
-                    isTimerRunning: countdownStore.isRunning,
+                    onReset: countdownStore.cancelTimer,
+                    isTimerRunning: countdownStore.timerState == .running,
+                    timerPolicy: timerPolicy
+                )
+                .transition(.opacity)
+            case .completed,
+                 .cancelled,
+                 .idle:
+                FormView(
+                    onSubmit: {
+                        countdownStore.startNewTimer(minutes: minutes, seconds: seconds)
+                    },
+                    minutes: $minutes,
+                    seconds: $seconds,
                     timerPolicy: timerPolicy
                 )
                 .transition(.opacity)
