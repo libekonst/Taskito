@@ -79,7 +79,7 @@ private struct FlashingDoneView: View {
                 Text("00:00")
             }
             else {
-                Text(" ٩(ˊᗜˋ*)ﾉ")
+                Text(" ٩(ˊᗜˋ)ﾉ")
             }
         }
         .onReceive(timer) { _ in
