@@ -38,8 +38,7 @@ struct MenuBarLabel: View {
 private struct IdleView: View {
     var body: some View {
         HStack {
-            Image(systemName: "stopwatch")
-            Text("Taskito")
+            Text(":-} Taskito")
         }
     }
 }
