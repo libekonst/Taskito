@@ -20,25 +20,29 @@ struct CountdownView: View {
                 Spacer()
 
                 Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                    .font(.system(size: 60, weight: .thin, design: .rounded))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 5)
+                    .font(.system(size: 84, weight: .thin, design: .rounded))
+                    .padding(.vertical, 4)
+
+                Button(action: onPlayPause, label: {
+                    VStack {
+                        Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
+                            .resizable()
+                            .frame(width: 18, height: 18)
+                            .padding(.leading, isTimerRunning ? 0 : 4)
+                            .id(isTimerRunning)
+                            .transition(.scale.animation(.interpolatingSpring))
+                    }.padding(20)
+                        .background(.black.opacity(0.1))
+                        .transition(.opacity.animation(.easeInOut))
+                        .clipShape(.circle)
+                })
+                .buttonStyle(.plain)
+                .labelStyle(.iconOnly)
 
                 Spacer()
-
-                Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
-                    .resizable()
-                    .frame(width: 16, height: 16)
-                    .id(isTimerRunning)
-                    .transition(.scale.animation(.interpolatingSpring))
             }
             .frame(maxWidth: .infinity,
                    maxHeight: .infinity)
-            .padding(.bottom, 12)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                onPlayPause()
-            }
 
             Button(role: .cancel, action: onReset, label: {
                 Image(systemName: "xmark")
@@ -50,8 +54,6 @@ struct CountdownView: View {
             .labelStyle(.iconOnly)
             .focusEffectDisabled()
         }
-
-//        .blur(radius: 1)
     }
 }
 
