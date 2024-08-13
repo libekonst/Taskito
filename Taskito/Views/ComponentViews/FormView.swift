@@ -18,65 +18,75 @@ struct FormView: View {
 
     var body: some View {
         VStack {
-            Form {
-                HStack(alignment: .top, content: {
-                    TextField(
-                        "Minutes",
-                        value: $minutes,
-                        formatter: timerPolicy.formatter
-                    )
-                    .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
-                    .focused($focus, equals: .minutes)
+            VStack {
+                Spacer()
+                Form {
+                    // Input
+                    HStack(alignment: .top, content: {
+                        TextField(
+                            "Minutes",
+                            value: $minutes,
+                            formatter: timerPolicy.formatter
+                        )
+                        .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
+                        .focused($focus, equals: .minutes)
 
-                    Text(":")
-                        .font(.system(size: 72, weight: .thin, design: .rounded))
-                        .frame(height: 72)
-                        .padding(.horizontal, -8)
+                        Text(":")
+                            .font(.system(size: 72, weight: .thin, design: .rounded))
+                            .frame(height: 72)
+                            .padding(.horizontal, -8)
 
-                    TextField(
-                        "Seconds",
-                        value: $seconds,
-                        formatter: timerPolicy.formatter
-                    )
-                    .textFieldStyle(PlainNumericInputStyle())
-                    .focused($focus, equals: .seconds)
-                })
+                        TextField(
+                            "Seconds",
+                            value: $seconds,
+                            formatter: timerPolicy.formatter
+                        )
+                        .textFieldStyle(PlainNumericInputStyle())
+                        .focused($focus, equals: .seconds)
+                    })
 
-                HStack {
-                    Spacer()
+                    // Submit
+                    HStack {
+                        Spacer()
 
-                    Button(
-                        action: {
-                            onSubmit()
-                        },
-                        label: {
-                            Text("START")
-                                .padding(.vertical, 6)
-                                .padding(.horizontal)
-                                .background(.black.opacity(0.1))
-                                .containerShape(Capsule())
-                        }
-                    )
-                    .keyboardShortcut(.defaultAction)
-                    .buttonStyle(.plain)
+                        Button(
+                            action: {
+                                onSubmit()
+                            },
+                            label: {
+                                Text("START")
+                                    .padding(.vertical, 6)
+                                    .padding(.horizontal)
+                                    .background(.black.opacity(0.1))
+                                    .containerShape(Capsule())
+                            }
+                        )
+                        .keyboardShortcut(.defaultAction)
+                        .buttonStyle(.plain)
 
-                    Spacer()
+                        Spacer()
+                    }
+                    .padding(.top)
                 }
-                .padding(.top)
-            }
-            .onChange(of: minutes) {
-                if String(minutes).count >= timerPolicy.limits.digitCount {
-                    focus = .seconds
+                .onChange(of: minutes) {
+                    if String(minutes).count >= timerPolicy.limits.digitCount {
+                        focus = .seconds
+                    }
                 }
-            }
-            .onAppear {
-                focus = .minutes
-            }
-            .onSubmit {
-                onSubmit()
-            }
+                .onAppear {
+                    focus = .minutes
+                }
+                .onSubmit {
+                    onSubmit()
+                }
+
+                Spacer()
+
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            Divider().padding(.horizontal)
+            OptionsMenuView()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -95,6 +105,30 @@ private struct PlainNumericInputStyle: TextFieldStyle {
             .multilineTextAlignment(justify)
     }
 }
+
+private struct OptionsMenuView: View {
+    var body: some View {
+        Section {
+            HStack {
+                Button(action: {
+                    NSApplication.shared.terminate(nil)
+                }, label: {
+                    HStack {
+                        Label("Quit", systemImage: "power")
+                            .foregroundColor(.primary)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 3)
+                    
+                })
+            }
+            .buttonStyle(AccessoryBarButtonStyle())
+        }
+        .padding(.bottom, 8)
+        .padding(.horizontal, 7)
+    }
+}
+
 
 #Preview {
     struct StatefulPreview: View {
@@ -115,3 +149,4 @@ private struct PlainNumericInputStyle: TextFieldStyle {
 
     return StatefulPreview()
 }
+

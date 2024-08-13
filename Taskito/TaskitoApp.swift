@@ -15,14 +15,20 @@ struct TaskitoApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            MenuBarWindowContent(countdownStore: countdownStore, timerPolicy: timerPolicy)
-                .onAppear {
-                    countdownStore.onTimerCompleted {
-                        audioIndication.play()
-                    }
+            MenuBarWindowContent(
+                countdownStore: countdownStore,
+                timerPolicy: timerPolicy
+            )
+            .onAppear {
+                countdownStore.onTimerCompleted {
+                    audioIndication.play()
                 }
+            }
         } label: {
-            MenuBarLabel(countdownStore: countdownStore, timerPolicy: timerPolicy)
+            MenuBarLabel(
+                countdownStore: countdownStore,
+                timerPolicy: timerPolicy
+            )
         }
         .menuBarExtraStyle(.window)
     }

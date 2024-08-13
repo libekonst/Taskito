@@ -43,7 +43,7 @@ struct MenuBarWindowContent: View {
                 .transition(.opacity)
             }
         }
-        .frame(width: 450, height: 280, alignment: .center)
+        .frame(width: 450, height: 300, alignment: .center)
     }
 }
 
