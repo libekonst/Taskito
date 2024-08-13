@@ -119,7 +119,6 @@ private struct OptionsMenuView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 3)
-                    
                 })
             }
             .buttonStyle(AccessoryBarButtonStyle())
@@ -128,7 +127,6 @@ private struct OptionsMenuView: View {
         .padding(.horizontal, 7)
     }
 }
-
 
 #Preview {
     struct StatefulPreview: View {
@@ -149,4 +147,3 @@ private struct OptionsMenuView: View {
 
     return StatefulPreview()
 }
-

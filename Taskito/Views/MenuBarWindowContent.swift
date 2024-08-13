@@ -28,7 +28,7 @@ struct MenuBarWindowContent: View {
                     isTimerRunning: countdownStore.timerState == .running,
                     timerPolicy: timerPolicy
                 )
-                .transition(.opacity)
+                .transition(.blurReplace.animation(.snappy))
             case .completed,
                  .cancelled,
                  .idle:
@@ -40,7 +40,7 @@ struct MenuBarWindowContent: View {
                     seconds: $seconds,
                     timerPolicy: timerPolicy
                 )
-                .transition(.opacity)
+                .transition(.opacity.animation(.snappy))
             }
         }
         .frame(width: 450, height: 300, alignment: .center)
