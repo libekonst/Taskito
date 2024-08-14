@@ -20,8 +20,8 @@ jobs:
       - name: Build the app
         run: |
           xcodebuild -project Taskito.xcodeproj -scheme Taskito -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-          npx create-dmg dist/Taskito.app dist/
-          mv dist/Taskito*.dmg dist/Taskito.dmg
+          mkdir -p dist
+          npx create-dmg 'build/Build/Products/Release/Taskito.app' dist --overwrite
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
