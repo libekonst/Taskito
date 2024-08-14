@@ -1,9 +1,8 @@
 name: Build and Release macOS App
 
 on:
-  push:
-    tags:
-      - "v*.*.*" # Triggers the workflow on version tags, e.g., v1.0.0
+  release:
+    types: [published]
 
 jobs:
   build:
