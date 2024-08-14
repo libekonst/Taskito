@@ -18,16 +18,16 @@ jobs:
           xcode-version: "15.4"
 
       - name: Build the app
-        run: xcodebuild -project Taskito.xcodeproj -scheme Taskito -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-      - name: Create DMG
         run: |
-          mkdir -p dist
-          hdiutil create -volname Taskito -srcfolder build/Build/Products/Release/Taskito.app -ov -format UDZO dist/Taskito.dmg
+          xcodebuild -project Taskito.xcodeproj -scheme Taskito -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          npx create-dmg dist/Taskito.app dist/
+          mv dist/Taskito*.dmg dist/Taskito.dmg
+
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/Taskito.dmg
+          asset_path: dist/*.dmg
           asset_name: Taskito.dmg
           asset_content_type: application/x-apple-diskimage
         env:
