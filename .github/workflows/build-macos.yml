@@ -19,9 +19,6 @@ jobs:
         with:
           xcode-version: "15.4"
 
-      - name: Install create-dmg
-        run: npm install -g create-dmg
-
       - name: Build the app
         run: |
           xcodebuild -project Taskito.xcodeproj \
@@ -32,10 +29,10 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
-      - name: Create DMG
+      - name: Create DMG without Signing
         run: |
           mkdir -p dist
-          create-dmg 'build/Build/Products/Release/Taskito.app' dist --overwrite --identity=""
+          hdiutil create -volname "Taskito" -srcfolder "build/Build/Products/Release/Taskito.app" -ov -format UDZO dist/Taskito.dmg
 
       - name: Verify DMG creation
         run: ls -la dist/*.dmg
