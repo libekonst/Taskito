@@ -5,7 +5,7 @@
 	<key>compileBitcode</key>
 	<false/>
 	<key>thinning</key>
-	<string>&lt;none&gt;</string>
+	<string><none></string>
 	<key>stripSwiftSymbols</key>
 	<false/>
 	<key>signingStyle</key>
