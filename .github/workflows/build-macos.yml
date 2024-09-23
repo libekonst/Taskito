@@ -37,11 +37,12 @@ jobs:
       - name: Verify App Existence
         run: ls -la build/Build/Products/Release/
 
-      - name: Create DMG with create-dmg
+      - name: Install appdmg
+        run: npm install -g appdmg
+
+      - name: Create DMG with appdmg
         run: |
-          npm install -g create-dmg
-          mkdir -p dist
-          create-dmg 'build/Build/Products/Release/Taskito.app' dist/Taskito.dmg --overwrite --identity=""
+          appdmg appdmg.json dist/Taskito.dmg
 
       - name: Validate DMG
         run: hdiutil verify dist/Taskito.dmg

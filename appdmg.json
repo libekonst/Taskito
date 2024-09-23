@@ -1,0 +1,14 @@
+{
+  "title": "Taskito",
+  "icon": "Taskito/Assets.xcassets/AppIcon.appiconset",
+  "background": "",
+  "contents": [
+    { "x": 448, "y": 344, "type": "link", "path": "/Applications" },
+    {
+      "x": 192,
+      "y": 344,
+      "type": "item",
+      "path": "build/Build/Products/Release/Taskito.app"
+    }
+  ]
+}

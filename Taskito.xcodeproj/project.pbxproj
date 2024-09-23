@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		841933D32CA1FBDC00109E5E /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841933D22CA1FBDC00109E5E /* ExportOptions.plist */; };
+		841933D52CA2092900109E5E /* appdmg.json in Resources */ = {isa = PBXBuildFile; fileRef = 841933D42CA2091D00109E5E /* appdmg.json */; };
 		843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE812BADBC9200BA5908 /* TimerPolicy.swift */; };
 		843ECE842BADCF6300BA5908 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE832BADCF6300BA5908 /* FormView.swift */; };
 		843ECE8A2BAE02D300BA5908 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE892BAE02D300BA5908 /* CountdownView.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		841933D22CA1FBDC00109E5E /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
+		841933D42CA2091D00109E5E /* appdmg.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = appdmg.json; sourceTree = "<group>"; };
 		843ECE812BADBC9200BA5908 /* TimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPolicy.swift; sourceTree = "<group>"; };
 		843ECE832BADCF6300BA5908 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/Views/ComponentViews/CountdownView.swift; sourceTree = SOURCE_ROOT; };
@@ -141,6 +143,7 @@
 		84CAB79C2BA0F8DC002350A9 = {
 			isa = PBXGroup;
 			children = (
+				841933D42CA2091D00109E5E /* appdmg.json */,
 				841933D22CA1FBDC00109E5E /* ExportOptions.plist */,
 				844F92112C5D9C6D00A35334 /* Sounds */,
 				84CAB7A72BA0F8DC002350A9 /* Taskito */,
@@ -307,6 +310,7 @@
 				84CAB7B02BA0F8DD002350A9 /* Preview Assets.xcassets in Resources */,
 				84CAB7AD2BA0F8DD002350A9 /* Assets.xcassets in Resources */,
 				841933D32CA1FBDC00109E5E /* ExportOptions.plist in Resources */,
+				841933D52CA2092900109E5E /* appdmg.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
