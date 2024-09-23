@@ -35,7 +35,7 @@ jobs:
       - name: Create DMG
         run: |
           mkdir -p dist
-          create-dmg 'build/Release/Taskito.app' dist --overwrite --identity=""
+          create-dmg 'build/Build/Products/Release/Taskito.app' dist --overwrite --identity=""
 
       - name: Verify DMG creation
         run: ls -la dist/*.dmg
