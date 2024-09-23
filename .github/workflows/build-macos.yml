@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       uploadUrl:
-        description: "Upload URL"
-        required: false # Optional for testing, but the action will ultimately fail if not provided
+        description: "Upload URL for the build output. If not provided, the action will fail."
+        required: false
         type: string
 
 jobs:
@@ -35,13 +35,13 @@ jobs:
             CODE_SIGNING_ALLOWED=NO
 
       - name: Verify App Existence
-        run: |
-          ls -la build/Build/Products/Release/
+        run: ls -la build/Build/Products/Release/
 
-      - name: Create DMG without Signing
+      - name: Create DMG with create-dmg
         run: |
+          npm install -g create-dmg
           mkdir -p dist
-          hdiutil create -volname "Taskito" -srcfolder "build/Build/Products/Release/Taskito.app" -ov -format UDZO dist/Taskito.dmg -verbose
+          create-dmg 'build/Build/Products/Release/Taskito.app' dist/Taskito.dmg --overwrite --identity=""
 
       - name: Validate DMG
         run: hdiutil verify dist/Taskito.dmg
