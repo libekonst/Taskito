@@ -3,7 +3,7 @@ name: Build and Release macOS App
 on:
   release:
     types: [published]
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual runs for testing
 
 jobs:
   build:
@@ -29,13 +29,17 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
+      - name: Verify App Existence
+        run: |
+          ls -la build/Build/Products/Release/
+
       - name: Create DMG without Signing
         run: |
           mkdir -p dist
-          hdiutil create -volname "Taskito" -srcfolder "build/Build/Products/Release/Taskito.app" -ov -format UDZO dist/Taskito.dmg
+          hdiutil create -volname "Taskito" -srcfolder "build/Build/Products/Release/Taskito.app" -ov -format UDZO dist/Taskito.dmg -verbose
 
-      - name: Verify DMG creation
-        run: ls -la dist/*.dmg
+      - name: Validate DMG
+        run: hdiutil verify dist/Taskito.dmg
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
