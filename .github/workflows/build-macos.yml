@@ -30,14 +30,18 @@ jobs:
             -archivePath build/Taskito.xcarchive \
             archive \
             CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Export the app to .app format
         run: |
           xcodebuild -exportArchive \
             -archivePath build/Taskito.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
-            -exportPath build
+            -exportPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Create DMG
         run: |
