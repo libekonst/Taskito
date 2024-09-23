@@ -40,6 +40,9 @@ jobs:
       - name: Install appdmg
         run: npm install -g appdmg
 
+      - name: Create Dist Directory
+        run: mkdir -p dist
+
       - name: Create DMG with appdmg
         run: |
           appdmg appdmg.json dist/Taskito.dmg
