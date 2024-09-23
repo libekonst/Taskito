@@ -22,15 +22,27 @@ jobs:
       - name: Install create-dmg
         run: npm install -g create-dmg
 
-      - name: Build the app
+      - name: Build and Archive the app
         run: |
-          xcodebuild -project Taskito.xcodeproj -scheme Taskito -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-          xcodebuild -exportArchive -archivePath build/Taskito.xcarchive -exportPath build -exportOptionsPlist ExportOptions.plist
+          xcodebuild -project Taskito.xcodeproj \
+            -scheme Taskito \
+            -configuration Release \
+            -archivePath build/Taskito.xcarchive \
+            archive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Export the app to .app format
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/Taskito.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build
 
       - name: Create DMG
         run: |
           mkdir -p dist
-          create-dmg 'build/Build/Products/Release/Taskito.app' dist --overwrite --identity="-"
+          create-dmg 'build/Taskito.app' dist --overwrite --identity=""
 
       - name: Verify DMG creation
         run: ls -la dist/*.dmg
