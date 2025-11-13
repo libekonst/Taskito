@@ -59,12 +59,9 @@ jobs:
 
       - name: Upload Release Asset
         if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/Taskito.dmg
-          asset_name: Taskito.dmg
-          asset_content_type: application/x-apple-diskimage
+          files: dist/Taskito.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
