@@ -66,12 +66,35 @@ The repository includes a GitHub Action that automatically builds and creates a 
 
 ## Installation
 
-The app is unsigned, so on first launch:
+The app is unsigned, so macOS requires these steps:
 
-1. Mount the DMG and drag Taskito to Applications
-2. **Right-click** the app → "Open" (don't double-click)
-3. Click "Open" in the security warning
-4. Subsequent launches work normally
+1. **Mount the DMG** and drag Taskito to Applications
+2. **Remove quarantine flag** - Open Terminal and run:
+
+   ```bash
+   xattr -cr /Applications/Taskito.app
+   ```
+
+3. **Launch the app** - You can now open it normally from Applications
+
+**Note:** If you get "damaged and can't be opened", you skipped step 2. The app isn't actually damaged - it's just macOS blocking unsigned apps.
+
+### Why the "damaged" Error?
+
+**The app isn't actually damaged** - this is macOS Gatekeeper blocking unsigned apps.
+
+macOS has three security levels:
+
+1. **App Store apps** - No warnings
+2. **Notarized apps** (signed + approved by Apple) - One-time approval dialog
+3. **Unsigned apps** (this app) - Blocked with misleading "damaged" error
+
+When you download files from the internet, macOS adds a "quarantine" flag. The `xattr -cr` command removes this flag, allowing the unsigned app to run.
+
+The xattr -cr command:
+
+- -c = Clear all extended attributes (including quarantine)
+- -r = Recursive (entire app bundle)
 
 ### Roadmap
 
