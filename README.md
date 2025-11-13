@@ -6,13 +6,13 @@ It's a focus timer that is simple, fast, poses no disruptions, and exists on the
 
 ## Building
 
-### Prerequisites
+### Local Build
+
+#### Prerequisites
 
 - Xcode 15.3+
 - macOS 14.2+
 - Node.js (for creating DMG installers)
-
-### Local Build
 
 1. **Build the app:**
 
@@ -96,6 +96,6 @@ The xattr -cr command:
 - -c = Clear all extended attributes (including quarantine)
 - -r = Recursive (entire app bundle)
 
-### Roadmap
+## Roadmap
 
 <https://github.com/users/libekonst/projects/2/views/1>
