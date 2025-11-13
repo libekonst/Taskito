@@ -47,6 +47,25 @@ jobs:
         run: |
           appdmg appdmg.json dist/Taskito.dmg
 
+      - name: Set DMG Icon
+        run: |
+          ICON_PATH="$(pwd)/build/Build/Products/Release/Taskito.app/Contents/Resources/AppIcon.icns"
+          DMG_PATH="$(pwd)/dist/Taskito.dmg"
+
+          # Use osascript to set the icon
+          osascript - "$ICON_PATH" "$DMG_PATH" <<'APPLESCRIPT'
+          on run argv
+              set iconPath to item 1 of argv
+              set dmgPath to item 2 of argv
+
+              tell application "Finder"
+                  set iconFile to (POSIX file iconPath) as alias
+                  set dmgFile to (POSIX file dmgPath) as alias
+                  set icon of dmgFile to (read iconFile)
+              end tell
+          end run
+          APPLESCRIPT
+
       - name: Validate DMG
         run: hdiutil verify dist/Taskito.dmg
 
