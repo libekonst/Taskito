@@ -4,6 +4,39 @@ Taskito is a tiny MacOS utility app that helps combat procrastination and finish
 
 It's a focus timer that is simple, fast, poses no disruptions, and exists on the Mac's menu bar for quick access.
 
+## Installation
+
+The app is unsigned, so macOS requires these steps:
+
+1. Download the DMG build artifact from the **latest release** at [the releases page](https://github.com/libekonst/Taskito/releases)
+2. **Mount the DMG** and drag Taskito to Applications
+3. **Remove quarantine flag** - Open Terminal and run:
+
+   ```bash
+   xattr -cr /Applications/Taskito.app
+   ```
+
+4. **Launch the app** - You can now open it normally from Applications
+
+**Note:** If you get "damaged and can't be opened", you skipped step 3. The app isn't actually damaged, it's just macOS blocking unsigned apps.
+
+### Why the "damaged" Error?
+
+**The app isn't actually damaged** - this is macOS Gatekeeper blocking unsigned apps.
+
+macOS has three security levels:
+
+1. **App Store apps** - No warnings
+2. **Notarized apps** (signed + approved by Apple) - One-time approval dialog
+3. **Unsigned apps** (this app) - Blocked with misleading "damaged" error
+
+When you download files from the internet, macOS adds a "quarantine" flag. The `xattr -cr` command removes this flag, allowing the unsigned app to run.
+
+The xattr -cr command:
+
+- -c = Clear all extended attributes (including quarantine)
+- -r = Recursive (entire app bundle)
+
 ## Building
 
 ### Local Build
@@ -63,38 +96,6 @@ The repository includes a GitHub Action that automatically builds and creates a 
 2. Select "Build and Release macOS App" workflow
 3. Click "Run workflow"
 4. Once complete, download the DMG from the workflow run's "Artifacts" section
-
-## Installation
-
-The app is unsigned, so macOS requires these steps:
-
-1. **Mount the DMG** and drag Taskito to Applications
-2. **Remove quarantine flag** - Open Terminal and run:
-
-   ```bash
-   xattr -cr /Applications/Taskito.app
-   ```
-
-3. **Launch the app** - You can now open it normally from Applications
-
-**Note:** If you get "damaged and can't be opened", you skipped step 2. The app isn't actually damaged - it's just macOS blocking unsigned apps.
-
-### Why the "damaged" Error?
-
-**The app isn't actually damaged** - this is macOS Gatekeeper blocking unsigned apps.
-
-macOS has three security levels:
-
-1. **App Store apps** - No warnings
-2. **Notarized apps** (signed + approved by Apple) - One-time approval dialog
-3. **Unsigned apps** (this app) - Blocked with misleading "damaged" error
-
-When you download files from the internet, macOS adds a "quarantine" flag. The `xattr -cr` command removes this flag, allowing the unsigned app to run.
-
-The xattr -cr command:
-
-- -c = Clear all extended attributes (including quarantine)
-- -r = Recursive (entire app bundle)
 
 ## Roadmap
 
