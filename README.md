@@ -62,7 +62,7 @@ The repository includes a GitHub Action that automatically builds and creates a 
 1. Go to "Actions" tab in the GitHub repository
 2. Select "Build and Release macOS App" workflow
 3. Click "Run workflow"
-4. The DMG will be available in the workflow artifacts
+4. Once complete, download the DMG from the workflow run's "Artifacts" section
 
 ## Installation
 
