@@ -62,20 +62,7 @@ struct FormView: View {
                     HStack {
                         Spacer()
 
-                        Button(
-                            action: {
-                                onSubmit()
-                            },
-                            label: {
-                                Text("START")
-                                    .padding(.vertical, 6)
-                                    .padding(.horizontal)
-                                    .background(.black.opacity(0.1))
-                                    .containerShape(Capsule())
-                            }
-                        )
-                        .keyboardShortcut(.defaultAction)
-                        .buttonStyle(.plain)
+                        StartButton(action: onSubmit)
 
                         Spacer()
                     }
@@ -179,25 +166,81 @@ private struct PresetButtonsView: View {
     }
 }
 
+private struct StartButton: View {
+    let action: () -> Void
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: action) {
+            Text("START")
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .tracking(0.5)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 32)
+                .background(
+                    Capsule(style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color.accentColor.opacity(isHovered ? 0.40 : 0.32),
+                                    Color.accentColor.opacity(isHovered ? 0.35 : 0.26)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                )
+                .shadow(color: Color.accentColor.opacity(0.15), radius: 6, x: 0, y: 2)
+        }
+        .keyboardShortcut(.defaultAction)
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
+        }
+    }
+}
+
 private struct OptionsMenuView: View {
     var body: some View {
         Section {
             HStack {
-                Button(action: {
-                    NSApplication.shared.terminate(nil)
-                }, label: {
-                    HStack {
-                        Label("Quit", systemImage: "power")
-                            .foregroundColor(.primary)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 3)
-                })
+                QuitButton()
             }
-            .buttonStyle(AccessoryBarButtonStyle())
         }
         .padding(.bottom, 8)
         .padding(.horizontal, 7)
+    }
+}
+
+private struct QuitButton: View {
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: {
+            NSApplication.shared.terminate(nil)
+        }) {
+            HStack(spacing: 6) {
+                Image(systemName: "power")
+                    .font(.system(size: 11, weight: .medium))
+                Text("Quit")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                Spacer()
+            }
+            .padding(.vertical, 7)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
+            )
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
+        }
     }
 }
 
