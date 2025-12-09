@@ -45,8 +45,8 @@ struct FormView: View {
                         .focused($focus, equals: .minutes)
 
                         Text(":")
-                            .font(.system(size: 72, weight: .thin, design: .rounded))
-                            .frame(height: 72)
+                            .font(.system(size: 84, weight: .thin, design: .rounded))
+                            .frame(height: 84)
                             .padding(.horizontal, -8)
 
                         TextField(
@@ -101,7 +101,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
         configuration
             .labelsHidden()
             .textFieldStyle(.plain)
-            .font(.system(size: 72, weight: .thin, design: .rounded))
+            .font(.system(size: 84, weight: .thin, design: .rounded))
             .multilineTextAlignment(justify)
     }
 }
@@ -174,30 +174,30 @@ private struct StartButton: View {
     var body: some View {
         Button(action: action) {
             Text("START")
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .font(.system(size: 16, weight: .semibold, design: .rounded))
                 .tracking(0.6)
                 .padding(.vertical, 11)
-                .padding(.horizontal, 36)
+                .padding(.horizontal, 48)
                 .background(
                     Capsule(style: .continuous)
                         .fill(
                             (isHovered || isFocused) ?
-                            LinearGradient(
-                                colors: [
-                                    Color(red: 0.4, green: 0.3, blue: 0.9).opacity(0.14),
-                                    Color(red: 0.2, green: 0.6, blue: 0.85).opacity(0.14)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ) :
-                            LinearGradient(
-                                colors: [
-                                    Color.primary.opacity(0.09),
-                                    Color.primary.opacity(0.09)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
+                                LinearGradient(
+                                    colors: [
+                                        Color(red: 0.4, green: 0.3, blue: 0.9).opacity(0.22),
+                                        Color(red: 0.2, green: 0.6, blue: 0.85).opacity(0.22)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ) :
+                                LinearGradient(
+                                    colors: [
+                                        Color.primary.opacity(0.09),
+                                        Color.primary.opacity(0.09)
+                                    ],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
                         )
                         .animation(.easeInOut(duration: 0.2), value: isFocused)
                         .animation(.easeInOut(duration: 0.15), value: isHovered)
