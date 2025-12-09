@@ -150,7 +150,6 @@ private struct PresetButtonsView: View {
                     .shadow(color: Color.black.opacity(0.04), radius: 3, x: 0, y: 1)
                 })
                 .buttonStyle(.plain)
-                .focusable(false)
                 .onHover { isHovered in
                     withAnimation(.easeInOut(duration: 0.15)) {
                         hoveredPreset = isHovered ? preset.id : nil
