@@ -120,9 +120,9 @@ private struct PresetButtonsView: View {
                 }, label: {
                     VStack(spacing: 3) {
                         Text(preset.name)
-                            .font(.system(size: 11.5, weight: .semibold, design: .rounded))
+                            .font(.system(size: 12, weight: .semibold, design: .rounded))
                         Text(formatTime(preset))
-                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 8)
@@ -238,7 +238,7 @@ private struct QuitButton: View {
                 Image(systemName: "power")
                     .font(.system(size: 11, weight: .medium))
                 Text("Quit")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
                 Spacer()
             }
             .padding(.vertical, 7)
