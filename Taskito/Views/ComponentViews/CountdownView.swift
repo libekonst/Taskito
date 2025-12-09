@@ -16,43 +16,93 @@ struct CountdownView: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack {
+            VStack(spacing: 0) {
+                Spacer()
                 Spacer()
 
                 Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                    .font(.system(size: 84, weight: .thin, design: .rounded))
-                    .padding(.vertical, 4)
+                    .font(.system(size: 120, weight: .thin, design: .rounded))
 
-                Button(action: onPlayPause, label: {
-                    VStack {
-                        Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
-                            .resizable()
-                            .frame(width: 18, height: 18)
-                            .padding(.leading, isTimerRunning ? 0 : 4)
-                            .id(isTimerRunning)
-                            .transition(.scale.animation(.interpolatingSpring))
-                    }.padding(20)
-                        .background(.black.opacity(0.1))
-                        .transition(.opacity.animation(.easeInOut))
-                        .clipShape(.circle)
-                })
-                .buttonStyle(.plain)
-                .labelStyle(.iconOnly)
+                PlayPauseButton(
+                    isTimerRunning: isTimerRunning,
+                    action: onPlayPause
+                )
+                .padding(.top, 40)
 
                 Spacer()
             }
-            .frame(maxWidth: .infinity,
-                   maxHeight: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            Button(role: .cancel, action: onReset, label: {
-                Image(systemName: "xmark")
-                    .frame(minWidth: 36, minHeight: 36)
-                    .contentShape(Rectangle())
-                    .font(.system(size: 14))
-            })
-            .buttonStyle(.plain)
-            .labelStyle(.iconOnly)
-            .focusEffectDisabled()
+            ResetButton(action: onReset)
+                .padding(12)
+        }
+    }
+}
+
+private struct PlayPauseButton: View {
+    let isTimerRunning: Bool
+    let action: () -> Void
+    @State private var isHovered = false
+    @FocusState private var isFocused: Bool
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
+                .font(.system(size: 18, weight: .medium))
+                .frame(width: 18, height: 18)
+                .padding(.leading, isTimerRunning ? 0 : 2)
+                .padding(18)
+                .id(isTimerRunning)
+                .transition(.scale.animation(.interpolatingSpring))
+                .background(
+                    ZStack {
+                        // Subtle fill on hover/focus
+                        if isHovered || isFocused {
+                            Circle()
+                                .fill(Color.primary.opacity(0.08))
+                        }
+
+                        // Border
+                        Circle()
+                            .strokeBorder(
+                                Color.primary.opacity((isHovered || isFocused) ? 0.35 : 0.20),
+                                lineWidth: 1.5
+                            )
+                    }
+                    .animation(.easeInOut(duration: 0.15), value: isHovered)
+                    .animation(.easeInOut(duration: 0.2), value: isFocused)
+                )
+                .shadow(color: Color.black.opacity(0.04), radius: 3, x: 0, y: 1)
+        }
+        .buttonStyle(.plain)
+        .focused($isFocused)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
+        }
+    }
+}
+
+private struct ResetButton: View {
+    let action: () -> Void
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(role: .cancel, action: action) {
+            Image(systemName: "xmark")
+                .font(.system(size: 14, weight: .medium))
+                .frame(width: 32, height: 32)
+                .background(
+                    Circle()
+                        .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
+                )
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
         }
     }
 }
