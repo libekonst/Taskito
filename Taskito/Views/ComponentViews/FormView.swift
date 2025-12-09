@@ -73,9 +73,6 @@ struct FormView: View {
                         focus = .seconds
                     }
                 }
-                .onAppear {
-                    focus = .minutes
-                }
                 .onSubmit {
                     onSubmit()
                 }
@@ -86,6 +83,12 @@ struct FormView: View {
 
             Divider().padding(.horizontal)
             OptionsMenuView()
+        }
+        .onAppear {
+            // Delay to ensure TextField is ready before setting focus
+            DispatchQueue.main.async {
+                focus = .minutes
+            }
         }
     }
 }
