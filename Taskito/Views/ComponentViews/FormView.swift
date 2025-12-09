@@ -19,21 +19,20 @@ struct FormView: View {
 
     var body: some View {
         VStack {
-            VStack {
-                Spacer()
+            // Preset Buttons
+            PresetButtonsView(
+                presets: presetsStore.presets,
+                onPresetSelected: { preset in
+                    minutes = preset.minutes
+                    seconds = preset.seconds
+                    onSubmit()
+                }
+            )
+            .padding(.top, 20)
+            .padding(.bottom, 24)
 
-                // Preset Buttons
-                PresetButtonsView(
-                    presets: presetsStore.presets,
-                    onPresetSelected: { preset in
-                        minutes = preset.minutes
-                        seconds = preset.seconds
-                        onSubmit()
-                    }
-                )
-                .padding(.bottom, 8)
-
-                Form {
+            Form {
+                VStack(spacing: 4) {
                     // Input
                     HStack(alignment: .top, content: {
                         TextField(
@@ -45,8 +44,8 @@ struct FormView: View {
                         .focused($focus, equals: .minutes)
 
                         Text(":")
-                            .font(.system(size: 84, weight: .thin, design: .rounded))
-                            .frame(height: 84)
+                            .font(.system(size: 102, weight: .thin, design: .rounded))
+                            .frame(height: 102)
                             .padding(.horizontal, -8)
 
                         TextField(
@@ -68,18 +67,19 @@ struct FormView: View {
                     }
                     .padding(.top)
                 }
-                .onChange(of: minutes) {
-                    if String(minutes).count >= timerPolicy.limits.digitCount {
-                        focus = .seconds
-                    }
+            }
+            .onChange(of: minutes) {
+                if String(minutes).count >= timerPolicy.limits.digitCount {
+                    focus = .seconds
                 }
-                .onSubmit {
-                    onSubmit()
-                }
+            }
+            .onSubmit {
+                onSubmit()
+            }
 
-                Spacer()
+            Spacer()
 
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             Divider().padding(.horizontal)
             OptionsMenuView()
@@ -104,7 +104,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
         configuration
             .labelsHidden()
             .textFieldStyle(.plain)
-            .font(.system(size: 84, weight: .thin, design: .rounded))
+            .font(.system(size: 102, weight: .thin, design: .rounded))
             .multilineTextAlignment(justify)
     }
 }

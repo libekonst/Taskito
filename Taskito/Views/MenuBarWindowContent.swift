@@ -25,6 +25,7 @@ struct MenuBarWindowContent: View {
                         countdownStore.togglePlayPauseTimer
                     },
                     onReset: countdownStore.cancelTimer,
+                    onAddTime: countdownStore.addTime,
                     isTimerRunning: countdownStore.timerState == .running,
                     timerPolicy: timerPolicy
                 )
@@ -43,7 +44,7 @@ struct MenuBarWindowContent: View {
                 .transition(.opacity.animation(.snappy))
             }
         }
-        .frame(width: 450, height: 300, alignment: .center)
+        .frame(width: 540, height: 360, alignment: .center)
     }
 }
 

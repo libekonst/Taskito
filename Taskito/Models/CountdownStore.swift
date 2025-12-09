@@ -56,6 +56,12 @@ class CountdownStore: ObservableObject {
         }
     }
 
+    /** Adds additional time to the current timer. */
+    func addTime(seconds: Int) {
+        guard timerState == .running || timerState == .paused else { return }
+        secondsTotal += seconds
+    }
+
     /** Resumes a paused timer or initializes a fresh one. */
     private func startTimer() {
         guard timerState != .running else { return }

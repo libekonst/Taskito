@@ -11,25 +11,37 @@ struct CountdownView: View {
     var secondsRemaining: Int
     var onPlayPause: () -> Void
     var onReset: () -> Void
+    var onAddTime: (Int) -> Void
     var isTimerRunning: Bool
     var timerPolicy: TimerPolicy
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack(spacing: 0) {
+            VStack(spacing: 16) {
                 Spacer()
-                Spacer()
+                VStack(spacing: 0) {
+                    Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
+                        .font(.system(size: 120, weight: .thin, design: .rounded))
 
-                Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                    .font(.system(size: 120, weight: .thin, design: .rounded))
+                    // Time adjustment buttons - visually grouped with timer
+                    HStack(spacing: 12) {
+                        TimeAdjustButton(label: "+1 min", action: {
+                            onAddTime(60)
+                        })
+
+                        TimeAdjustButton(label: "+3 min", action: {
+                            onAddTime(180)
+                        })
+                    }
+                }
+                .padding(.bottom, 26)
 
                 PlayPauseButton(
                     isTimerRunning: isTimerRunning,
                     action: onPlayPause
-                )
-                .padding(.top, 40)
+                ).padding(.bottom, 22)
 
-                Spacer()
+//                Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -49,7 +61,7 @@ private struct PlayPauseButton: View {
         Button(action: action) {
             Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
                 .font(.system(size: 18, weight: .medium))
-                .frame(width: 18, height: 18)
+                .frame(width: 24, height: 24)
                 .padding(.leading, isTimerRunning ? 0 : 2)
                 .padding(18)
                 .id(isTimerRunning)
@@ -84,6 +96,44 @@ private struct PlayPauseButton: View {
     }
 }
 
+private struct TimeAdjustButton: View {
+    let label: String
+    let action: () -> Void
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: action) {
+            Text(label)
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 7)
+                .background(
+                    ZStack {
+                        // Subtle fill on hover
+                        if isHovered {
+                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                .fill(Color.primary.opacity(0.06))
+                        }
+
+                        // Border
+                        RoundedRectangle(cornerRadius: 6, style: .continuous)
+                            .strokeBorder(
+                                Color.primary.opacity(isHovered ? 0.25 : 0.15),
+                                lineWidth: 1
+                            )
+                    }
+                )
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
+        }
+    }
+}
+
 private struct ResetButton: View {
     let action: () -> Void
     @State private var isHovered = false
@@ -110,7 +160,7 @@ private struct ResetButton: View {
 #Preview {
     struct StatefulPreview: View {
         @State var isTimerRunning = false
-        let timeRemaining = 90
+        @State var timeRemaining = 90
 
         var body: some View {
             CountdownView(
@@ -118,6 +168,10 @@ private struct ResetButton: View {
                 onPlayPause: { isTimerRunning.toggle() },
                 onReset: {
                     print("X tapped", Date())
+                },
+                onAddTime: { seconds in
+                    timeRemaining += seconds
+                    print("Added \(seconds) seconds")
                 },
                 isTimerRunning: isTimerRunning,
                 timerPolicy: StandardTimerPolicy()
