@@ -173,24 +173,22 @@ private struct StartButton: View {
     var body: some View {
         Button(action: action) {
             Text("START")
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .tracking(0.5)
-                .padding(.vertical, 10)
-                .padding(.horizontal, 32)
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .tracking(0.6)
+                .padding(.vertical, 11)
+                .padding(.horizontal, 36)
                 .background(
-                    Capsule(style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color.accentColor.opacity(isHovered ? 0.40 : 0.32),
-                                    Color.accentColor.opacity(isHovered ? 0.35 : 0.26)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
+                    ZStack {
+                        // Clean material base
+                        Capsule(style: .continuous)
+                            .fill(.regularMaterial)
+
+                        // Flat color tint
+                        Capsule(style: .continuous)
+                            .fill(Color.accentColor.opacity(isHovered ? 0.38 : 0.30))
+                    }
                 )
-                .shadow(color: Color.accentColor.opacity(0.15), radius: 6, x: 0, y: 2)
+                .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 3)
         }
         .keyboardShortcut(.defaultAction)
         .buttonStyle(.plain)
