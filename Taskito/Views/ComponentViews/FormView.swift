@@ -169,6 +169,7 @@ private struct PresetButtonsView: View {
 private struct StartButton: View {
     let action: () -> Void
     @State private var isHovered = false
+    @FocusState private var isFocused: Bool
 
     var body: some View {
         Button(action: action) {
@@ -178,20 +179,34 @@ private struct StartButton: View {
                 .padding(.vertical, 11)
                 .padding(.horizontal, 36)
                 .background(
-                    ZStack {
-                        // Clean material base
-                        Capsule(style: .continuous)
-                            .fill(.regularMaterial)
-
-                        // Flat color tint
-                        Capsule(style: .continuous)
-                            .fill(Color.accentColor.opacity(isHovered ? 0.38 : 0.30))
-                    }
+                    Capsule(style: .continuous)
+                        .fill(
+                            (isHovered || isFocused) ?
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 0.4, green: 0.3, blue: 0.9).opacity(0.14),
+                                    Color(red: 0.2, green: 0.6, blue: 0.85).opacity(0.14)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ) :
+                            LinearGradient(
+                                colors: [
+                                    Color.primary.opacity(0.09),
+                                    Color.primary.opacity(0.09)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .animation(.easeInOut(duration: 0.2), value: isFocused)
+                        .animation(.easeInOut(duration: 0.15), value: isHovered)
                 )
-                .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 3)
+                .shadow(color: Color.black.opacity(0.04), radius: 3, x: 0, y: 1)
         }
         .keyboardShortcut(.defaultAction)
         .buttonStyle(.plain)
+        .focused($isFocused)
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)) {
                 isHovered = hovering
