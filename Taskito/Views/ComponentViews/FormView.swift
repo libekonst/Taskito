@@ -186,8 +186,8 @@ private struct StartButton: View {
                             (isHovered || isFocused) ?
                                 LinearGradient(
                                     colors: [
-                                        Color(red: 0.4, green: 0.3, blue: 0.9).opacity(0.22),
-                                        Color(red: 0.2, green: 0.6, blue: 0.85).opacity(0.22)
+                                        Color(red: 0.4, green: 0.3, blue: 0.9).opacity(0.8),
+                                        Color(red: 0.2, green: 0.6, blue: 0.85).opacity(0.8)
                                     ],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
