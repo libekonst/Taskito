@@ -24,7 +24,7 @@ struct CountdownView: View {
                         .font(.system(size: 120, weight: .thin, design: .rounded))
                         .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
                         .scaleEffect(isTimerRunning ? 1.0 : 0.85)
-                        .animation(.spring(response: isTimerRunning ? 0.4 : 0.6, dampingFraction: isTimerRunning ? 0.65 : 0.8), value: isTimerRunning)
+                        .animation(.spring(response: isTimerRunning ? 0.4 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
 
                     // Time adjustment buttons - visually grouped with timer
                     HStack(spacing: 12) {
@@ -43,8 +43,6 @@ struct CountdownView: View {
                     isTimerRunning: isTimerRunning,
                     action: onPlayPause
                 ).padding(.bottom, 22)
-
-//                Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -67,7 +65,7 @@ private struct PlayPauseButton: View {
                     .font(.system(size: 18, weight: .medium))
                     .opacity(isTimerRunning ? 0 : 1)
                     .scaleEffect(isTimerRunning ? 0.5 : 1)
-                
+
                 Image(systemName: "stop.fill")
                     .font(.system(size: 18, weight: .medium))
                     .opacity(isTimerRunning ? 1 : 0)
