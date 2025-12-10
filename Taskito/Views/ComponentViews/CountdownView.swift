@@ -22,6 +22,9 @@ struct CountdownView: View {
                 VStack(spacing: 0) {
                     Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
                         .font(.system(size: 120, weight: .thin, design: .rounded))
+                        .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
+                        .scaleEffect(isTimerRunning ? 1.0 : 0.85)
+                        .animation(.spring(response: isTimerRunning ? 0.4 : 0.6, dampingFraction: isTimerRunning ? 0.65 : 0.8), value: isTimerRunning)
 
                     // Time adjustment buttons - visually grouped with timer
                     HStack(spacing: 12) {
