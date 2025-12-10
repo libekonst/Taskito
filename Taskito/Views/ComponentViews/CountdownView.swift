@@ -62,32 +62,40 @@ private struct PlayPauseButton: View {
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
-                .font(.system(size: 18, weight: .medium))
-                .frame(width: 24, height: 24)
-                .padding(.leading, isTimerRunning ? 0 : 2)
-                .padding(18)
-                .id(isTimerRunning)
-                .transition(.scale.animation(.interpolatingSpring))
-                .background(
-                    ZStack {
-                        // Subtle fill on hover/focus
-                        if isHovered || isFocused {
-                            Circle()
-                                .fill(Color.primary.opacity(0.08))
-                        }
-
-                        // Border
+            ZStack {
+                Image(systemName: "play.fill")
+                    .font(.system(size: 18, weight: .medium))
+                    .opacity(isTimerRunning ? 0 : 1)
+                    .scaleEffect(isTimerRunning ? 0.5 : 1)
+                
+                Image(systemName: "stop.fill")
+                    .font(.system(size: 18, weight: .medium))
+                    .opacity(isTimerRunning ? 1 : 0)
+                    .scaleEffect(isTimerRunning ? 1 : 0.5)
+            }
+            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: isTimerRunning)
+            .frame(width: 24, height: 24)
+            .padding(.leading, isTimerRunning ? 0 : 2)
+            .padding(18)
+            .background(
+                ZStack {
+                    // Subtle fill on hover/focus
+                    if isHovered || isFocused {
                         Circle()
-                            .strokeBorder(
-                                Color.primary.opacity((isHovered || isFocused) ? 0.35 : 0.20),
-                                lineWidth: 1.5
-                            )
+                            .fill(Color.primary.opacity(0.08))
                     }
-                    .animation(.easeInOut(duration: 0.15), value: isHovered)
-                    .animation(.easeInOut(duration: 0.2), value: isFocused)
-                )
-                .shadow(color: Color.black.opacity(0.04), radius: 3, x: 0, y: 1)
+
+                    // Border
+                    Circle()
+                        .strokeBorder(
+                            Color.primary.opacity((isHovered || isFocused) ? 0.35 : 0.20),
+                            lineWidth: 1.5
+                        )
+                }
+                .animation(.easeInOut(duration: 0.15), value: isHovered)
+                .animation(.easeInOut(duration: 0.2), value: isFocused)
+            )
+            .shadow(color: Color.black.opacity(0.04), radius: 3, x: 0, y: 1)
         }
         .buttonStyle(.plain)
         .focused($isFocused)
