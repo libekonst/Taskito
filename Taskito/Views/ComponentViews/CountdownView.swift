@@ -21,10 +21,10 @@ struct CountdownView: View {
                 Spacer()
                 VStack(spacing: 0) {
                     Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                        .font(.system(size: 120, weight: .thin, design: .rounded))
+                        .font(.system(size: 132, weight: .thin, design: .rounded))
                         .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
-                        .scaleEffect(isTimerRunning ? 1.0 : 0.85)
-                        .animation(.spring(response: isTimerRunning ? 0.4 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
+                        .scaleEffect(isTimerRunning ? 1.0 : 0.8)
+                        .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
 
                     // Time adjustment buttons - visually grouped with timer
                     HStack(spacing: 12) {
@@ -168,7 +168,7 @@ private struct ResetButton: View {
 
 #Preview {
     struct StatefulPreview: View {
-        @State var isTimerRunning = false
+        @State var isTimerRunning = true
         @State var timeRemaining = 90
 
         var body: some View {
