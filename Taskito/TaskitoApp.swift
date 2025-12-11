@@ -12,6 +12,7 @@ struct TaskitoApp: App {
     @ObservedObject private var countdownStore = CountdownStore()
     private var timerPolicy = StandardTimerPolicy()
     private var audioIndication = AudioIndication()
+    private let settings = SettingsStore.shared
 
     var body: some Scene {
         MenuBarExtra {
@@ -21,7 +22,9 @@ struct TaskitoApp: App {
             )
             .onAppear {
                 countdownStore.onTimerCompleted {
-                    audioIndication.play()
+                    if settings.soundEnabled {
+                        audioIndication.play()
+                    }
                 }
             }
         } label: {
