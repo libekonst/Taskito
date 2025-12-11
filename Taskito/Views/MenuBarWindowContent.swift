@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 struct MenuBarWindowContent: View {
     @ObservedObject var countdownStore: CountdownStore
@@ -45,6 +46,20 @@ struct MenuBarWindowContent: View {
             }
         }
         .frame(width: 540, height: 360, alignment: .center)
+        .background(
+            // Hidden button to handle Escape key
+            Button("") {
+                closeWindowAndRestoreFocus()
+            }
+            .keyboardShortcut(.escape, modifiers: [])
+            .hidden()
+        )
+    }
+
+    private func closeWindowAndRestoreFocus() {
+        // Hide the app completely, which properly dismisses the MenuBarExtra
+        // and restores focus to the previous application
+        NSApp.hide(nil)
     }
 }
 
