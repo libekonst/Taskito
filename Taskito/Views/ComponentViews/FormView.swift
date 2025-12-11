@@ -238,9 +238,9 @@ private struct QuitButton: View {
         }) {
             HStack(spacing: 6) {
                 Image(systemName: "power")
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.system(size: 12, weight: .medium))
                 Text("Quit")
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
                 Spacer()
             }
             .padding(.vertical, 7)

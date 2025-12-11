@@ -17,14 +17,15 @@ struct CountdownView: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack(spacing: 16) {
+            VStack {
                 Spacer()
                 VStack(spacing: 0) {
                     Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                        .font(.system(size: 132, weight: .thin, design: .rounded))
+                        .font(.system(size: 146, weight: .thin, design: .rounded))
                         .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
                         .scaleEffect(isTimerRunning ? 1.0 : 0.8)
                         .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
+                        .padding(.bottom, -8)
 
                     // Time adjustment buttons - visually grouped with timer
                     HStack(spacing: 12) {
@@ -35,9 +36,9 @@ struct CountdownView: View {
                         TimeAdjustButton(label: "+3 min", action: {
                             onAddTime(180)
                         })
-                    }
+                    }.padding(.bottom, 28)
                 }
-                .padding(.bottom, 26)
+                
 
                 PlayPauseButton(
                     isTimerRunning: isTimerRunning,
