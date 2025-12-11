@@ -38,7 +38,6 @@ struct CountdownView: View {
                         })
                     }.padding(.bottom, 28)
                 }
-                
 
                 PlayPauseButton(
                     isTimerRunning: isTimerRunning,
@@ -164,6 +163,14 @@ private struct ResetButton: View {
                 isHovered = hovering
             }
         }
+        .background(
+            // Hidden button for Ctrl+C keyboard shortcut (interrupt timer, like terminal)
+            Button("") {
+                action()
+            }
+            .keyboardShortcut("c", modifiers: .control)
+            .hidden()
+        )
     }
 }
 
