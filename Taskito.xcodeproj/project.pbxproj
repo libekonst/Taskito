@@ -27,6 +27,7 @@
 		84CAB7C52BA0F8DE002350A9 /* TaskitoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */; };
 		84CAB7C72BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */; };
 		84E67CBC2EEA62FA00772892 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBB2EEA62F500772892 /* SettingsStore.swift */; };
+		84E67CBE2EEA7C2400772892 /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */; };
 		84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITests.swift; sourceTree = "<group>"; };
 		84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		84E67CBB2EEA62F500772892 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
 		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/Views/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 		843ECE802BADBB5E00BA5908 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */,
 				84E67CBB2EEA62F500772892 /* SettingsStore.swift */,
 				8414F3852EC57E7A00CD4549 /* PresetTimer.swift */,
 				8414F3832EC57E5600CD4549 /* PresetTimerStore.swift */,
@@ -352,6 +355,7 @@
 				8414F3842EC57E5C00CD4549 /* PresetTimerStore.swift in Sources */,
 				843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */,
 				844F92152C5D9D4C00A35334 /* AudioIndication.swift in Sources */,
+				84E67CBE2EEA7C2400772892 /* KeyboardShortcuts.swift in Sources */,
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
 				84572B802C3B65A800A2D509 /* CountdownStore.swift in Sources */,
 				84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */,

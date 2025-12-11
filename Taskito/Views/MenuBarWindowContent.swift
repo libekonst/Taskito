@@ -48,11 +48,11 @@ struct MenuBarWindowContent: View {
         }
         .frame(width: 540, height: 360, alignment: .center)
         .background(
-            // Hidden button to handle Escape key
+            // Hidden button to close window
             Button("") {
                 closeWindowAndRestoreFocus()
             }
-            .keyboardShortcut(.escape, modifiers: [])
+            .keyboardShortcut(KeyboardShortcuts.closeWindow)
             .hidden()
         )
     }

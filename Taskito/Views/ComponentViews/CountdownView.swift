@@ -52,18 +52,18 @@ struct CountdownView: View {
         }
         .background(
             Group {
-                // Hidden button for CMD+R keyboard shortcut (quick restart timer)
+                // Hidden button for quick restart timer
                 Button("") {
                     onRestart()
                 }
-                .keyboardShortcut("r", modifiers: .command)
+                .keyboardShortcut(KeyboardShortcuts.restartTimer)
                 .hidden()
 
-                // Hidden button for Space keyboard shortcut (play/pause, like media players)
+                // Hidden button for play/pause
                 Button("") {
                     onPlayPause()
                 }
-                .keyboardShortcut(.space, modifiers: [])
+                .keyboardShortcut(KeyboardShortcuts.playPause)
                 .hidden()
             }
         )
@@ -120,11 +120,13 @@ private struct PlayPauseButton: View {
                 isHovered = hovering
             }
         }
+        .help(isTimerRunning ? "Pause (Space)" : "Play (Space)")
     }
 }
 
 private struct TimeAdjustButton: View {
     let label: String
+    let tooltip: String
     let action: () -> Void
     @State private var isHovered = false
 
@@ -158,6 +160,7 @@ private struct TimeAdjustButton: View {
                 isHovered = hovering
             }
         }
+        .help(tooltip)
     }
 }
 
@@ -181,12 +184,13 @@ private struct ResetButton: View {
                 isHovered = hovering
             }
         }
+        .help("Cancel Timer (⌃C)")
         .background(
-            // Hidden button for Ctrl+C keyboard shortcut (interrupt timer, like terminal)
+            // Hidden button for cancel timer
             Button("") {
                 action()
             }
-            .keyboardShortcut("c", modifiers: .control)
+            .keyboardShortcut(KeyboardShortcuts.cancelTimer)
             .hidden()
         )
     }

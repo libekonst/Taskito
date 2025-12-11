@@ -152,13 +152,18 @@ private struct PresetButtonsView: View {
                         hoveredPreset = isHovered ? preset.id : nil
                     }
                 }
+                .help("Start \(preset.name) (⌘\(index + 1))")
                 .background(
-                    // Hidden button for preset keyboard shortcuts
-                    Button("") {
-                        onPresetSelected(preset)
+                    Group {
+                        // Hidden button for preset keyboard shortcut
+                        if let shortcut = KeyboardShortcuts.preset(at: index) {
+                            Button("") {
+                                onPresetSelected(preset)
+                            }
+                            .keyboardShortcut(shortcut)
+                            .hidden()
+                        }
                     }
-                    .keyboardShortcut(KeyEquivalent(Character("\(index + 1)")), modifiers: .command)
-                    .hidden()
                 )
             }
         }
@@ -219,6 +224,7 @@ private struct StartButton: View {
                 isHovered = hovering
             }
         }
+        .help("Start Timer (Enter)")
     }
 }
 
@@ -235,7 +241,7 @@ private struct OptionsMenuView: View {
                     imageName: "power",
                     label: "Quit",
                     onClick: { NSApplication.shared.terminate(nil) }
-                )
+                ).help("Quit Taskito (⌘Q)")
             }
             .padding(.bottom, 8)
             .padding(.horizontal, 7)
