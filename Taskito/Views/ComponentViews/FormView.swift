@@ -114,7 +114,7 @@ private struct PresetButtonsView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            ForEach(presets) { preset in
+            ForEach(Array(presets.enumerated()), id: \.element.id) { index, preset in
                 Button(action: {
                     onPresetSelected(preset)
                 }, label: {
@@ -152,6 +152,14 @@ private struct PresetButtonsView: View {
                         hoveredPreset = isHovered ? preset.id : nil
                     }
                 }
+                .background(
+                    // Hidden button for preset keyboard shortcuts
+                    Button("") {
+                        onPresetSelected(preset)
+                    }
+                    .keyboardShortcut(KeyEquivalent(Character("\(index + 1)")), modifiers: .command)
+                    .hidden()
+                )
             }
         }
     }
