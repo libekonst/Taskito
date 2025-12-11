@@ -51,12 +51,21 @@ struct CountdownView: View {
                 .padding(12)
         }
         .background(
-            // Hidden button for CMD+R keyboard shortcut (quick restart timer)
-            Button("") {
-                onRestart()
+            Group {
+                // Hidden button for CMD+R keyboard shortcut (quick restart timer)
+                Button("") {
+                    onRestart()
+                }
+                .keyboardShortcut("r", modifiers: .command)
+                .hidden()
+
+                // Hidden button for Space keyboard shortcut (play/pause, like media players)
+                Button("") {
+                    onPlayPause()
+                }
+                .keyboardShortcut(.space, modifiers: [])
+                .hidden()
             }
-            .keyboardShortcut("r", modifiers: .command)
-            .hidden()
         )
     }
 }
