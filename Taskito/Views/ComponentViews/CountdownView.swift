@@ -11,6 +11,7 @@ struct CountdownView: View {
     var secondsRemaining: Int
     var onPlayPause: () -> Void
     var onReset: () -> Void
+    var onRestart: () -> Void
     var onAddTime: (Int) -> Void
     var isTimerRunning: Bool
     var timerPolicy: TimerPolicy
@@ -49,6 +50,14 @@ struct CountdownView: View {
             ResetButton(action: onReset)
                 .padding(12)
         }
+        .background(
+            // Hidden button for CMD+R keyboard shortcut (quick restart timer)
+            Button("") {
+                onRestart()
+            }
+            .keyboardShortcut("r", modifiers: .command)
+            .hidden()
+        )
     }
 }
 
@@ -185,6 +194,10 @@ private struct ResetButton: View {
                 onPlayPause: { isTimerRunning.toggle() },
                 onReset: {
                     print("X tapped", Date())
+                },
+                onRestart: {
+                    timeRemaining = 90
+                    print("Restart tapped", Date())
                 },
                 onAddTime: { seconds in
                     timeRemaining += seconds

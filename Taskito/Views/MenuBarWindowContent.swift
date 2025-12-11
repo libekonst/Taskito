@@ -26,6 +26,7 @@ struct MenuBarWindowContent: View {
                         countdownStore.togglePlayPauseTimer
                     },
                     onReset: countdownStore.cancelTimer,
+                    onRestart: countdownStore.restartTimer,
                     onAddTime: countdownStore.addTime,
                     isTimerRunning: countdownStore.timerState == .running,
                     timerPolicy: timerPolicy
