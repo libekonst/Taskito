@@ -78,10 +78,7 @@ struct FormView: View {
             }
 
             Spacer()
-
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            Divider().padding(.horizontal)
             OptionsMenuView()
         }
         .onAppear {
@@ -220,26 +217,40 @@ private struct StartButton: View {
 private struct OptionsMenuView: View {
     var body: some View {
         Section {
-            HStack {
-                QuitButton()
+            Divider().padding(.horizontal)
+            VStack(spacing: 0) {
+//                SystemButton(
+//                    label: "Settings...",
+//                    onClick: {}
+//                )
+                SystemButton(
+                    imageName: "power",
+                    label: "Quit",
+                    onClick: { NSApplication.shared.terminate(nil) }
+                )
             }
+            .padding(.bottom, 8)
+            .padding(.horizontal, 7)
         }
-        .padding(.bottom, 8)
-        .padding(.horizontal, 7)
     }
 }
 
-private struct QuitButton: View {
+private struct SystemButton: View {
     @State private var isHovered = false
 
+    var imageName: String?
+    var label: String
+    var onClick: () -> Void
+
     var body: some View {
-        Button(action: {
-            NSApplication.shared.terminate(nil)
-        }) {
+        Button(action: onClick) {
             HStack(spacing: 6) {
-                Image(systemName: "power")
-                    .font(.system(size: 12, weight: .medium))
-                Text("Quit")
+                if imageName != nil {
+                    Image(systemName: imageName ?? "")
+                        .font(.system(size: 12, weight: .medium))
+                }
+
+                Text(label)
                     .font(.system(size: 12, weight: .medium, design: .rounded))
                 Spacer()
             }
