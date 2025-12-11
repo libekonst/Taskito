@@ -140,6 +140,12 @@ enum KeyboardShortcuts {
     /// Preset 3 shortcut (⌘3)
     static let preset3 = (key: KeyEquivalent("3"), modifiers: EventModifiers.command)
 
+    /// Add 1 minute shortcut (+)
+    static let addOneMinute = (key: KeyEquivalent("="), modifiers: EventModifiers())
+
+    /// Add 3 minutes shortcut (⇧+)
+    static let addThreeMinutes = (key: KeyEquivalent("="), modifiers: EventModifiers.shift)
+
     /// Returns the keyboard shortcut for a preset at the given index (0-based)
     static func preset(at index: Int) -> (key: KeyEquivalent, modifiers: EventModifiers)? {
         switch index {

@@ -30,14 +30,36 @@ struct CountdownView: View {
 
                     // Time adjustment buttons - visually grouped with timer
                     HStack(spacing: 12) {
-                        TimeAdjustButton(label: "+1 min", action: {
-                            onAddTime(60)
-                        })
+                        TimeAdjustButton(
+                            label: "+1 min",
+                            tooltip: "Add 1 Minute (+)",
+                            action: { onAddTime(60) }
+                        )
 
-                        TimeAdjustButton(label: "+3 min", action: {
-                            onAddTime(180)
-                        })
-                    }.padding(.bottom, 28)
+                        TimeAdjustButton(
+                            label: "+3 min",
+                            tooltip: "Add 3 Minutes (⇧+)",
+                            action: { onAddTime(180) }
+                        )
+                    }
+                    .padding(.bottom, 28)
+                    .background(
+                        Group {
+                            // Hidden button for +1 minute
+                            Button("") {
+                                onAddTime(60)
+                            }
+                            .keyboardShortcut(KeyboardShortcuts.addOneMinute)
+                            .hidden()
+
+                            // Hidden button for +3 minutes
+                            Button("") {
+                                onAddTime(180)
+                            }
+                            .keyboardShortcut(KeyboardShortcuts.addThreeMinutes)
+                            .hidden()
+                        }
+                    )
                 }
 
                 PlayPauseButton(
