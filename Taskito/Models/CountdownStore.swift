@@ -70,7 +70,7 @@ class CountdownStore: ObservableObject {
         timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [self] _ in
-                if self.timerState == .running && self.isTimerDepleted {
+                if self.timerState == .running, self.isTimerDepleted {
                     self.completeTimer()
                     self.notifyTimerCompleted()
                 }
