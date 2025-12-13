@@ -16,6 +16,8 @@ struct CountdownView: View {
     var isTimerRunning: Bool
     var timerPolicy: TimerPolicy
 
+    @State private var timeAddedTrigger = false
+
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack {
@@ -24,7 +26,11 @@ struct CountdownView: View {
                     Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
                         .font(.system(size: 146, weight: .thin, design: .rounded))
                         .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
-                        .scaleEffect(isTimerRunning ? 1.0 : 0.8)
+                        .scaleEffect({
+                            let baseScale = isTimerRunning ? 1.0 : 0.8
+                            return timeAddedTrigger ? baseScale + 0.04 : baseScale
+                        }())
+                        .animation(.spring(response: 0.25, dampingFraction: 0.7), value: timeAddedTrigger)
                         .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
                         .padding(.bottom, -8)
 
@@ -33,13 +39,13 @@ struct CountdownView: View {
                         TimeAdjustButton(
                             label: "+1 min",
                             tooltip: "Add 1 Minute (+)",
-                            action: { onAddTime(60) }
+                            action: { addTimeWithAnimation(60) }
                         )
 
                         TimeAdjustButton(
                             label: "+3 min",
                             tooltip: "Add 3 Minutes (⇧+)",
-                            action: { onAddTime(180) }
+                            action: { addTimeWithAnimation(180) }
                         )
                     }
                     .padding(.bottom, 28)
@@ -47,14 +53,14 @@ struct CountdownView: View {
                         Group {
                             // Hidden button for +1 minute
                             Button("") {
-                                onAddTime(60)
+                                addTimeWithAnimation(60)
                             }
                             .keyboardShortcut(KeyboardShortcuts.addOneMinute)
                             .hidden()
 
                             // Hidden button for +3 minutes
                             Button("") {
-                                onAddTime(180)
+                                addTimeWithAnimation(180)
                             }
                             .keyboardShortcut(KeyboardShortcuts.addThreeMinutes)
                             .hidden()
@@ -89,6 +95,17 @@ struct CountdownView: View {
                 .hidden()
             }
         )
+    }
+
+    private func addTimeWithAnimation(_ seconds: Int) {
+        onAddTime(seconds)
+
+        // Brief scale pulse
+        timeAddedTrigger = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            timeAddedTrigger = false
+        }
     }
 }
 
