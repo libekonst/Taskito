@@ -19,10 +19,9 @@ struct CountdownView: View {
     @State private var timeAddedTrigger = false
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack {
-                Spacer()
-                VStack(spacing: 0) {
+        VStack {
+            Spacer()
+            VStack(spacing: 0) {
                     Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
                         .font(.system(size: 146, weight: .thin, design: .rounded))
                         .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
@@ -68,14 +67,18 @@ struct CountdownView: View {
                     )
                 }
 
-                PlayPauseButton(
-                    isTimerRunning: isTimerRunning,
-                    action: onPlayPause
-                ).padding(.bottom, 22)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
+            PlayPauseButton(
+                isTimerRunning: isTimerRunning,
+                action: onPlayPause
+            ).padding(.bottom, 22)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay(alignment: .topLeading) {
             ResetButton(action: onReset)
+                .padding(12)
+        }
+        .overlay(alignment: .topTrailing) {
+            RestartButton(action: onRestart)
                 .padding(12)
         }
         .background(
@@ -232,6 +235,35 @@ private struct ResetButton: View {
             .keyboardShortcut(KeyboardShortcuts.cancelTimer)
             .hidden()
         )
+    }
+}
+
+private struct RestartButton: View {
+    let action: () -> Void
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 4) {
+                Image(systemName: "arrow.clockwise")
+                    .font(.system(size: 12, weight: .medium))
+                Text("Restart")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
+            )
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
+        }
+        .help("Restart Timer (⌘R)")
     }
 }
 
