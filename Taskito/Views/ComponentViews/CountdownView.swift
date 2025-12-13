@@ -82,21 +82,12 @@ struct CountdownView: View {
                 .padding(12)
         }
         .background(
-            Group {
-                // Hidden button for quick restart timer
-                Button("") {
-                    onRestart()
-                }
-                .keyboardShortcut(KeyboardShortcuts.restartTimer)
-                .hidden()
-
-                // Hidden button for play/pause
-                Button("") {
-                    onPlayPause()
-                }
-                .keyboardShortcut(KeyboardShortcuts.playPause)
-                .hidden()
+            // Hidden button for play/pause
+            Button("") {
+                onPlayPause()
             }
+            .keyboardShortcut(KeyboardShortcuts.playPause)
+            .hidden()
         )
     }
 
@@ -244,18 +235,13 @@ private struct RestartButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 4) {
-                Image(systemName: "arrow.clockwise")
-                    .font(.system(size: 12, weight: .medium))
-                Text("Restart")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
-            .background(
-                Capsule(style: .continuous)
-                    .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
-            )
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 14, weight: .medium))
+                .frame(width: 32, height: 32)
+                .background(
+                    Circle()
+                        .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
+                )
         }
         .buttonStyle(.plain)
         .onHover { hovering in
@@ -264,6 +250,13 @@ private struct RestartButton: View {
             }
         }
         .help("Restart Timer (⌘R)")
+        .background(
+            Button("") {
+                action()
+            }
+            .keyboardShortcut(KeyboardShortcuts.restartTimer)
+            .hidden()
+        )
     }
 }
 
