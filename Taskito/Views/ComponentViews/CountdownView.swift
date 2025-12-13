@@ -81,14 +81,6 @@ struct CountdownView: View {
             RestartButton(action: onRestart)
                 .padding(12)
         }
-        .background(
-            // Hidden button for play/pause
-            Button("") {
-                onPlayPause()
-            }
-            .keyboardShortcut(KeyboardShortcuts.playPause)
-            .hidden()
-        )
     }
 
     private func addTimeWithAnimation(_ seconds: Int) {
@@ -154,6 +146,14 @@ private struct PlayPauseButton: View {
             }
         }
         .help(isTimerRunning ? "Pause (Space)" : "Play (Space)")
+        .background(
+            // Hidden button for play/pause
+            Button("") {
+                action()
+            }
+            .keyboardShortcut(KeyboardShortcuts.playPause)
+            .hidden()
+        )
     }
 }
 
