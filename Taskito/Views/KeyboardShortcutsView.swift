@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import AppKit
 
 struct KeyboardShortcutsView: View {
     @Environment(\.dismiss) private var dismiss
@@ -51,6 +52,9 @@ struct KeyboardShortcutsView: View {
             }
         }
         .frame(width: 500, height: 400)
+        .background(WindowAccessor(onWindowAvailable: { window in
+            window.level = .floating
+        }))
     }
 }
 
@@ -109,6 +113,27 @@ private struct KeyIcon: View {
                 RoundedRectangle(cornerRadius: 5, style: .continuous)
                     .strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5)
             )
+    }
+}
+
+// Helper to access and configure the NSWindow
+private struct WindowAccessor: NSViewRepresentable {
+    let onWindowAvailable: (NSWindow) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            if let window = view.window {
+                self.onWindowAvailable(window)
+            }
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        if let window = nsView.window {
+            self.onWindowAvailable(window)
+        }
     }
 }
 

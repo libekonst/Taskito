@@ -34,5 +34,11 @@ struct TaskitoApp: App {
             )
         }
         .menuBarExtraStyle(.window)
+
+        WindowGroup(id: "keyboard-shortcuts") {
+            KeyboardShortcutsView()
+        }
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
     }
 }

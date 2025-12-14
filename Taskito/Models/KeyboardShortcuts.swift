@@ -44,6 +44,12 @@ enum KeyboardShortcuts {
             description: "Quit application",
             scope: .global
         ),
+        KeyboardShortcut(
+            key: ",",
+            modifiers: "⌘",
+            description: "Open settings",
+            scope: .global
+        ),
 
         // MARK: - Form View Shortcuts
 
@@ -155,6 +161,9 @@ enum KeyboardShortcuts {
         default: return nil
         }
     }
+    
+    /// Settings shortcut (⌘,)
+    static let openSettings = (key: KeyEquivalent(","), modifiers: EventModifiers.command)
 }
 
 // MARK: - View Extension for Cleaner Usage

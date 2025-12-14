@@ -16,6 +16,8 @@ struct FormView: View {
 
     @FocusState private var focus: FocusedField?
     @StateObject private var presetsStore = PresetTimersStore()
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
@@ -79,7 +81,7 @@ struct FormView: View {
 
             Spacer()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            OptionsMenuView()
+            OptionsMenuView(onOpenSettings: openSettings)
         }
         .onAppear {
             // Delay to ensure TextField is ready before setting focus
@@ -87,6 +89,22 @@ struct FormView: View {
                 focus = .minutes
             }
         }
+        .background(
+            // Hidden button for keyboard shortcuts
+            Button("") {
+                openSettings()
+            }
+            .keyboardShortcut(KeyboardShortcuts.openSettings)
+            .hidden()
+        )
+    }
+
+    private func openSettings() {
+        // Hide the MenuBarExtra window
+        dismiss()
+        
+        // Open the keyboard shortcuts window at center
+        openWindow(id: "keyboard-shortcuts")
     }
 }
 
@@ -229,14 +247,18 @@ private struct StartButton: View {
 }
 
 private struct OptionsMenuView: View {
+    let onOpenSettings: () -> Void
+
     var body: some View {
         Section {
             Divider().padding(.horizontal)
             VStack(spacing: 0) {
-//                SystemButton(
-//                    label: "Settings...",
-//                    onClick: {}
-//                )
+                SystemButton(
+                    imageName: "gearshape.fill",
+                    label: "Preferences...",
+                    onClick: onOpenSettings
+                ).help("View preferences (⌘,)")
+
                 SystemButton(
                     imageName: "power",
                     label: "Quit",
