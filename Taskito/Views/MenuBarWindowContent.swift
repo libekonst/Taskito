@@ -15,7 +15,17 @@ struct MenuBarWindowContent: View {
     @AppStorage("latestMinutesSelection") private var minutes = 25
     @AppStorage("latestSecondsSelection") private var seconds = 00
 
-    var systemActionsStore: SystemActionsStore
+    // Variables are available here. Don't move further up.
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismiss
+
+    private var systemActionsStore: SystemActionsStore {
+        let controller = AppKitSystemController(
+            dismissAction: { dismiss() },
+            openWindowById: { id in openWindow(id: id) }
+        )
+        return SystemActionsStore(systemController: controller)
+    }
 
     var body: some View {
         VStack {
@@ -61,7 +71,6 @@ struct MenuBarWindowContent: View {
 #Preview {
     MenuBarWindowContent(
         countdownStore: CountdownStore(),
-        timerPolicy: StandardTimerPolicy(),
-        systemActionsStore: SystemActionsStore(systemController: MockSystemController())
+        timerPolicy: StandardTimerPolicy()
     )
 }

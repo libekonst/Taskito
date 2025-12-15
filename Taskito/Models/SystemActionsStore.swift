@@ -20,8 +20,8 @@ final class SystemActionsStore {
     }
 
     func closeWindow() {
-        systemController.dismiss() // Dismiss MenuBarExtra window and blur MenuBarLabel
-        systemController.hideApp() // Restore focus to the previous app
+        systemController.dismiss() // Dismiss MenuBarExtra window, blur label
+        systemController.hideApp() // Restore focus to previous app
     }
 
     func quitApp() {

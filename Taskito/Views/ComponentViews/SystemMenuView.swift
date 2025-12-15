@@ -40,7 +40,7 @@ struct SystemMenuView: View {
 
 struct SystemGlobalKeyboardShortcuts: View {
     let store: SystemActionsStore
-    
+
     var body: some View {
         ZStack {
             // Hidden button to close window
@@ -56,7 +56,7 @@ struct SystemGlobalKeyboardShortcuts: View {
             }
             .keyboardShortcut(KeyboardShortcuts.openSettings)
             .hidden()
-            
+
             // CMD+Q is natively implemented by MacOS
         }
     }
@@ -96,8 +96,6 @@ private struct SystemButton: View {
         }
     }
 }
-
-
 
 #Preview {
     SystemMenuView(store: SystemActionsStore(

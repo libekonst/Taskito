@@ -34,7 +34,13 @@ final class AppKitSystemController: SystemController {
     }
 
     func openWindow(id: String) {
-        openWindowById(id)
+        // Check if window already exists and focus it instead of opening duplicate
+        if let existingWindow = NSApp.windows.first(where: { $0.identifier?.rawValue == id }) {
+            existingWindow.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+        } else {
+            openWindowById(id)
+        }
     }
 
     func hideApp() {

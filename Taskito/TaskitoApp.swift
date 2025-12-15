@@ -14,23 +14,11 @@ struct TaskitoApp: App {
     private var audioIndication = AudioIndication()
     private let settings = SettingsStore.shared
 
-    @Environment(\.openWindow) var openWindow
-    @Environment(\.dismiss) var dismiss
-
-    private var systemActionsStore: SystemActionsStore {
-        let controller = AppKitSystemController(
-            dismissAction: { dismiss() },
-            openWindowById: { id in openWindow(id: id) }
-        )
-        return SystemActionsStore(systemController: controller)
-    }
-
     var body: some Scene {
         MenuBarExtra {
             MenuBarWindowContent(
                 countdownStore: countdownStore,
-                timerPolicy: timerPolicy,
-                systemActionsStore: systemActionsStore
+                timerPolicy: timerPolicy
             )
             .onAppear {
                 countdownStore.onTimerCompleted {
@@ -52,5 +40,6 @@ struct TaskitoApp: App {
         }
         .windowResizability(.contentSize)
         .defaultPosition(.center)
+        .handlesExternalEvents(matching: Set([WindowIdentifier.settingsMenu]))
     }
 }

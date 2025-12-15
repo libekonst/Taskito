@@ -54,7 +54,10 @@ struct KeyboardShortcutsView: View {
         .frame(width: 500, height: 400)
         .background(WindowAccessor(onWindowAvailable: { window in
             window.level = .floating
+            // Set the window identifier to match the WindowGroup id
+            window.identifier = NSUserInterfaceItemIdentifier(WindowIdentifier.settingsMenu)
         }))
+        .handlesExternalEvents(preferring: Set([WindowIdentifier.settingsMenu]), allowing: Set([WindowIdentifier.settingsMenu]))
     }
 }
 
