@@ -5,8 +5,8 @@
 //  Created by Konstantinos Liberopoulos on 12/3/24.
 //
 
-import SwiftUI
 import AppKit
+import SwiftUI
 
 struct MenuBarWindowContent: View {
     @ObservedObject var countdownStore: CountdownStore
@@ -14,6 +14,8 @@ struct MenuBarWindowContent: View {
 
     @AppStorage("latestMinutesSelection") private var minutes = 25
     @AppStorage("latestSecondsSelection") private var seconds = 00
+
+    var systemActionsStore: SystemActionsStore
 
     var body: some View {
         VStack {
@@ -35,38 +37,31 @@ struct MenuBarWindowContent: View {
             case .completed,
                  .cancelled,
                  .idle:
-                FormView(
-                    onSubmit: {
-                        countdownStore.startNewTimer(minutes: minutes, seconds: seconds)
-                    },
-                    minutes: $minutes,
-                    seconds: $seconds,
-                    timerPolicy: timerPolicy
-                )
+                VStack {
+                    FormView(
+                        onSubmit: {
+                            countdownStore.startNewTimer(minutes: minutes, seconds: seconds)
+                        },
+                        minutes: $minutes,
+                        seconds: $seconds,
+                        timerPolicy: timerPolicy
+                    )
+                    SystemMenuView(store: systemActionsStore)
+                }
                 .transition(.opacity.animation(.snappy))
             }
         }
         .frame(width: 540, height: 360, alignment: .center)
         .background(
-            // Hidden button to close window
-            Button("") {
-                closeWindowAndRestoreFocus()
-            }
-            .keyboardShortcut(KeyboardShortcuts.closeWindow)
-            .hidden()
+            SystemGlobalKeyboardShortcuts(store: systemActionsStore)
         )
-    }
-
-    private func closeWindowAndRestoreFocus() {
-        // Hide the app completely, which properly dismisses the MenuBarExtra
-        // and restores focus to the previous application
-        NSApp.hide(nil)
     }
 }
 
 #Preview {
     MenuBarWindowContent(
         countdownStore: CountdownStore(),
-        timerPolicy: StandardTimerPolicy()
+        timerPolicy: StandardTimerPolicy(),
+        systemActionsStore: SystemActionsStore(systemController: MockSystemController())
     )
 }

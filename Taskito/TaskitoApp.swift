@@ -14,11 +14,23 @@ struct TaskitoApp: App {
     private var audioIndication = AudioIndication()
     private let settings = SettingsStore.shared
 
+    @Environment(\.openWindow) var openWindow
+    @Environment(\.dismiss) var dismiss
+
+    private var systemActionsStore: SystemActionsStore {
+        let controller = AppKitSystemController(
+            dismissAction: { dismiss() },
+            openWindowById: { id in openWindow(id: id) }
+        )
+        return SystemActionsStore(systemController: controller)
+    }
+
     var body: some Scene {
         MenuBarExtra {
             MenuBarWindowContent(
                 countdownStore: countdownStore,
-                timerPolicy: timerPolicy
+                timerPolicy: timerPolicy,
+                systemActionsStore: systemActionsStore
             )
             .onAppear {
                 countdownStore.onTimerCompleted {
@@ -35,7 +47,7 @@ struct TaskitoApp: App {
         }
         .menuBarExtraStyle(.window)
 
-        WindowGroup(id: "keyboard-shortcuts") {
+        WindowGroup(id: WindowIdentifier.settingsMenu) {
             KeyboardShortcutsView()
         }
         .windowResizability(.contentSize)

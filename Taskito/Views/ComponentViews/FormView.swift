@@ -16,8 +16,6 @@ struct FormView: View {
 
     @FocusState private var focus: FocusedField?
     @StateObject private var presetsStore = PresetTimersStore()
-    @Environment(\.openWindow) private var openWindow
-    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
@@ -81,7 +79,6 @@ struct FormView: View {
 
             Spacer()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            OptionsMenuView(onOpenSettings: openSettings)
         }
         .onAppear {
             // Delay to ensure TextField is ready before setting focus
@@ -89,22 +86,6 @@ struct FormView: View {
                 focus = .minutes
             }
         }
-        .background(
-            // Hidden button for keyboard shortcuts
-            Button("") {
-                openSettings()
-            }
-            .keyboardShortcut(KeyboardShortcuts.openSettings)
-            .hidden()
-        )
-    }
-
-    private func openSettings() {
-        // Hide the MenuBarExtra window
-        dismiss()
-        
-        // Open the keyboard shortcuts window at center
-        openWindow(id: "keyboard-shortcuts")
     }
 }
 
@@ -243,66 +224,6 @@ private struct StartButton: View {
             }
         }
         .help("Start Timer (Enter)")
-    }
-}
-
-private struct OptionsMenuView: View {
-    let onOpenSettings: () -> Void
-
-    var body: some View {
-        Section {
-            Divider().padding(.horizontal)
-            VStack(spacing: 0) {
-                SystemButton(
-                    imageName: "gearshape.fill",
-                    label: "Preferences...",
-                    onClick: onOpenSettings
-                ).help("View preferences (⌘,)")
-
-                SystemButton(
-                    imageName: "power",
-                    label: "Quit",
-                    onClick: { NSApplication.shared.terminate(nil) }
-                ).help("Quit Taskito (⌘Q)")
-            }
-            .padding(.bottom, 8)
-            .padding(.horizontal, 7)
-        }
-    }
-}
-
-private struct SystemButton: View {
-    @State private var isHovered = false
-
-    var imageName: String?
-    var label: String
-    var onClick: () -> Void
-
-    var body: some View {
-        Button(action: onClick) {
-            HStack(spacing: 6) {
-                if imageName != nil {
-                    Image(systemName: imageName ?? "")
-                        .font(.system(size: 12, weight: .medium))
-                }
-
-                Text(label)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                Spacer()
-            }
-            .padding(.vertical, 7)
-            .padding(.horizontal, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                    .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
-            )
-        }
-        .buttonStyle(.plain)
-        .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovered = hovering
-            }
-        }
     }
 }
 
