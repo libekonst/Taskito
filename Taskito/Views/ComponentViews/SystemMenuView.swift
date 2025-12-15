@@ -23,14 +23,16 @@ struct SystemMenuView: View {
                 SystemButton(
                     imageName: "gearshape",
                     label: "Preferences...",
+                    shortcut: "⌘,",
                     onClick: store.openSettings
-                ).help("View preferences (⌘,)")
+                )
 
                 SystemButton(
                     imageName: "power",
                     label: "Quit",
+                    shortcut: "⌘Q",
                     onClick: store.quitApp
-                ).help("Quit Taskito (⌘Q)")
+                )
             }
             .padding(.bottom, 8)
             .padding(.horizontal, 7)
@@ -67,6 +69,7 @@ private struct SystemButton: View {
 
     var imageName: String?
     var label: String
+    var shortcut: String?
     var onClick: () -> Void
 
     var body: some View {
@@ -79,10 +82,19 @@ private struct SystemButton: View {
 
                 Text(label)
                     .font(.system(size: 12, weight: .medium, design: .rounded))
+
                 Spacer()
+
+                if let shortcut = shortcut {
+                    Text(shortcut)
+                        .font(.system(size: 12, weight: .light, design: .monospaced))
+                        .tracking(3)
+                        .foregroundStyle(.primary.opacity(0.5))
+                }
             }
             .padding(.vertical, 7)
-            .padding(.horizontal, 12)
+            .padding(.leading, 12)
+            .padding(.trailing, 4)
             .background(
                 RoundedRectangle(cornerRadius: 6, style: .continuous)
                     .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
