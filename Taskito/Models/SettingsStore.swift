@@ -27,4 +27,7 @@ class SettingsStore: ObservableObject {
     private init() {
         // Private initializer for singleton pattern
     }
+    
+    // TODO add initialize on startup
+    // TODO add bind to spotlight actions 
 }
