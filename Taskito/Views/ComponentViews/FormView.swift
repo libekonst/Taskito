@@ -28,11 +28,11 @@ struct FormView: View {
                     onSubmit()
                 }
             )
-            .padding(.top, 20)
-            .padding(.bottom, 24)
+            .padding(.top, 14)
 
+            Spacer()
             Form {
-                VStack(spacing: 4) {
+                VStack {
                     // Input
                     HStack(alignment: .top, content: {
                         TextField(
@@ -44,8 +44,8 @@ struct FormView: View {
                         .focused($focus, equals: .minutes)
 
                         Text(":")
-                            .font(.system(size: 102, weight: .thin, design: .rounded))
-                            .frame(height: 102)
+                            .font(.system(size: 120, weight: .thin, design: .rounded))
+                            .frame(height: 120)
                             .padding(.horizontal, -8)
 
                         TextField(
@@ -65,7 +65,7 @@ struct FormView: View {
 
                         Spacer()
                     }
-                    .padding(.top)
+                    .padding(.top, 4)
                 }
             }
             .onChange(of: minutes) {
@@ -78,7 +78,6 @@ struct FormView: View {
             }
 
             Spacer()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onAppear {
             // Delay to ensure TextField is ready before setting focus
@@ -100,7 +99,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
         configuration
             .labelsHidden()
             .textFieldStyle(.plain)
-            .font(.system(size: 102, weight: .thin, design: .rounded))
+            .font(.system(size: 120, weight: .thin, design: .rounded))
             .multilineTextAlignment(justify)
     }
 }
@@ -185,10 +184,10 @@ private struct StartButton: View {
     var body: some View {
         Button(action: action) {
             Text("START")
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
                 .tracking(0.6)
-                .padding(.vertical, 11)
-                .padding(.horizontal, 48)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 56)
                 .background(
                     Capsule(style: .continuous)
                         .fill(

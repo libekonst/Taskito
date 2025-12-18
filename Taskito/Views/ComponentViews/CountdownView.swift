@@ -34,7 +34,7 @@ struct CountdownView: View {
                     }())
                     .animation(.spring(response: 0.25, dampingFraction: 0.7), value: timeAddedTrigger)
                     .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
-                    .padding(.bottom, -8)
+                    .padding(.bottom, -12)
 
                 // Time adjustment buttons - visually grouped with timer
                 HStack(spacing: 12) {
@@ -52,13 +52,12 @@ struct CountdownView: View {
                         action: { addTimeWithAnimation(180) }
                     )
                 }
-                .padding(.bottom, 28)
-            }
-
+            }.padding(.top, 18)
+            Spacer()
             PlayPauseButton(
                 isTimerRunning: isTimerRunning,
                 action: onPlayPause
-            ).padding(.bottom, 22)
+            ).padding(.bottom, 18)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay(alignment: .topLeading) {
@@ -93,18 +92,17 @@ private struct PlayPauseButton: View {
         Button(action: action) {
             ZStack {
                 Image(systemName: "play.fill")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 22, weight: .medium))
                     .opacity(isTimerRunning ? 0 : 1)
                     .scaleEffect(isTimerRunning ? 0.5 : 1)
 
                 Image(systemName: "stop.fill")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 26, weight: .medium))
                     .opacity(isTimerRunning ? 1 : 0)
                     .scaleEffect(isTimerRunning ? 1 : 0.5)
             }
             .animation(.spring(response: 0.4, dampingFraction: 0.7), value: isTimerRunning)
-            .frame(width: 24, height: 24)
-            .padding(.leading, isTimerRunning ? 0 : 2)
+            .frame(width: 28, height: 28)
             .padding(18)
             .background(
                 ZStack {
@@ -155,7 +153,7 @@ private struct TimeAdjustButton: View {
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)

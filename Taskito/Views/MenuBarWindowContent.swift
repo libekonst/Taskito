@@ -61,7 +61,7 @@ struct MenuBarWindowContent: View {
                 .transition(.opacity.animation(.snappy))
             }
         }
-        .frame(width: 540, height: 360, alignment: .center)
+        .frame(width: 576, height: 384, alignment: .center)
         .background(
             SystemGlobalKeyboardShortcuts(store: systemActionsStore)
         )
