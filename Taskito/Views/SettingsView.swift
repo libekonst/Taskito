@@ -1,0 +1,76 @@
+//
+//  SettingsView.swift
+//  Taskito
+//
+//  Created by Konstantinos Liberopoulos on 23/12/25.
+//
+
+import SwiftUI
+
+struct SettingsView: View {
+    @ObservedObject private var settings = SettingsStore.shared
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            // Header
+            Text("Settings")
+                .font(.system(size: 24, weight: .bold, design: .rounded))
+                .padding(.bottom, 24)
+
+            // Settings sections
+            VStack(alignment: .leading, spacing: 20) {
+                // Sound settings section
+                SettingsSectionView(title: "Sound") {
+                    Toggle(isOn: $settings.soundEnabled, ) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Play sound when timer completes")
+                                .font(.system(size: 13, weight: .medium, design: .rounded))
+                            Text("Plays a notification sound when the countdown reaches zero")
+                                .font(.system(size: 11, weight: .regular, design: .rounded))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .toggleStyle(.switch)
+                }
+            }
+
+            Spacer()
+        }
+        .padding(32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+}
+
+private struct SettingsSectionView<Content: View>: View {
+    let title: String
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .foregroundStyle(.secondary)
+                .textCase(.uppercase)
+                .tracking(0.5)
+
+            VStack(alignment: .leading, spacing: 12) {
+                content
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.primary.opacity(0.03))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.5)
+            )
+        }
+    }
+}
+
+#Preview {
+    SettingsView()
+        .frame(width: 600, height: 400)
+}

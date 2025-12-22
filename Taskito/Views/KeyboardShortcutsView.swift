@@ -5,32 +5,17 @@
 //  Created by Konstantinos Liberopoulos on 13/12/25.
 //
 
-
 import SwiftUI
-import AppKit
 
 struct KeyboardShortcutsView: View {
-    @Environment(\.dismiss) private var dismiss
-
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             // Header
-            HStack {
-                Text("Keyboard Shortcuts")
-                    .font(.title2.bold())
-                Spacer()
-                Button(action: { dismiss() }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.title2)
-                        .foregroundStyle(.secondary)
-                }
-                .buttonStyle(.plain)
-            }
-            .padding()
+            Text("Keyboard Shortcuts")
+                .font(.system(size: 24, weight: .bold, design: .rounded))
+                .padding(.bottom, 24)
 
-            Divider()
-
-            // Shortcuts list
+            // Shortcuts sections
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     // Global shortcuts
@@ -48,16 +33,10 @@ struct KeyboardShortcutsView: View {
                         ShortcutSection(title: "During Timer", shortcuts: KeyboardShortcuts.countdownView)
                     }
                 }
-                .padding()
             }
         }
-        .frame(width: 500, height: 400)
-        .background(WindowAccessor(onWindowAvailable: { window in
-            window.level = .floating
-            // Set the window identifier to match the WindowGroup id
-            window.identifier = NSUserInterfaceItemIdentifier(WindowIdentifier.settingsMenu)
-        }))
-        .handlesExternalEvents(preferring: Set([WindowIdentifier.settingsMenu]), allowing: Set([WindowIdentifier.settingsMenu]))
+        .padding(32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 
@@ -66,13 +45,15 @@ private struct ShortcutSection: View {
     let shortcuts: [KeyboardShortcut]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.headline)
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
                 .foregroundStyle(.secondary)
+                .textCase(.uppercase)
+                .tracking(0.5)
 
-            VStack(spacing: 6) {
-                ForEach(Array(shortcuts.enumerated()), id: \.offset) { _, shortcut in
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(Array(shortcuts.enumerated()), id: \.offset) { index, shortcut in
                     HStack(spacing: 12) {
                         // Shortcut keys as individual components
                         HStack(spacing: 4) {
@@ -84,17 +65,32 @@ private struct ShortcutSection: View {
                             // Display main key
                             KeyIcon(label: shortcut.key)
                         }
-                        .frame(minWidth: 80, alignment: .leading)
+                        .frame(minWidth: 90, alignment: .leading)
 
                         // Description
                         Text(shortcut.description)
-                            .font(.system(size: 13))
-                            .foregroundStyle(.secondary)
+                            .font(.system(size: 13, weight: .regular, design: .rounded))
+                            .foregroundStyle(.primary)
 
                         Spacer()
                     }
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 16)
+
+                    if index < shortcuts.count - 1 {
+                        Divider()
+                            .padding(.leading, 16)
+                    }
                 }
             }
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.primary.opacity(0.03))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.5)
+            )
         }
     }
 }
@@ -119,27 +115,7 @@ private struct KeyIcon: View {
     }
 }
 
-// Helper to access and configure the NSWindow
-private struct WindowAccessor: NSViewRepresentable {
-    let onWindowAvailable: (NSWindow) -> Void
-
-    func makeNSView(context: Context) -> NSView {
-        let view = NSView()
-        DispatchQueue.main.async {
-            if let window = view.window {
-                self.onWindowAvailable(window)
-            }
-        }
-        return view
-    }
-
-    func updateNSView(_ nsView: NSView, context: Context) {
-        if let window = nsView.window {
-            self.onWindowAvailable(window)
-        }
-    }
-}
-
 #Preview {
     KeyboardShortcutsView()
+        .frame(width: 600, height: 500)
 }
