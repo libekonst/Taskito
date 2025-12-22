@@ -30,6 +30,7 @@
 		84D389B42EEDF35C002CEF2B /* KeyboardShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */; };
 		84D389BE2EF08A01002CEF2B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BD2EF08A01002CEF2B /* SettingsView.swift */; };
 		84D389C02EF08A12002CEF2B /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */; };
+		84D389C22EF0B501002CEF2B /* PresetTimersSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */; };
 		84D389B62EEF7981002CEF2B /* SystemMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B52EEF7981002CEF2B /* SystemMenuView.swift */; };
 		84D389B82EEF7B3B002CEF2B /* WindowIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */; };
 		84D389BA2EEF8144002CEF2B /* SystemActionsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B92EEF8144002CEF2B /* SystemActionsStore.swift */; };
@@ -84,6 +85,7 @@
 		84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutsView.swift; sourceTree = "<group>"; };
 		84D389BD2EF08A01002CEF2B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetTimersSettingsView.swift; sourceTree = "<group>"; };
 		84D389B52EEF7981002CEF2B /* SystemMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMenuView.swift; sourceTree = "<group>"; };
 		84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowIdentifier.swift; sourceTree = "<group>"; };
 		84D389B92EEF8144002CEF2B /* SystemActionsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemActionsStore.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */,
 				84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */,
+				84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */,
 				84D389BD2EF08A01002CEF2B /* SettingsView.swift */,
 				84C3DE122C3F6328005071AF /* ComponentViews */,
 				84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */,
@@ -393,6 +396,7 @@
 				84D389B42EEDF35C002CEF2B /* KeyboardShortcutsView.swift in Sources */,
 				84D389BE2EF08A01002CEF2B /* SettingsView.swift in Sources */,
 				84D389C02EF08A12002CEF2B /* PreferencesWindow.swift in Sources */,
+				84D389C22EF0B501002CEF2B /* PresetTimersSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

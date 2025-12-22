@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject private var settings = SettingsStore.shared
+    @StateObject private var presetStore = PresetTimersStore()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -46,6 +47,11 @@ struct SettingsView: View {
                             }
                         }
                         .toggleStyle(.switch)
+                    }
+
+                    // Preset timers section
+                    SettingsSectionView(title: "Preset Timers") {
+                        PresetTimersSettingsView(presetStore: presetStore)
                     }
                 }
             }
