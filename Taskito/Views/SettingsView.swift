@@ -54,6 +54,27 @@ struct SettingsView: View {
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .alert(
+            "Startup Settings Error",
+            isPresented: .init(
+                get: { settings.startupError != nil },
+                set: { if !$0 { settings.startupError = nil } }
+            ),
+            presenting: settings.startupError
+        ) { _ in
+            Button("OK") {
+                settings.startupError = nil
+            }
+        } message: { error in
+            VStack(alignment: .leading, spacing: 8) {
+                if let description = error.errorDescription {
+                    Text(description)
+                }
+                if let suggestion = error.recoverySuggestion {
+                    Text(suggestion)
+                }
+            }
+        }
     }
 }
 

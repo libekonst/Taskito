@@ -23,9 +23,12 @@ class SettingsStore: ObservableObject {
         didSet {
             // Only update system if we're not syncing from system state
             guard !isSyncingFromSystem else { return }
-            LoginItemManager.shared.setStartOnLogin(enabled: startOnStartup)
+            handleStartupToggle(enabled: startOnStartup)
         }
     }
+
+    /// Published error message for displaying alerts
+    @Published var startupError: LoginItemManager.LoginItemError?
 
     // MARK: - Private Properties
 
@@ -78,6 +81,26 @@ class SettingsStore: ObservableObject {
     /// Called when app becomes active - check if login item status changed externally
     @objc private func appDidBecomeActive() {
         syncWithSystemState()
+    }
+
+    /// Handle startup toggle changes with proper error handling
+    private func handleStartupToggle(enabled: Bool) {
+        Task { @MainActor in
+            let result = await LoginItemManager.shared.setStartOnLogin(enabled: enabled)
+
+            switch result {
+            case .success:
+                // Success - clear any previous errors
+                startupError = nil
+            case .failure(let error):
+                // Failed - revert the toggle and show error
+                print("❌ Failed to set startup: \(error.localizedDescription)")
+                isSyncingFromSystem = true
+                startOnStartup = !enabled // Revert to previous state
+                isSyncingFromSystem = false
+                startupError = error // This will trigger the alert in the view
+            }
+        }
     }
 
     // TODO add initialize on startup
