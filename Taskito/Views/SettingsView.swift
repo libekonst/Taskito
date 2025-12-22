@@ -18,19 +18,35 @@ struct SettingsView: View {
                 .padding(.bottom, 24)
 
             // Settings sections
-            VStack(alignment: .leading, spacing: 20) {
-                // Sound settings section
-                SettingsSectionView(title: "Sound") {
-                    Toggle(isOn: $settings.soundEnabled, ) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Play sound when timer completes")
-                                .font(.system(size: 13, weight: .medium, design: .rounded))
-                            Text("Plays a notification sound when the countdown reaches zero")
-                                .font(.system(size: 11, weight: .regular, design: .rounded))
-                                .foregroundStyle(.secondary)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    // General settings section
+                    SettingsSectionView(title: "General") {
+                        Toggle(isOn: $settings.startOnStartup) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Start on system startup")
+                                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                                Text("Automatically launch Taskito when you log in")
+                                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                                    .foregroundStyle(.secondary)
+                            }
                         }
+                        .toggleStyle(.switch)
                     }
-                    .toggleStyle(.switch)
+
+                    // Sound settings section
+                    SettingsSectionView(title: "Sound") {
+                        Toggle(isOn: $settings.soundEnabled) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Play sound when timer completes")
+                                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                                Text("Plays a notification sound when the countdown reaches zero")
+                                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .toggleStyle(.switch)
+                    }
                 }
             }
 

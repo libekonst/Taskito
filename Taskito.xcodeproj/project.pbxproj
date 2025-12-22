@@ -16,6 +16,7 @@
 		843ECE8A2BAE02D300BA5908 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ECE892BAE02D300BA5908 /* CountdownView.swift */; };
 		844F92132C5D9C8600A35334 /* timer-finished.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 844F92122C5D9C8600A35334 /* timer-finished.mp3 */; };
 		844F92152C5D9D4C00A35334 /* AudioIndication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F92142C5D9D4C00A35334 /* AudioIndication.swift */; };
+		844F92172EF09E01002CEF2B /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F92162EF09E01002CEF2B /* LoginItemManager.swift */; };
 		84572B802C3B65A800A2D509 /* CountdownStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84572B7F2C3B65A800A2D509 /* CountdownStore.swift */; };
 		84572B842C3F02E400A2D509 /* EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84572B832C3F02E400A2D509 /* EventPublisher.swift */; };
 		8458A5BD2BEF98ED002C5BEE /* StandardTimerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */; };
@@ -65,6 +66,7 @@
 		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/Views/ComponentViews/CountdownView.swift; sourceTree = SOURCE_ROOT; };
 		844F92122C5D9C8600A35334 /* timer-finished.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "timer-finished.mp3"; sourceTree = "<group>"; };
 		844F92142C5D9D4C00A35334 /* AudioIndication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIndication.swift; sourceTree = "<group>"; };
+		844F92162EF09E01002CEF2B /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
 		84572B7F2C3B65A800A2D509 /* CountdownStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownStore.swift; sourceTree = "<group>"; };
 		84572B832C3F02E400A2D509 /* EventPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPublisher.swift; sourceTree = "<group>"; };
 		8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTimerPolicy.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			children = (
 				84572B832C3F02E400A2D509 /* EventPublisher.swift */,
 				844F92142C5D9D4C00A35334 /* AudioIndication.swift */,
+				844F92162EF09E01002CEF2B /* LoginItemManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				8414F3842EC57E5C00CD4549 /* PresetTimerStore.swift in Sources */,
 				843ECE822BADBC9200BA5908 /* TimerPolicy.swift in Sources */,
 				844F92152C5D9D4C00A35334 /* AudioIndication.swift in Sources */,
+				844F92172EF09E01002CEF2B /* LoginItemManager.swift in Sources */,
 				84E67CBE2EEA7C2400772892 /* KeyboardShortcuts.swift in Sources */,
 				84CAB7A92BA0F8DC002350A9 /* TaskitoApp.swift in Sources */,
 				84572B802C3B65A800A2D509 /* CountdownStore.swift in Sources */,
