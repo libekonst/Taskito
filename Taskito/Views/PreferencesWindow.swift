@@ -20,32 +20,34 @@ struct PreferencesWindow: View {
                     tab: .settings,
                     selectedTab: $selectedTab
                 )
-
+                
                 PreferencesTabButton(
                     tab: .keyboardShortcuts,
                     selectedTab: $selectedTab
                 )
-
+                
                 Spacer()
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)
             .padding(.bottom, 8)
-
+            
             Divider()
-
+            
             // Content area
-            Group {
-                switch selectedTab {
-                case .settings:
-                    SettingsView(presetStore: presetStore)
-                        .transition(.opacity)
-                case .keyboardShortcuts:
-                    KeyboardShortcutsView()
-                        .transition(.opacity)
+            ScrollView{
+                Group {
+                    switch selectedTab {
+                    case .settings:
+                        SettingsView(presetStore: presetStore)
+                            .transition(.opacity)
+                    case .keyboardShortcuts:
+                        KeyboardShortcutsView()
+                            .transition(.opacity)
+                    }
                 }
+                .animation(.easeInOut(duration: 0.2), value: selectedTab)
             }
-            .animation(.easeInOut(duration: 0.2), value: selectedTab)
         }
         .frame(width: 600, height: 500)
         .background(WindowAccessor(onWindowAvailable: { window in

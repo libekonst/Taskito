@@ -16,22 +16,20 @@ struct KeyboardShortcutsView: View {
                 .padding(.bottom, 24)
 
             // Shortcuts sections
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    // Global shortcuts
-                    if !KeyboardShortcuts.global.isEmpty {
-                        ShortcutSection(title: "Global", shortcuts: KeyboardShortcuts.global)
-                    }
+            VStack(alignment: .leading, spacing: 20) {
+                // Global shortcuts
+                if !KeyboardShortcuts.global.isEmpty {
+                    ShortcutSection(title: "Global", shortcuts: KeyboardShortcuts.global)
+                }
 
-                    // Form view shortcuts
-                    if !KeyboardShortcuts.formView.isEmpty {
-                        ShortcutSection(title: "Timer Setup", shortcuts: KeyboardShortcuts.formView)
-                    }
+                // Form view shortcuts
+                if !KeyboardShortcuts.formView.isEmpty {
+                    ShortcutSection(title: "Timer Setup", shortcuts: KeyboardShortcuts.formView)
+                }
 
-                    // Countdown view shortcuts
-                    if !KeyboardShortcuts.countdownView.isEmpty {
-                        ShortcutSection(title: "During Timer", shortcuts: KeyboardShortcuts.countdownView)
-                    }
+                // Countdown view shortcuts
+                if !KeyboardShortcuts.countdownView.isEmpty {
+                    ShortcutSection(title: "During Timer", shortcuts: KeyboardShortcuts.countdownView)
                 }
             }
         }
