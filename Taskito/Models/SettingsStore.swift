@@ -35,17 +35,19 @@ class SettingsStore: ObservableObject {
     /// Flag to prevent recursive updates when syncing from system
     private var isSyncingFromSystem = false
 
+    /// Login item manager for handling startup settings
+    private let loginItemManager: LoginItemManager
+
     // MARK: - Future Settings (placeholders)
 
     // Custom keybindings will go here
     // Preset timer configurations will go here
 
-    // MARK: - Singleton
+    // MARK: - Initialization
 
-    static let shared = SettingsStore()
+    init(loginItemManager: LoginItemManager) {
+        self.loginItemManager = loginItemManager
 
-    private init() {
-        // Private initializer for singleton pattern
         // Initial sync with system state
         syncWithSystemState()
 
@@ -67,7 +69,7 @@ class SettingsStore: ObservableObject {
     /// Sync the stored preference with actual system login item status
     private func syncWithSystemState() {
         Task { @MainActor in
-            let systemIsEnabled = await LoginItemManager.shared.isEnabled()
+            let systemIsEnabled = await loginItemManager.isEnabled()
             if startOnStartup != systemIsEnabled {
                 // Set flag to prevent didSet from triggering system update
                 isSyncingFromSystem = true
@@ -86,7 +88,7 @@ class SettingsStore: ObservableObject {
     /// Handle startup toggle changes with proper error handling
     private func handleStartupToggle(enabled: Bool) {
         Task { @MainActor in
-            let result = await LoginItemManager.shared.setStartOnLogin(enabled: enabled)
+            let result = await loginItemManager.setStartOnLogin(enabled: enabled)
 
             switch result {
             case .success:

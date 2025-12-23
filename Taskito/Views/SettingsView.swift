@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject private var settings = SettingsStore.shared
     @ObservedObject var presetStore: PresetTimersStore
+    @ObservedObject var settingsStore: SettingsStore
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -23,7 +23,7 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // General settings section
                 SettingsSectionView(title: "General") {
-                    Toggle(isOn: $settings.startOnStartup) {
+                    Toggle(isOn: $settingsStore.startOnStartup) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Start on system startup")
                                 .font(.system(size: 13, weight: .medium, design: .rounded))
@@ -37,7 +37,7 @@ struct SettingsView: View {
 
                 // Sound settings section
                 SettingsSectionView(title: "Sound") {
-                    Toggle(isOn: $settings.soundEnabled) {
+                    Toggle(isOn: $settingsStore.soundEnabled) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Play sound when timer completes")
                                 .font(.system(size: 13, weight: .medium, design: .rounded))
@@ -62,13 +62,13 @@ struct SettingsView: View {
         .alert(
             "Startup Settings Error",
             isPresented: .init(
-                get: { settings.startupError != nil },
-                set: { if !$0 { settings.startupError = nil } }
+                get: { settingsStore.startupError != nil },
+                set: { if !$0 { settingsStore.startupError = nil } }
             ),
-            presenting: settings.startupError
+            presenting: settingsStore.startupError
         ) { _ in
             Button("OK") {
-                settings.startupError = nil
+                settingsStore.startupError = nil
             }
         } message: { error in
             VStack(alignment: .leading, spacing: 8) {
@@ -113,6 +113,9 @@ private struct SettingsSectionView<Content: View>: View {
 }
 
 #Preview {
-    SettingsView(presetStore: PresetTimersStore())
-        .frame(width: 600, height: 400)
+    SettingsView(
+        presetStore: PresetTimersStore(),
+        settingsStore: SettingsStore(loginItemManager: LoginItemManager())
+    )
+    .frame(width: 600, height: 400)
 }

@@ -10,6 +10,7 @@ import AppKit
 
 struct PreferencesWindow: View {
     @ObservedObject var presetStore: PresetTimersStore
+    @ObservedObject var settingsStore: SettingsStore
     @State private var selectedTab: PreferencesTab = .settings
 
     var body: some View {
@@ -39,8 +40,11 @@ struct PreferencesWindow: View {
                 Group {
                     switch selectedTab {
                     case .settings:
-                        SettingsView(presetStore: presetStore)
-                            .transition(.opacity)
+                        SettingsView(
+                            presetStore: presetStore,
+                            settingsStore: settingsStore
+                        )
+                        .transition(.opacity)
                     case .keyboardShortcuts:
                         KeyboardShortcutsView()
                             .transition(.opacity)
@@ -140,5 +144,8 @@ private struct WindowAccessor: NSViewRepresentable {
 }
 
 #Preview {
-    PreferencesWindow(presetStore: PresetTimersStore())
+    PreferencesWindow(
+        presetStore: PresetTimersStore(),
+        settingsStore: SettingsStore(loginItemManager: LoginItemManager())
+    )
 }

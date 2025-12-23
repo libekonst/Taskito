@@ -10,9 +10,7 @@ import ServiceManagement
 
 /// Manages the app's login item status using ServiceManagement framework
 final class LoginItemManager {
-    static let shared = LoginItemManager()
-
-    private init() {}
+    init() {}
 
     /// Check if the app is currently set to launch on login
     func isEnabled() async -> Bool {
