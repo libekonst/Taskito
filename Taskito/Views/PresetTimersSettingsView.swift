@@ -47,7 +47,7 @@ struct PresetTimersSettingsView: View {
                 )
 
                 if index < presetStore.presets.count - 1 {
-                    Divider()
+                    Divider().padding(.bottom, 10)
                 }
             }
 
@@ -61,14 +61,14 @@ struct PresetTimersSettingsView: View {
                 
                 // Show restore defaults button when presets have been modified
                 if hasModifiedPresets {
-                    Button("Restore defaults...") {
+                    Button("Restore defaults") {
                         presetStore.resetToDefaults()
                     }
                     .font(.system(size: 11, weight: .medium, design: .rounded))
                     .buttonStyle(.plain)
                     .foregroundStyle(.blue)
                 }
-            }
+            }.padding(.bottom, isAtLimit ? 0 : 10)
             
             if !isAtLimit {
                 // Show add button when under limit
@@ -150,7 +150,7 @@ private struct PresetTimerRow: View {
                 }
             }
         }
-        .padding(.vertical, 10)
+        .padding(.bottom, 10)
         .contentShape(Rectangle())
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)) {
