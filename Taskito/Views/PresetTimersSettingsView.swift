@@ -48,21 +48,18 @@ struct PresetTimersSettingsView: View {
 
                 if index < presetStore.presets.count - 1 {
                     Divider()
-                        .padding(.leading, 8)
                 }
             }
-            // Show restore defaults button when presets have been modified
 
             HStack(spacing: 1) {
+                // Show limit message when at maximum
                 if isAtLimit {
-                    // Show limit message when at maximum
-                    Text("Maximum 5 preset timers.")
+                    Text("Maximum \(maxPresets) preset timers.")
                         .font(.system(size: 11, weight: .regular, design: .rounded))
                         .foregroundStyle(.secondary)
-                        .padding(.vertical, 10)
-                        .padding(.leading, 8)
                 }
-
+                
+                // Show restore defaults button when presets have been modified
                 if hasModifiedPresets {
                     Button("Restore defaults...") {
                         presetStore.resetToDefaults()
@@ -70,12 +67,9 @@ struct PresetTimersSettingsView: View {
                     .font(.system(size: 11, weight: .medium, design: .rounded))
                     .buttonStyle(.plain)
                     .foregroundStyle(.blue)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, isAtLimit ? 0 : 8)
                 }
             }
-
-            // Add new preset button or limit message
+            
             if !isAtLimit {
                 // Show add button when under limit
                 Button(action: { showingAddSheet = true }) {
@@ -86,10 +80,9 @@ struct PresetTimersSettingsView: View {
                             .font(.system(size: 13, weight: .medium, design: .rounded))
                     }
                     .foregroundStyle(.blue)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 8)
                 }
                 .buttonStyle(.plain)
+                .padding(.top, 14)
             }
         }
         .sheet(item: $editingPreset) { preset in
@@ -158,7 +151,6 @@ private struct PresetTimerRow: View {
             }
         }
         .padding(.vertical, 10)
-        .padding(.horizontal, 8)
         .contentShape(Rectangle())
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)) {
