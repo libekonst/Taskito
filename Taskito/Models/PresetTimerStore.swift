@@ -46,6 +46,13 @@ class PresetTimersStore: ObservableObject {
         savePresets()
     }
 
+    func updatePreset(_ preset: PresetTimer) {
+        if let index = presets.firstIndex(where: { $0.id == preset.id }) {
+            presets[index] = preset
+            savePresets()
+        }
+    }
+
     func removePreset(_ preset: PresetTimer) {
         presets.removeAll { $0.id == preset.id }
         savePresets()

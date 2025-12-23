@@ -7,48 +7,77 @@
 
 import SwiftUI
 
+// Single-prop keyboard shortcut wrapper (matches our KeyboardShortcuts constants)
+typealias ShortcutTuple = (key: KeyEquivalent, modifiers: EventModifiers)
+
 struct CountdownView: View {
     var secondsRemaining: Int
     var onPlayPause: () -> Void
     var onReset: () -> Void
+    var onRestart: () -> Void
     var onAddTime: (Int) -> Void
     var isTimerRunning: Bool
     var timerPolicy: TimerPolicy
 
+    @State private var timeAddedTrigger = false
+
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack {
-                Spacer()
-                VStack(spacing: 0) {
-                    Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                        .font(.system(size: 146, weight: .thin, design: .rounded))
-                        .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
-                        .scaleEffect(isTimerRunning ? 1.0 : 0.8)
-                        .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
-                        .padding(.bottom, -8)
+        VStack {
+            Spacer()
+            VStack(spacing: 0) {
+                Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
+                    .font(.system(size: 146, weight: .thin, design: .rounded))
+                    .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
+                    .scaleEffect({
+                        let baseScale = isTimerRunning ? 1.0 : 0.8
+                        return timeAddedTrigger ? baseScale + 0.04 : baseScale
+                    }())
+                    .animation(.spring(response: 0.25, dampingFraction: 0.7), value: timeAddedTrigger)
+                    .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
+                    .padding(.bottom, -12)
 
-                    // Time adjustment buttons - visually grouped with timer
-                    HStack(spacing: 12) {
-                        TimeAdjustButton(label: "+1 min", action: {
-                            onAddTime(60)
-                        })
+                // Time adjustment buttons - visually grouped with timer
+                HStack(spacing: 12) {
+                    TimeAdjustButton(
+                        label: "+1 min",
+                        tooltip: "Add 1 Minute (+)",
+                        shortcut: KeyboardShortcuts.addOneMinute,
+                        action: { addTimeWithAnimation(60) }
+                    )
 
-                        TimeAdjustButton(label: "+3 min", action: {
-                            onAddTime(180)
-                        })
-                    }.padding(.bottom, 28)
+                    TimeAdjustButton(
+                        label: "+3 min",
+                        tooltip: "Add 3 Minutes (⇧+)",
+                        shortcut: KeyboardShortcuts.addThreeMinutes,
+                        action: { addTimeWithAnimation(180) }
+                    )
                 }
-                
-
-                PlayPauseButton(
-                    isTimerRunning: isTimerRunning,
-                    action: onPlayPause
-                ).padding(.bottom, 22)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
+            }.padding(.top, 18)
+            Spacer()
+            PlayPauseButton(
+                isTimerRunning: isTimerRunning,
+                action: onPlayPause
+            ).padding(.bottom, 18)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay(alignment: .topLeading) {
             ResetButton(action: onReset)
                 .padding(12)
+        }
+        .overlay(alignment: .topTrailing) {
+            RestartButton(action: onRestart)
+                .padding(12)
+        }
+    }
+
+    private func addTimeWithAnimation(_ seconds: Int) {
+        onAddTime(seconds)
+
+        // Brief scale pulse
+        timeAddedTrigger = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            timeAddedTrigger = false
         }
     }
 }
@@ -63,18 +92,17 @@ private struct PlayPauseButton: View {
         Button(action: action) {
             ZStack {
                 Image(systemName: "play.fill")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 22, weight: .medium))
                     .opacity(isTimerRunning ? 0 : 1)
                     .scaleEffect(isTimerRunning ? 0.5 : 1)
 
                 Image(systemName: "stop.fill")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 26, weight: .medium))
                     .opacity(isTimerRunning ? 1 : 0)
                     .scaleEffect(isTimerRunning ? 1 : 0.5)
             }
             .animation(.spring(response: 0.4, dampingFraction: 0.7), value: isTimerRunning)
-            .frame(width: 24, height: 24)
-            .padding(.leading, isTimerRunning ? 0 : 2)
+            .frame(width: 28, height: 28)
             .padding(18)
             .background(
                 ZStack {
@@ -103,18 +131,29 @@ private struct PlayPauseButton: View {
                 isHovered = hovering
             }
         }
+        .help(isTimerRunning ? "Pause (Space)" : "Play (Space)")
+        .background(
+            // Hidden button for play/pause
+            Button("") {
+                action()
+            }
+            .keyboardShortcut(KeyboardShortcuts.playPause)
+            .hidden()
+        )
     }
 }
 
 private struct TimeAdjustButton: View {
     let label: String
+    let tooltip: String
+    let shortcut: ShortcutTuple
     let action: () -> Void
     @State private var isHovered = false
 
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
@@ -141,6 +180,14 @@ private struct TimeAdjustButton: View {
                 isHovered = hovering
             }
         }
+        .help(tooltip)
+        .background(
+            Button("") {
+                action()
+            }
+            .keyboardShortcut(shortcut)
+            .hidden()
+        )
     }
 }
 
@@ -164,6 +211,46 @@ private struct ResetButton: View {
                 isHovered = hovering
             }
         }
+        .help("Cancel Timer (⌃C)")
+        .background(
+            // Hidden button for cancel timer
+            Button("") {
+                action()
+            }
+            .keyboardShortcut(KeyboardShortcuts.cancelTimer)
+            .hidden()
+        )
+    }
+}
+
+private struct RestartButton: View {
+    let action: () -> Void
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 14, weight: .medium))
+                .frame(width: 32, height: 32)
+                .background(
+                    Circle()
+                        .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
+                )
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
+        }
+        .help("Restart Timer (⌘R)")
+        .background(
+            Button("") {
+                action()
+            }
+            .keyboardShortcut(KeyboardShortcuts.restartTimer)
+            .hidden()
+        )
     }
 }
 
@@ -178,6 +265,10 @@ private struct ResetButton: View {
                 onPlayPause: { isTimerRunning.toggle() },
                 onReset: {
                     print("X tapped", Date())
+                },
+                onRestart: {
+                    timeRemaining = 90
+                    print("Restart tapped", Date())
                 },
                 onAddTime: { seconds in
                     timeRemaining += seconds

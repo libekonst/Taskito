@@ -13,9 +13,9 @@ struct FormView: View {
     @Binding var minutes: Int
     @Binding var seconds: Int
     var timerPolicy: TimerPolicy
+    @ObservedObject var presetsStore: PresetTimersStore
 
     @FocusState private var focus: FocusedField?
-    @StateObject private var presetsStore = PresetTimersStore()
 
     var body: some View {
         VStack {
@@ -28,11 +28,11 @@ struct FormView: View {
                     onSubmit()
                 }
             )
-            .padding(.top, 20)
-            .padding(.bottom, 24)
+            .padding(.top, 14)
 
+            Spacer()
             Form {
-                VStack(spacing: 4) {
+                VStack {
                     // Input
                     HStack(alignment: .top, content: {
                         TextField(
@@ -44,8 +44,8 @@ struct FormView: View {
                         .focused($focus, equals: .minutes)
 
                         Text(":")
-                            .font(.system(size: 102, weight: .thin, design: .rounded))
-                            .frame(height: 102)
+                            .font(.system(size: 120, weight: .thin, design: .rounded))
+                            .frame(height: 120)
                             .padding(.horizontal, -8)
 
                         TextField(
@@ -65,7 +65,7 @@ struct FormView: View {
 
                         Spacer()
                     }
-                    .padding(.top)
+                    .padding(.top, 4)
                 }
             }
             .onChange(of: minutes) {
@@ -78,8 +78,6 @@ struct FormView: View {
             }
 
             Spacer()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            OptionsMenuView()
         }
         .onAppear {
             // Delay to ensure TextField is ready before setting focus
@@ -101,7 +99,7 @@ private struct PlainNumericInputStyle: TextFieldStyle {
         configuration
             .labelsHidden()
             .textFieldStyle(.plain)
-            .font(.system(size: 102, weight: .thin, design: .rounded))
+            .font(.system(size: 120, weight: .thin, design: .rounded))
             .multilineTextAlignment(justify)
     }
 }
@@ -114,7 +112,7 @@ private struct PresetButtonsView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            ForEach(presets) { preset in
+            ForEach(Array(presets.enumerated()), id: \.element.id) { index, preset in
                 Button(action: {
                     onPresetSelected(preset)
                 }, label: {
@@ -152,6 +150,19 @@ private struct PresetButtonsView: View {
                         hoveredPreset = isHovered ? preset.id : nil
                     }
                 }
+                .help("Start \(preset.name) (⌘\(index + 1))")
+                .background(
+                    Group {
+                        // Hidden button for preset keyboard shortcut
+                        if let shortcut = KeyboardShortcuts.preset(at: index) {
+                            Button("") {
+                                onPresetSelected(preset)
+                            }
+                            .keyboardShortcut(shortcut)
+                            .hidden()
+                        }
+                    }
+                )
             }
         }
     }
@@ -173,10 +184,10 @@ private struct StartButton: View {
     var body: some View {
         Button(action: action) {
             Text("START")
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
                 .tracking(0.6)
-                .padding(.vertical, 11)
-                .padding(.horizontal, 48)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 56)
                 .background(
                     Capsule(style: .continuous)
                         .fill(
@@ -211,62 +222,7 @@ private struct StartButton: View {
                 isHovered = hovering
             }
         }
-    }
-}
-
-private struct OptionsMenuView: View {
-    var body: some View {
-        Section {
-            Divider().padding(.horizontal)
-            VStack(spacing: 0) {
-//                SystemButton(
-//                    label: "Settings...",
-//                    onClick: {}
-//                )
-                SystemButton(
-                    imageName: "power",
-                    label: "Quit",
-                    onClick: { NSApplication.shared.terminate(nil) }
-                )
-            }
-            .padding(.bottom, 8)
-            .padding(.horizontal, 7)
-        }
-    }
-}
-
-private struct SystemButton: View {
-    @State private var isHovered = false
-
-    var imageName: String?
-    var label: String
-    var onClick: () -> Void
-
-    var body: some View {
-        Button(action: onClick) {
-            HStack(spacing: 6) {
-                if imageName != nil {
-                    Image(systemName: imageName ?? "")
-                        .font(.system(size: 12, weight: .medium))
-                }
-
-                Text(label)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                Spacer()
-            }
-            .padding(.vertical, 7)
-            .padding(.horizontal, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                    .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
-            )
-        }
-        .buttonStyle(.plain)
-        .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovered = hovering
-            }
-        }
+        .help("Start Timer (Enter)")
     }
 }
 
@@ -274,6 +230,7 @@ private struct SystemButton: View {
     struct StatefulPreview: View {
         @State var minutes = 1
         @State var seconds = 10
+        @StateObject var presetsStore = PresetTimersStore()
 
         var body: some View {
             FormView(
@@ -282,7 +239,8 @@ private struct SystemButton: View {
                 },
                 minutes: $minutes,
                 seconds: $seconds,
-                timerPolicy: StandardTimerPolicy()
+                timerPolicy: StandardTimerPolicy(),
+                presetsStore: presetsStore
             )
         }
     }

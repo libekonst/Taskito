@@ -18,6 +18,9 @@ class CountdownStore: ObservableObject {
     /** The total seconds that have been scheduled for countdown. */
     @Published var secondsTotal: Int = 0
 
+    /** The initial seconds set when the timer was first started (excludes added time). */
+    private var initialSecondsTotal: Int = 0
+
     /** Seconds that have passed while the timer was running. This value is to 0 when the timer finishes or is somehow depleted. Pausing will not affect this. */
     @Published var secondsElapsed: Int = 0
 
@@ -37,6 +40,7 @@ class CountdownStore: ObservableObject {
     func startNewTimer(minutes: Int, seconds: Int) {
         depleteTimer()
         secondsTotal = minutes * SECONDS_IN_MINUTE + seconds
+        initialSecondsTotal = secondsTotal
         startTimer()
     }
 
@@ -62,6 +66,15 @@ class CountdownStore: ObservableObject {
         secondsTotal += seconds
     }
 
+    /** Restarts the current timer from the beginning with the same initial duration. */
+    func restartTimer() {
+        guard timerState == .running || timerState == .paused else { return }
+        pauseTimer() // Also resets state so startTimer() guard passes
+        depleteTimer()
+        secondsTotal = initialSecondsTotal
+        startTimer()
+    }
+
     /** Resumes a paused timer or initializes a fresh one. */
     private func startTimer() {
         guard timerState != .running else { return }
@@ -70,7 +83,7 @@ class CountdownStore: ObservableObject {
         timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [self] _ in
-                if self.timerState == .running && self.isTimerDepleted {
+                if self.timerState == .running, self.isTimerDepleted {
                     self.completeTimer()
                     self.notifyTimerCompleted()
                 }
