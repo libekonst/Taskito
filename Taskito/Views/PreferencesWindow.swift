@@ -9,6 +9,7 @@ import SwiftUI
 import AppKit
 
 struct PreferencesWindow: View {
+    @ObservedObject var presetStore: PresetTimersStore
     @State private var selectedTab: PreferencesTab = .settings
 
     var body: some View {
@@ -37,7 +38,7 @@ struct PreferencesWindow: View {
             Group {
                 switch selectedTab {
                 case .settings:
-                    SettingsView()
+                    SettingsView(presetStore: presetStore)
                         .transition(.opacity)
                 case .keyboardShortcuts:
                     KeyboardShortcutsView()
@@ -137,5 +138,5 @@ private struct WindowAccessor: NSViewRepresentable {
 }
 
 #Preview {
-    PreferencesWindow()
+    PreferencesWindow(presetStore: PresetTimersStore())
 }

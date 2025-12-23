@@ -13,9 +13,9 @@ struct FormView: View {
     @Binding var minutes: Int
     @Binding var seconds: Int
     var timerPolicy: TimerPolicy
+    @ObservedObject var presetsStore: PresetTimersStore
 
     @FocusState private var focus: FocusedField?
-    @StateObject private var presetsStore = PresetTimersStore()
 
     var body: some View {
         VStack {
@@ -230,6 +230,7 @@ private struct StartButton: View {
     struct StatefulPreview: View {
         @State var minutes = 1
         @State var seconds = 10
+        @StateObject var presetsStore = PresetTimersStore()
 
         var body: some View {
             FormView(
@@ -238,7 +239,8 @@ private struct StartButton: View {
                 },
                 minutes: $minutes,
                 seconds: $seconds,
-                timerPolicy: StandardTimerPolicy()
+                timerPolicy: StandardTimerPolicy(),
+                presetsStore: presetsStore
             )
         }
     }

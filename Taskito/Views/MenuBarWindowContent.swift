@@ -11,6 +11,7 @@ import SwiftUI
 struct MenuBarWindowContent: View {
     @ObservedObject var countdownStore: CountdownStore
     var timerPolicy: TimerPolicy
+    @ObservedObject var presetsStore: PresetTimersStore
 
     @AppStorage("latestMinutesSelection") private var minutes = 25
     @AppStorage("latestSecondsSelection") private var seconds = 00
@@ -54,7 +55,8 @@ struct MenuBarWindowContent: View {
                         },
                         minutes: $minutes,
                         seconds: $seconds,
-                        timerPolicy: timerPolicy
+                        timerPolicy: timerPolicy,
+                        presetsStore: presetsStore
                     )
                     SystemMenuView(store: systemActionsStore)
                 }
@@ -71,6 +73,7 @@ struct MenuBarWindowContent: View {
 #Preview {
     MenuBarWindowContent(
         countdownStore: CountdownStore(),
-        timerPolicy: StandardTimerPolicy()
+        timerPolicy: StandardTimerPolicy(),
+        presetsStore: PresetTimersStore()
     )
 }

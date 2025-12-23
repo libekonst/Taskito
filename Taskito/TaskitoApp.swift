@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct TaskitoApp: App {
     @ObservedObject private var countdownStore = CountdownStore()
+    @StateObject private var presetsStore = PresetTimersStore()
     private var timerPolicy = StandardTimerPolicy()
     private var audioIndication = AudioIndication()
     private let settings = SettingsStore.shared
@@ -18,7 +19,8 @@ struct TaskitoApp: App {
         MenuBarExtra {
             MenuBarWindowContent(
                 countdownStore: countdownStore,
-                timerPolicy: timerPolicy
+                timerPolicy: timerPolicy,
+                presetsStore: presetsStore
             )
             .onAppear {
                 countdownStore.onTimerCompleted {
@@ -36,7 +38,7 @@ struct TaskitoApp: App {
         .menuBarExtraStyle(.window)
 
         WindowGroup(id: WindowIdentifier.settingsMenu) {
-            PreferencesWindow()
+            PreferencesWindow(presetStore: presetsStore)
         }
         .windowResizability(.contentSize)
         .defaultPosition(.center)

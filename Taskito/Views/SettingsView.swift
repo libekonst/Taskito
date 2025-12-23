@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject private var settings = SettingsStore.shared
-    @StateObject private var presetStore = PresetTimersStore()
+    @ObservedObject var presetStore: PresetTimersStore
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -114,6 +114,6 @@ private struct SettingsSectionView<Content: View>: View {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(presetStore: PresetTimersStore())
         .frame(width: 600, height: 400)
 }
