@@ -28,13 +28,13 @@
 		84CAB7C52BA0F8DE002350A9 /* TaskitoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */; };
 		84CAB7C72BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */; };
 		84D389B42EEDF35C002CEF2B /* KeyboardShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */; };
-		84D389BE2EF08A01002CEF2B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BD2EF08A01002CEF2B /* SettingsView.swift */; };
-		84D389C02EF08A12002CEF2B /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */; };
-		84D389C22EF0B501002CEF2B /* PresetTimersSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */; };
 		84D389B62EEF7981002CEF2B /* SystemMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B52EEF7981002CEF2B /* SystemMenuView.swift */; };
 		84D389B82EEF7B3B002CEF2B /* WindowIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */; };
 		84D389BA2EEF8144002CEF2B /* SystemActionsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B92EEF8144002CEF2B /* SystemActionsStore.swift */; };
 		84D389BC2EEF83DA002CEF2B /* SystemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BB2EEF83DA002CEF2B /* SystemController.swift */; };
+		84D389BE2EF08A01002CEF2B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BD2EF08A01002CEF2B /* SettingsView.swift */; };
+		84D389C02EF08A12002CEF2B /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */; };
+		84D389C22EF0B501002CEF2B /* PresetTimersSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */; };
 		84E67CBC2EEA62FA00772892 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBB2EEA62F500772892 /* SettingsStore.swift */; };
 		84E67CBE2EEA7C2400772892 /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */; };
 		84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */; };
@@ -64,7 +64,7 @@
 		841933D42CA2091D00109E5E /* appdmg.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = appdmg.json; sourceTree = "<group>"; };
 		843ECE812BADBC9200BA5908 /* TimerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPolicy.swift; sourceTree = "<group>"; };
 		843ECE832BADCF6300BA5908 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
-		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/Views/ComponentViews/CountdownView.swift; sourceTree = SOURCE_ROOT; };
+		843ECE892BAE02D300BA5908 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountdownView.swift; path = Taskito/Timer/CountdownView.swift; sourceTree = SOURCE_ROOT; };
 		844F92122C5D9C8600A35334 /* timer-finished.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "timer-finished.mp3"; sourceTree = "<group>"; };
 		844F92142C5D9D4C00A35334 /* AudioIndication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIndication.swift; sourceTree = "<group>"; };
 		844F92162EF09E01002CEF2B /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
@@ -83,16 +83,16 @@
 		84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITests.swift; sourceTree = "<group>"; };
 		84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutsView.swift; sourceTree = "<group>"; };
-		84D389BD2EF08A01002CEF2B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
-		84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetTimersSettingsView.swift; sourceTree = "<group>"; };
 		84D389B52EEF7981002CEF2B /* SystemMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMenuView.swift; sourceTree = "<group>"; };
 		84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowIdentifier.swift; sourceTree = "<group>"; };
 		84D389B92EEF8144002CEF2B /* SystemActionsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemActionsStore.swift; sourceTree = "<group>"; };
 		84D389BB2EEF83DA002CEF2B /* SystemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemController.swift; sourceTree = "<group>"; };
+		84D389BD2EF08A01002CEF2B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetTimersSettingsView.swift; sourceTree = "<group>"; };
 		84E67CBB2EEA62F500772892 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
-		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/Views/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
+		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,37 +120,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		843ECE802BADBB5E00BA5908 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */,
-				84E67CBB2EEA62F500772892 /* SettingsStore.swift */,
-				8414F3852EC57E7A00CD4549 /* PresetTimer.swift */,
-				8414F3832EC57E5600CD4549 /* PresetTimerStore.swift */,
-				843ECE812BADBC9200BA5908 /* TimerPolicy.swift */,
-				8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */,
-				84D389B92EEF8144002CEF2B /* SystemActionsStore.swift */,
-				84572B7F2C3B65A800A2D509 /* CountdownStore.swift */,
-				84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */,
-				84D389BB2EEF83DA002CEF2B /* SystemController.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		843ECE872BADD48D00BA5908 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */,
-				84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */,
-				84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */,
-				84D389BD2EF08A01002CEF2B /* SettingsView.swift */,
-				84C3DE122C3F6328005071AF /* ComponentViews */,
-				84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */,
-				84CAB7AA2BA0F8DC002350A9 /* MenuBarWindowContent.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		844F92112C5D9C6D00A35334 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,19 +133,9 @@
 			children = (
 				84572B832C3F02E400A2D509 /* EventPublisher.swift */,
 				844F92142C5D9D4C00A35334 /* AudioIndication.swift */,
-				844F92162EF09E01002CEF2B /* LoginItemManager.swift */,
+				84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		84C3DE122C3F6328005071AF /* ComponentViews */ = {
-			isa = PBXGroup;
-			children = (
-				843ECE832BADCF6300BA5908 /* FormView.swift */,
-				84D389B52EEF7981002CEF2B /* SystemMenuView.swift */,
-				843ECE892BAE02D300BA5908 /* CountdownView.swift */,
-			);
-			path = ComponentViews;
 			sourceTree = "<group>";
 		};
 		84CAB79C2BA0F8DC002350A9 = {
@@ -205,10 +164,14 @@
 		84CAB7A72BA0F8DC002350A9 /* Taskito */ = {
 			isa = PBXGroup;
 			children = (
+				84D389C22EFDEE84002CEF2B /* SystemActions */,
+				84D389BF2EFDEA1F002CEF2B /* Settings */,
+				84D389BE2EFDEA15002CEF2B /* Presets */,
+				84D389BD2EFDE9EE002CEF2B /* Timer */,
 				84572B822C3F02CB00A2D509 /* Utilities */,
-				843ECE872BADD48D00BA5908 /* Views */,
-				843ECE802BADBB5E00BA5908 /* Models */,
 				84CAB7A82BA0F8DC002350A9 /* TaskitoApp.swift */,
+				84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */,
+				84CAB7AA2BA0F8DC002350A9 /* MenuBarWindowContent.swift */,
 				84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */,
 				84CAB7B12BA0F8DD002350A9 /* Taskito.entitlements */,
 				84CAB7AE2BA0F8DD002350A9 /* Preview Content */,
@@ -239,6 +202,51 @@
 				84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */,
 			);
 			path = TaskitoUITests;
+			sourceTree = "<group>";
+		};
+		84D389BD2EFDE9EE002CEF2B /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				84572B7F2C3B65A800A2D509 /* CountdownStore.swift */,
+				843ECE892BAE02D300BA5908 /* CountdownView.swift */,
+				843ECE832BADCF6300BA5908 /* FormView.swift */,
+				843ECE812BADBC9200BA5908 /* TimerPolicy.swift */,
+				8458A5BC2BEF98ED002C5BEE /* StandardTimerPolicy.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		84D389BE2EFDEA15002CEF2B /* Presets */ = {
+			isa = PBXGroup;
+			children = (
+				8414F3852EC57E7A00CD4549 /* PresetTimer.swift */,
+				8414F3832EC57E5600CD4549 /* PresetTimerStore.swift */,
+				84D389C12EF0B501002CEF2B /* PresetTimersSettingsView.swift */,
+			);
+			path = Presets;
+			sourceTree = "<group>";
+		};
+		84D389BF2EFDEA1F002CEF2B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				84E67CBB2EEA62F500772892 /* SettingsStore.swift */,
+				844F92162EF09E01002CEF2B /* LoginItemManager.swift */,
+				84D389BD2EF08A01002CEF2B /* SettingsView.swift */,
+				84D389BF2EF08A12002CEF2B /* PreferencesWindow.swift */,
+				84E67CBD2EEA7C1D00772892 /* KeyboardShortcuts.swift */,
+				84D389B32EEDF357002CEF2B /* KeyboardShortcutsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		84D389C22EFDEE84002CEF2B /* SystemActions */ = {
+			isa = PBXGroup;
+			children = (
+				84D389B92EEF8144002CEF2B /* SystemActionsStore.swift */,
+				84D389BB2EEF83DA002CEF2B /* SystemController.swift */,
+				84D389B52EEF7981002CEF2B /* SystemMenuView.swift */,
+			);
+			path = SystemActions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
