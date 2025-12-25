@@ -131,13 +131,13 @@ private struct PresetButtonsView: View {
                             // Minimal color accent on hover
                             if hoveredPreset == preset.id {
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.accentColor.opacity(0.08))
+                                    .fill(Color(red: 106/255, green: 111/255, blue: 179/255).opacity(0.2))
                             }
 
                             // Transparent border with subtle color
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .strokeBorder(
-                                    Color.accentColor.opacity(hoveredPreset == preset.id ? 0.4 : 0.2),
+                                    Color(red: 106/255, green: 111/255, blue: 179/255).opacity(hoveredPreset == preset.id ? 0.6 : 0.4),
                                     lineWidth: 1
                                 )
                         }
@@ -181,6 +181,22 @@ private struct StartButton: View {
     @State private var isHovered = false
     @FocusState private var isFocused: Bool
 
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var activeGradientColors: [Color] {
+        if colorScheme == .dark {
+            return [
+                Color(red: 79/255, green: 143/255, blue: 133/255),  // #4F8F85
+                Color(red: 59/255, green: 59/255, blue: 115/255)  // #3B3B73
+            ]
+        } else {
+            return [
+                Color(red: 205/255, green: 241/255, blue: 232/255),  // #CDF1E8
+                Color(red: 142/255, green: 144/255, blue: 200/255) // #8E90C8
+            ]
+        }
+    }
+
     var body: some View {
         Button(action: action) {
             Text("START")
@@ -193,10 +209,7 @@ private struct StartButton: View {
                         .fill(
                             (isHovered || isFocused) ?
                                 LinearGradient(
-                                    colors: [
-                                        Color(red: 0.4, green: 0.3, blue: 0.9).opacity(0.8),
-                                        Color(red: 0.2, green: 0.6, blue: 0.85).opacity(0.8)
-                                    ],
+                                    colors: activeGradientColors,
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ) :
