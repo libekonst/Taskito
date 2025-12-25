@@ -38,7 +38,7 @@ struct MenuBarLabel: View {
 private struct IdleView: View {
     var body: some View {
         HStack {
-            Text(":-} Taskito")
+            Text("｡◕‿◕｡ Taskito")
         }
     }
 }
@@ -61,6 +61,14 @@ private struct PauseView: View {
         HStack {
             Image(systemName: "clock.badge")
             Text(timeLeft)
+        }
+    }
+}
+
+private struct DoneView: View {
+    var body: some View {
+        HStack {
+            Text("٩(ˊᗜˋ)ﾉ")
         }
     }
 }
@@ -100,6 +108,8 @@ private struct FlashingDoneView: View {
             CountingView(timeLeft: "20:15")
 
             PauseView(timeLeft: "19:23")
+            
+            DoneView()
 
             FlashingDoneView()
         }
