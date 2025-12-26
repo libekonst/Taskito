@@ -23,7 +23,7 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // General settings section
                 SettingsSectionView(title: "General") {
-                    Toggle(isOn: $settingsStore.startOnStartup) {
+                    HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Start on system startup")
                                 .font(.system(size: 13, weight: .medium, design: .rounded))
@@ -31,13 +31,18 @@ struct SettingsView: View {
                                 .font(.system(size: 11, weight: .regular, design: .rounded))
                                 .foregroundStyle(.secondary)
                         }
+
+                        Spacer()
+
+                        Toggle("", isOn: $settingsStore.startOnStartup)
+                            .toggleStyle(.switch)
+                            .labelsHidden()
                     }
-                    .toggleStyle(.switch)
                 }
 
                 // Sound settings section
                 SettingsSectionView(title: "Sound") {
-                    Toggle(isOn: $settingsStore.soundEnabled) {
+                    HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Play sound when timer completes")
                                 .font(.system(size: 13, weight: .medium, design: .rounded))
@@ -45,8 +50,13 @@ struct SettingsView: View {
                                 .font(.system(size: 11, weight: .regular, design: .rounded))
                                 .foregroundStyle(.secondary)
                         }
+
+                        Spacer()
+
+                        Toggle("", isOn: $settingsStore.soundEnabled)
+                            .toggleStyle(.switch)
+                            .labelsHidden()
                     }
-                    .toggleStyle(.switch)
                 }
 
                 // Preset timers section
