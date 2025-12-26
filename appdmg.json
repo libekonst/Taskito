@@ -2,13 +2,16 @@
   "title": "Taskito",
   "icon": "build/Build/Products/Release/Taskito.app/Contents/Resources/AppIcon.icns",
   "background": "",
-  "contents": [
-    { "x": 448, "y": 344, "type": "link", "path": "/Applications" },
-    {
-      "x": 192,
-      "y": 344,
-      "type": "file",
-      "path": "build/Build/Products/Release/Taskito.app"
+  "format": "UDZO",
+  "window": {
+    "size": {
+      "width": 660,
+      "height": 400
     }
+  },
+  "icon-size": 80,
+  "contents": [
+    { "x": 180, "y": 170, "type": "file", "path": "build/Build/Products/Release/Taskito.app" },
+    { "x": 480, "y": 170, "type": "link", "path": "/Applications" }
   ]
 }
