@@ -62,30 +62,20 @@ jobs:
 
       - name: Set DMG Icon
         run: |
-          ICON_PATH="build/Build/Products/Release/Taskito.app/Contents/Resources/AppIcon.icns"
+          # Extract the app icon name from the project file
+          ICON_NAME=$(grep -A1 "ASSETCATALOG_COMPILER_APPICON_NAME" Taskito.xcodeproj/project.pbxproj | grep "=" | head -1 | sed 's/.*= "\(.*\)";/\1/')
+          ICON_PATH="build/Build/Products/Release/Taskito.app/Contents/Resources/${ICON_NAME}.icns"
+
+          echo "🎨 Looking for icon: ${ICON_NAME}.icns"
 
           if [ -f "$ICON_PATH" ]; then
             echo "✅ Found icon at: $ICON_PATH"
-            fileicon set dist/Taskito.dmg "$ICON_PATH" && echo "✅ DMG icon set successfully" || {
-              echo "⚠️  fileicon command failed, but continuing..."
-              exit 0
-            }
+            fileicon set dist/Taskito.dmg "$ICON_PATH"
+            echo "✅ DMG icon set successfully"
           else
             echo "⚠️  Icon not found at: $ICON_PATH"
-            echo "🔍 Searching for any .icns file..."
-            FOUND_ICON=$(find build/Build/Products/Release/Taskito.app/Contents/Resources -name "*.icns" -type f 2>/dev/null | head -n 1)
-
-            if [ -n "$FOUND_ICON" ] && [ -f "$FOUND_ICON" ]; then
-              echo "📦 Using alternative icon: $FOUND_ICON"
-              fileicon set dist/Taskito.dmg "$FOUND_ICON" && echo "✅ DMG icon set successfully" || {
-                echo "⚠️  fileicon command failed, but continuing..."
-                exit 0
-              }
-            else
-              echo "⚠️  No .icns files found. Skipping DMG icon setup."
-              echo "ℹ️  DMG will be created without custom icon."
-              exit 0
-            fi
+            echo "⚠️  DMG will be created without custom icon"
+            exit 0
           fi
 
       - name: Validate DMG
