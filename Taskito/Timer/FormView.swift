@@ -131,13 +131,13 @@ private struct PresetButtonsView: View {
                             // Minimal color accent on hover
                             if hoveredPreset == preset.id {
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color(red: 106/255, green: 111/255, blue: 179/255).opacity(0.2))
+                                    .fill(Color(red: 243/255, green: 158/255, blue: 182/255).opacity(0.15))
                             }
 
                             // Transparent border with subtle color
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .strokeBorder(
-                                    Color(red: 106/255, green: 111/255, blue: 179/255).opacity(hoveredPreset == preset.id ? 0.6 : 0.4),
+                                    Color(red: 243/255, green: 158/255, blue: 182/255).opacity(hoveredPreset == preset.id ? 0.6 : 0.3),
                                     lineWidth: 1
                                 )
                         }
@@ -186,13 +186,15 @@ private struct StartButton: View {
     private var activeGradientColors: [Color] {
         if colorScheme == .dark {
             return [
-                Color(red: 79/255, green: 143/255, blue: 133/255),  // #4F8F85
-                Color(red: 59/255, green: 59/255, blue: 115/255)  // #3B3B73
+                Color(red: 232/255, green: 141/255, blue: 123/255), // #e88d7b
+                Color(red: 240/255, green: 164/255, blue: 92/255), // #f0a45c
+                Color(red: 199/255, green: 85/255, blue: 51/255) // #c75533
             ]
         } else {
             return [
-                Color(red: 205/255, green: 241/255, blue: 232/255),  // #CDF1E8
-                Color(red: 142/255, green: 144/255, blue: 200/255) // #8E90C8
+                Color(red: 247/255, green: 181/255, blue: 157/255), // #f7b59d
+                Color(red: 249/255, green: 197/255, blue: 116/255), // #f9c574
+                Color(red: 224/255, green: 124/255, blue: 85/255) // #e07c55
             ]
         }
     }
