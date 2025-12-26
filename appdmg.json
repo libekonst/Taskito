@@ -1,6 +1,5 @@
 {
   "title": "Taskito",
-  "icon": "build/Build/Products/Release/Taskito.app/Contents/Resources/AppIcon.icns",
   "background": "",
   "format": "UDZO",
   "window": {
