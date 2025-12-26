@@ -77,7 +77,7 @@ enum KeyboardShortcuts {
         KeyboardShortcut(
             key: "C",
             modifiers: "⌃",
-            description: "Cancel timer (interrupt, like terminal)",
+            description: "Cancel timer",
             scope: .countdownView
         ),
         KeyboardShortcut(
@@ -161,7 +161,7 @@ enum KeyboardShortcuts {
         default: return nil
         }
     }
-    
+
     /// Settings shortcut (⌘,)
     static let openSettings = (key: KeyEquivalent(","), modifiers: EventModifiers.command)
 }
