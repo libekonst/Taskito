@@ -120,8 +120,7 @@ private struct PresetButtonsView: View {
                         Text(preset.name)
                             .font(.system(size: 12, weight: .semibold, design: .rounded))
                         Text(formatTime(preset))
-                            .font(.system(size: 11, weight: .medium, design: .rounded))
-                            .foregroundStyle(.secondary)
+                            .font(.system(size: 11, weight: .medium, design: .rounded)).opacity(0.5)
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal, 14)
@@ -131,13 +130,13 @@ private struct PresetButtonsView: View {
                             // Minimal color accent on hover
                             if hoveredPreset == preset.id {
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color(red: 243/255, green: 158/255, blue: 182/255).opacity(0.15))
+                                    .fill(Color(red: 132/255, green: 137/255, blue: 216/255).opacity(0.15))
                             }
 
                             // Transparent border with subtle color
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .strokeBorder(
-                                    Color(red: 243/255, green: 158/255, blue: 182/255).opacity(hoveredPreset == preset.id ? 0.6 : 0.3),
+                                    Color(red: 132/255, green: 137/255, blue: 216/255).opacity(hoveredPreset == preset.id ? 0.6 : 0.3),
                                     lineWidth: 1
                                 )
                         }
@@ -186,15 +185,17 @@ private struct StartButton: View {
     private var activeGradientColors: [Color] {
         if colorScheme == .dark {
             return [
-                Color(red: 232/255, green: 141/255, blue: 123/255), // #e88d7b
-                Color(red: 240/255, green: 164/255, blue: 92/255), // #f0a45c
-                Color(red: 199/255, green: 85/255, blue: 51/255) // #c75533
+                Color(red: 90/255, green: 159/255, blue: 134/255), // #5A9F86
+                Color(red: 94/255, green: 127/255, blue: 154/255), // #5E7F9A
+                Color(red: 81/255, green: 64/255, blue: 168/255)   // #5140A8
+
             ]
         } else {
             return [
-                Color(red: 247/255, green: 181/255, blue: 157/255), // #f7b59d
-                Color(red: 249/255, green: 197/255, blue: 116/255), // #f9c574
-                Color(red: 224/255, green: 124/255, blue: 85/255) // #e07c55
+                Color(red: 167/255, green: 220/255, blue: 201/255), // #A7DCC9
+                Color(red: 169/255, green: 199/255, blue: 226/255), // #A9C7E2
+                Color(red: 180/255, green: 169/255, blue: 242/255)  // #B4A9F2
+
             ]
         }
     }
