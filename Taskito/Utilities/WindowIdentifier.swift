@@ -8,4 +8,5 @@
 /// Window identifiers for the app
 enum WindowIdentifier {
     static let settingsMenu = "settings-menu"
+    static let quickTimer = "quick-timer"
 }
