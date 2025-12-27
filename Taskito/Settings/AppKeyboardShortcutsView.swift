@@ -17,6 +17,11 @@ struct AppKeyboardShortcutsView: View {
 
             // Shortcuts sections
             VStack(alignment: .leading, spacing: 20) {
+                // System global shortcuts
+                if !AppKeyboardShortcuts.systemGlobal.isEmpty {
+                    ShortcutSection(title: "System-Wide", shortcuts: AppKeyboardShortcuts.systemGlobal)
+                }
+
                 // Global shortcuts
                 if !AppKeyboardShortcuts.global.isEmpty {
                     ShortcutSection(title: "Global", shortcuts: AppKeyboardShortcuts.global)

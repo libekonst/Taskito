@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 struct SettingsView: View {
     @ObservedObject var presetStore: PresetTimersStore
     @ObservedObject var settingsStore: SettingsStore
+
+    @State private var showingShortcutRecorder = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -57,6 +60,88 @@ struct SettingsView: View {
                             .toggleStyle(.switch)
                             .labelsHidden()
                     }
+                }
+
+                // Keyboard shortcuts section
+                SettingsSectionView(title: "Keyboard Shortcuts") {
+                    VStack(alignment: .leading, spacing: 12) {
+                        // Enable/Disable Toggle
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Enable global shortcut")
+                                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                                Text("Allow opening Taskito from anywhere with a keyboard shortcut")
+                                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            Spacer()
+
+                            Toggle("", isOn: $settingsStore.globalShortcutEnabled)
+                                .toggleStyle(.switch)
+                                .labelsHidden()
+                        }
+
+                        Divider()
+
+                        // Shortcut Recorder Button
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Customize Shortcut")
+                                .font(.system(size: 13, weight: .medium, design: .rounded))
+
+                            Button(action: {
+                                showingShortcutRecorder = true
+                            }) {
+                                HStack {
+                                    Text("Show App Window:")
+                                        .font(.system(size: 13, weight: .regular, design: .rounded))
+                                        .foregroundStyle(.secondary)
+
+                                    Spacer()
+
+                                    // Display current shortcut
+                                    if let shortcut = KeyboardShortcuts.getShortcut(for: .toggleAppWindow) {
+                                        Text(shortcut.description)
+                                            .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                            .foregroundStyle(.primary)
+                                            .padding(.horizontal, 8)
+                                            .padding(.vertical, 4)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                                    .fill(Color.primary.opacity(0.06))
+                                            )
+                                    } else {
+                                        Text("Not Set")
+                                            .font(.system(size: 13, weight: .regular, design: .rounded))
+                                            .foregroundStyle(.tertiary)
+                                    }
+
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 11, weight: .medium))
+                                        .foregroundStyle(.tertiary)
+                                }
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 12)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                        .fill(Color.primary.opacity(0.03))
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(!settingsStore.globalShortcutEnabled)
+                        }
+                        .opacity(settingsStore.globalShortcutEnabled ? 1.0 : 0.5)
+                    }
+                }
+                .sheet(isPresented: $showingShortcutRecorder) {
+                    ShortcutRecorderSheet(
+                        onCancel: {
+                            showingShortcutRecorder = false
+                        },
+                        onSave: {
+                            showingShortcutRecorder = false
+                        }
+                    )
                 }
 
                 // Preset timers section
@@ -123,9 +208,10 @@ private struct SettingsSectionView<Content: View>: View {
 }
 
 #Preview {
-    SettingsView(
-        presetStore: PresetTimersStore(),
-        settingsStore: SettingsStore(loginItemManager: LoginItemManager())
-    )
+    ScrollView{
+        SettingsView(
+            presetStore: PresetTimersStore(),
+            settingsStore: SettingsStore(loginItemManager: LoginItemManager())
+        )}
     .frame(width: 600, height: 400)
 }

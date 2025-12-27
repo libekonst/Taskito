@@ -24,6 +24,7 @@ struct AppKeyboardShortcut {
 
     enum Scope {
         case global // Works everywhere in the app
+        case systemGlobal // Works system-wide (even when app not focused)
         case formView // Only works in the timer setup form
         case countdownView // Only works during active countdown
     }
@@ -129,6 +130,65 @@ enum AppKeyboardShortcuts {
     /// Shortcuts specific to the countdown view
     static var countdownView: [AppKeyboardShortcut] {
         all.filter { $0.scope == .countdownView }
+    }
+
+    /// System-wide global shortcuts
+    static var systemGlobal: [AppKeyboardShortcut] {
+        if let shortcut = systemGlobalShortcut() {
+            return [shortcut]
+        }
+        return []
+    }
+
+    // MARK: - System Global Shortcuts
+
+    /// Returns the current global shortcut for toggling app window
+    /// This is dynamic because users can customize it
+    private static func systemGlobalShortcut() -> AppKeyboardShortcut? {
+        guard let shortcut = KeyboardShortcuts.getShortcut(for: .toggleAppWindow) else {
+            return nil
+        }
+
+        // Convert KeyboardShortcuts.Shortcut to our format
+        let modifiers = shortcut.modifiers
+        var modifierString = ""
+        if modifiers.contains(.control) { modifierString += "⌃" }
+        if modifiers.contains(.option) { modifierString += "⌥" }
+        if modifiers.contains(.shift) { modifierString += "⇧" }
+        if modifiers.contains(.command) { modifierString += "⌘" }
+
+        // Get the key string
+        let keyString: String
+        switch shortcut.key {
+        case .space:
+            keyString = "Space"
+        case .return:
+            keyString = "Return"
+        case .tab:
+            keyString = "Tab"
+        case .escape:
+            keyString = "Esc"
+        case .delete:
+            keyString = "Delete"
+        case .upArrow:
+            keyString = "↑"
+        case .downArrow:
+            keyString = "↓"
+        case .leftArrow:
+            keyString = "←"
+        case .rightArrow:
+            keyString = "→"
+        default:
+            // For regular keys, try to get the character
+            keyString = String(describing: shortcut.key).uppercased()
+        }
+
+        return AppKeyboardShortcut(
+            key: keyString,
+            modifiers: modifierString,
+            description: "Open Taskito from anywhere",
+            scope: .systemGlobal
+        )
     }
 
     // MARK: - Implementation Helpers (for use in views)
