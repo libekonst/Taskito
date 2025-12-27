@@ -46,7 +46,7 @@ struct PreferencesWindow: View {
                         )
                         .transition(.opacity)
                     case .keyboardShortcuts:
-                        KeyboardShortcutsView()
+                        AppKeyboardShortcutsView()
                             .transition(.opacity)
                     }
                 }

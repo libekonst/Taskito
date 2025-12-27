@@ -49,14 +49,14 @@ struct SystemGlobalKeyboardShortcuts: View {
             Button("") {
                 store.closeWindow()
             }
-            .keyboardShortcut(KeyboardShortcuts.closeWindow)
+            .appKeyboardShortcut(AppKeyboardShortcuts.closeWindow)
             .hidden()
 
             // Hidden button for opening settings view
             Button("") {
                 store.openSettings()
             }
-            .keyboardShortcut(KeyboardShortcuts.openSettings)
+            .appKeyboardShortcut(AppKeyboardShortcuts.openSettings)
             .hidden()
 
             // CMD+Q is natively implemented by MacOS

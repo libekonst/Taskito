@@ -153,11 +153,11 @@ private struct PresetButtonsView: View {
                 .background(
                     Group {
                         // Hidden button for preset keyboard shortcut
-                        if let shortcut = KeyboardShortcuts.preset(at: index) {
+                        if let shortcut = AppKeyboardShortcuts.preset(at: index) {
                             Button("") {
                                 onPresetSelected(preset)
                             }
-                            .keyboardShortcut(shortcut)
+                            .appKeyboardShortcut(shortcut)
                             .hidden()
                         }
                     }

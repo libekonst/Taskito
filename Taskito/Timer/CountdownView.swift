@@ -41,14 +41,14 @@ struct CountdownView: View {
                     TimeAdjustButton(
                         label: "+1 min",
                         tooltip: "Add 1 Minute (+)",
-                        shortcut: KeyboardShortcuts.addOneMinute,
+                        shortcut: AppKeyboardShortcuts.addOneMinute,
                         action: { addTimeWithAnimation(60) }
                     )
 
                     TimeAdjustButton(
                         label: "+3 min",
                         tooltip: "Add 3 Minutes (⇧+)",
-                        shortcut: KeyboardShortcuts.addThreeMinutes,
+                        shortcut: AppKeyboardShortcuts.addThreeMinutes,
                         action: { addTimeWithAnimation(180) }
                     )
                 }
@@ -137,7 +137,7 @@ private struct PlayPauseButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(KeyboardShortcuts.playPause)
+            .appKeyboardShortcut(AppKeyboardShortcuts.playPause)
             .hidden()
         )
     }
@@ -185,7 +185,7 @@ private struct TimeAdjustButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(shortcut)
+            .appKeyboardShortcut(shortcut)
             .hidden()
         )
     }
@@ -217,7 +217,7 @@ private struct ResetButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(KeyboardShortcuts.cancelTimer)
+            .appKeyboardShortcut(AppKeyboardShortcuts.cancelTimer)
             .hidden()
         )
     }
@@ -248,7 +248,7 @@ private struct RestartButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(KeyboardShortcuts.restartTimer)
+            .appKeyboardShortcut(AppKeyboardShortcuts.restartTimer)
             .hidden()
         )
     }

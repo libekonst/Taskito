@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct KeyboardShortcutsView: View {
+struct AppKeyboardShortcutsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
@@ -18,18 +18,18 @@ struct KeyboardShortcutsView: View {
             // Shortcuts sections
             VStack(alignment: .leading, spacing: 20) {
                 // Global shortcuts
-                if !KeyboardShortcuts.global.isEmpty {
-                    ShortcutSection(title: "Global", shortcuts: KeyboardShortcuts.global)
+                if !AppKeyboardShortcuts.global.isEmpty {
+                    ShortcutSection(title: "Global", shortcuts: AppKeyboardShortcuts.global)
                 }
 
                 // Form view shortcuts
-                if !KeyboardShortcuts.formView.isEmpty {
-                    ShortcutSection(title: "Timer Setup", shortcuts: KeyboardShortcuts.formView)
+                if !AppKeyboardShortcuts.formView.isEmpty {
+                    ShortcutSection(title: "Timer Setup", shortcuts: AppKeyboardShortcuts.formView)
                 }
 
                 // Countdown view shortcuts
-                if !KeyboardShortcuts.countdownView.isEmpty {
-                    ShortcutSection(title: "During Timer", shortcuts: KeyboardShortcuts.countdownView)
+                if !AppKeyboardShortcuts.countdownView.isEmpty {
+                    ShortcutSection(title: "During Timer", shortcuts: AppKeyboardShortcuts.countdownView)
                 }
             }
         }
@@ -40,7 +40,7 @@ struct KeyboardShortcutsView: View {
 
 private struct ShortcutSection: View {
     let title: String
-    let shortcuts: [KeyboardShortcut]
+    let shortcuts: [AppKeyboardShortcut]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -114,6 +114,6 @@ private struct KeyIcon: View {
 }
 
 #Preview {
-    KeyboardShortcutsView()
+    AppKeyboardShortcutsView()
         .frame(width: 600, height: 500)
 }

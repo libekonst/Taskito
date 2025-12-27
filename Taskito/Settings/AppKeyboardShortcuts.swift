@@ -6,9 +6,17 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
+
+// MARK: - Global MacOS Shortcuts
+extension KeyboardShortcuts.Name {
+    /// Global shortcut to toggle the app window visibility
+    /// Default: Option+Space (can be customized by user)
+    static let toggleAppWindow = Self("toggleAppWindow", default: .init(.space, modifiers: [.option]))
+}
 
 /// Represents a single keyboard shortcut with its metadata
-struct KeyboardShortcut {
+struct AppKeyboardShortcut {
     let key: String
     let modifiers: String // Use macOS symbols: ⌘ (Command), ⌃ (Control), ⌥ (Option), ⇧ (Shift)
     let description: String
@@ -26,25 +34,25 @@ struct KeyboardShortcut {
     }
 }
 
-/// Centralized registry of all keyboard shortcuts
-enum KeyboardShortcuts {
+/// Centralized registry of all app-level keyboard shortcuts (view shortcuts)
+enum AppKeyboardShortcuts {
     /// All keyboard shortcuts used in the app (view-only)
-    static let all: [KeyboardShortcut] = [
-        // MARK: - Global Shortcuts
+    static let all: [AppKeyboardShortcut] = [
+        // MARK: - Global In-App Shortcuts
 
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "Esc",
             modifiers: "",
             description: "Close window and restore focus",
             scope: .global
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "Q",
             modifiers: "⌘",
             description: "Quit application",
             scope: .global
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: ",",
             modifiers: "⌘",
             description: "Open settings",
@@ -53,19 +61,19 @@ enum KeyboardShortcuts {
 
         // MARK: - Form View Shortcuts
 
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "1",
             modifiers: "⌘",
             description: "Select first preset timer",
             scope: .formView
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "2",
             modifiers: "⌘",
             description: "Select second preset timer",
             scope: .formView
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "3",
             modifiers: "⌘",
             description: "Select third preset timer",
@@ -74,31 +82,31 @@ enum KeyboardShortcuts {
 
         // MARK: - Countdown View Shortcuts
 
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "C",
             modifiers: "⌃",
             description: "Cancel timer",
             scope: .countdownView
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "R",
             modifiers: "⌘",
             description: "Restart timer from beginning",
             scope: .countdownView
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "Space",
             modifiers: "",
             description: "Play/pause timer",
             scope: .countdownView
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "+",
             modifiers: "",
             description: "Add 1 minute to timer",
             scope: .countdownView
         ),
-        KeyboardShortcut(
+        AppKeyboardShortcut(
             key: "+",
             modifiers: "⇧",
             description: "Add 3 minutes to timer",
@@ -109,17 +117,17 @@ enum KeyboardShortcuts {
     // MARK: - Convenience Accessors
 
     /// Global shortcuts that work anywhere in the app
-    static var global: [KeyboardShortcut] {
+    static var global: [AppKeyboardShortcut] {
         all.filter { $0.scope == .global }
     }
 
     /// Shortcuts specific to the form view
-    static var formView: [KeyboardShortcut] {
+    static var formView: [AppKeyboardShortcut] {
         all.filter { $0.scope == .formView }
     }
 
     /// Shortcuts specific to the countdown view
-    static var countdownView: [KeyboardShortcut] {
+    static var countdownView: [AppKeyboardShortcut] {
         all.filter { $0.scope == .countdownView }
     }
 
@@ -170,7 +178,7 @@ enum KeyboardShortcuts {
 
 extension View {
     /// Applies a keyboard shortcut from a tuple of (KeyEquivalent, EventModifiers)
-    func keyboardShortcut(_ shortcut: (key: KeyEquivalent, modifiers: EventModifiers)) -> some View {
+    func appKeyboardShortcut(_ shortcut: (key: KeyEquivalent, modifiers: EventModifiers)) -> some View {
         keyboardShortcut(shortcut.key, modifiers: shortcut.modifiers)
     }
 }
