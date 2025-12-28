@@ -36,10 +36,9 @@ struct CountdownView: View {
                     .animation(.spring(response: 0.4, dampingFraction: isTimerRunning ? 0.75 : 0.9), value: isTimerRunning)
                     .padding(.bottom, -4)
                     .overlay(alignment: .bottom) {
-                        Text("TIMER PAUSED")
+                        Text("PAUSED")
                             .font(.system(size: 12, weight: .semibold, design: .rounded))
                             .foregroundStyle(.secondary)
-                            .tracking(1.5)
                             .offset(y: -14)
                             .opacity(isTimerRunning ? 0 : 0.6)
                             .scaleEffect(isTimerRunning ? 0.8 : 1, anchor: .bottom)
@@ -266,7 +265,7 @@ private struct RestartButton: View {
 
 #Preview {
     struct StatefulPreview: View {
-        @State var isTimerRunning = true
+        @State var isTimerRunning = false
         @State var timeRemaining = 90
 
         var body: some View {
