@@ -75,6 +75,7 @@ struct TaskitoApp: App {
                 countdownStore: countdownStore,
                 timerPolicy: timerPolicy
             )
+            // Register on MenuBarLabel, to make sure registration happens on app start.
             .task {
                 // Register keyboard shortcut handler on app launch
                 KeyboardShortcutHandler.shared.register(
