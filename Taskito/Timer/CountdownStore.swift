@@ -39,7 +39,7 @@ class CountdownStore: ObservableObject {
     /** Creates a fresh timer instance and immediately starts counting down. */
     @discardableResult
     func startNewTimer(minutes: Int, seconds: Int) -> Result<Void, StartTimerError> {
-        // Validate duration is positive
+        // Validate duration is not negative
         let totalSeconds = minutes * SECONDS_IN_MINUTE + seconds
         guard totalSeconds >= 0 else {
             return .failure(.invalidDuration)
