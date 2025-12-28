@@ -48,8 +48,19 @@ struct QuickTimerView: View {
     }
 
     private func startTimer(minutes: Int, seconds: Int) {
-        countdownStore.startNewTimer(minutes: minutes, seconds: seconds)
-        dismiss()
+        switch countdownStore.startNewTimer(minutes: minutes, seconds: seconds) {
+        case .success:
+            dismiss()
+
+        case .failure(.invalidDuration):
+            // Should not happen due to UI validation, but handle gracefully
+            break
+
+        case .failure(.timerAlreadyRunning):
+            // Timer is already running - user sees the running timer view
+            // No action needed
+            break
+        }
     }
 }
 

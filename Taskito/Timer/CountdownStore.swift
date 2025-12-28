@@ -37,42 +37,90 @@ class CountdownStore: ObservableObject {
     }
 
     /** Creates a fresh timer instance and immediately starts counting down. */
-    func startNewTimer(minutes: Int, seconds: Int) {
+    @discardableResult
+    func startNewTimer(minutes: Int, seconds: Int) -> Result<Void, StartTimerError> {
+        // Validate duration is positive
+        let totalSeconds = minutes * SECONDS_IN_MINUTE + seconds
+        guard totalSeconds >= 0 else {
+            return .failure(.invalidDuration)
+        }
+
+        // Check if timer is already running
+        guard timerState != .running && timerState != .paused else {
+            return .failure(.timerAlreadyRunning)
+        }
+
+        // Execute
         depleteTimer()
-        secondsTotal = minutes * SECONDS_IN_MINUTE + seconds
+        secondsTotal = totalSeconds
         initialSecondsTotal = secondsTotal
         startTimer()
+        return .success(())
     }
 
     /** Cancels the current timer. A new timer instance can be created again. */
-    func cancelTimer() {
+    @discardableResult
+    func cancelTimer() -> Result<Void, CancelTimerError> {
+        // Validate timer is active
+        guard timerState == .running || timerState == .paused else {
+            return .failure(.noActiveTimer)
+        }
+
+        // Execute
         depleteTimer()
         timerState = .cancelled
+        return .success(())
     }
 
     /** Toggles between pausing and resuming the timer. */
-    func togglePlayPauseTimer() {
+    @discardableResult
+    func togglePlayPauseTimer() -> Result<Void, PauseTimerError> {
+        // Validate timer is active
+        guard timerState == .running || timerState == .paused else {
+            return .failure(.noActiveTimer)
+        }
+
+        // Execute
         if timerState == .running {
             pauseTimer()
-        }
-        else {
+        } else {
             startTimer()
         }
+        return .success(())
     }
 
     /** Adds additional time to the current timer. */
-    func addTime(seconds: Int) {
-        guard timerState == .running || timerState == .paused else { return }
+    @discardableResult
+    func addTime(seconds: Int) -> Result<Void, AddTimeError> {
+        // Validate amount is positive
+        guard seconds > 0 else {
+            return .failure(.invalidAmount)
+        }
+
+        // Validate timer is active
+        guard timerState == .running || timerState == .paused else {
+            return .failure(.noActiveTimer)
+        }
+
+        // Execute
         secondsTotal += seconds
+        return .success(())
     }
 
     /** Restarts the current timer from the beginning with the same initial duration. */
-    func restartTimer() {
-        guard timerState == .running || timerState == .paused else { return }
+    @discardableResult
+    func restartTimer() -> Result<Void, RestartTimerError> {
+        // Validate timer is active
+        guard timerState == .running || timerState == .paused else {
+            return .failure(.noActiveTimer)
+        }
+
+        // Execute
         pauseTimer() // Also resets state so startTimer() guard passes
         depleteTimer()
         secondsTotal = initialSecondsTotal
         startTimer()
+        return .success(())
     }
 
     /** Resumes a paused timer or initializes a fresh one. */
@@ -86,8 +134,7 @@ class CountdownStore: ObservableObject {
                 if self.timerState == .running, self.isTimerDepleted {
                     self.completeTimer()
                     self.notifyTimerCompleted()
-                }
-                else {
+                } else {
                     self.secondsElapsed += 1
                 }
             }
@@ -135,4 +182,28 @@ enum TimerState {
          paused,
          /** The initial default state. This state won't normally be reached after a timer lifecycle has been initiated. */
          idle
+}
+
+// MARK: - Timer Operation Errors
+
+enum StartTimerError: Error, Equatable {
+    case invalidDuration
+    case timerAlreadyRunning
+}
+
+enum PauseTimerError: Error, Equatable {
+    case noActiveTimer
+}
+
+enum AddTimeError: Error, Equatable {
+    case invalidAmount
+    case noActiveTimer
+}
+
+enum CancelTimerError: Error, Equatable {
+    case noActiveTimer
+}
+
+enum RestartTimerError: Error, Equatable {
+    case noActiveTimer
 }
