@@ -202,7 +202,7 @@ private struct TimeAdjustButton: View {
 
 private struct ResetButton: View {
     let action: () -> Void
-    @State private var isHovered = true
+    @State private var isHovered = false
 
     var body: some View {
         Button(role: .cancel, action: action) {
