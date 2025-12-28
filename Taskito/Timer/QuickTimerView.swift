@@ -17,9 +17,6 @@ struct QuickTimerView: View {
     @AppStorage("latestMinutesSelection") private var minutes = 25
     @AppStorage("latestSecondsSelection") private var seconds = 0
 
-    @State private var pendingTimerMinutes: Int?
-    @State private var pendingTimerSeconds: Int?
-
     var body: some View {
         VStack {
             // Show different content based on timer state
