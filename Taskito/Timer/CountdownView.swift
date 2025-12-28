@@ -41,10 +41,10 @@ struct CountdownView: View {
                             .font(.system(size: 12, weight: .semibold, design: .rounded))
                             .foregroundStyle(.secondary)
                             .tracking(1.5)
-                            .offset(y: -16)
+                            .offset(y: -14)
                             .opacity(isTimerRunning ? 0 : 0.6)
                             .scaleEffect(isTimerRunning ? 0.8 : 1)
-                            .animation(.spring(response: 0.45, dampingFraction: 0.7), value: isTimerRunning)
+                            .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: 0.7), value: isTimerRunning)
                     }
 
                 // Time adjustment buttons - visually grouped with timer
@@ -204,7 +204,7 @@ private struct TimeAdjustButton: View {
 
 private struct ResetButton: View {
     let action: () -> Void
-    @State private var isHovered = false
+    @State private var isHovered = true
 
     var body: some View {
         Button(role: .cancel, action: action) {
