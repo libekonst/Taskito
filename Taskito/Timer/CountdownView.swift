@@ -33,18 +33,17 @@ struct CountdownView: View {
                         return timeAddedTrigger ? baseScale + 0.04 : baseScale
                     }())
                     .animation(.spring(response: 0.25, dampingFraction: 0.7), value: timeAddedTrigger)
-                    .animation(.spring(response: isTimerRunning ? 0.5 : 0.6, dampingFraction: isTimerRunning ? 0.75 : 0.9), value: isTimerRunning)
+                    .animation(.spring(response: 0.4, dampingFraction: isTimerRunning ? 0.75 : 0.9), value: isTimerRunning)
                     .padding(.bottom, -4)
                     .overlay(alignment: .bottom) {
-                        // Paused indicator (positioned absolutely to not affect layout)
-                        Text("PAUSED")
+                        Text("TIMER PAUSED")
                             .font(.system(size: 12, weight: .semibold, design: .rounded))
                             .foregroundStyle(.secondary)
                             .tracking(1.5)
                             .offset(y: -14)
                             .opacity(isTimerRunning ? 0 : 0.6)
-                            .scaleEffect(isTimerRunning ? 0.8 : 1)
-                            .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: 0.7), value: isTimerRunning)
+                            .scaleEffect(isTimerRunning ? 0.8 : 1, anchor: .bottom)
+                            .animation(.spring(response: 0.3, dampingFraction: 0.9), value: isTimerRunning)
                     }
 
                 // Time adjustment buttons - visually grouped with timer
