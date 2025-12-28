@@ -49,18 +49,11 @@ class KeyboardShortcutHandler {
 @main
 @MainActor
 struct TaskitoApp: App {
-    // MARK: - Dependencies
-
     private let loginItemManager = LoginItemManager()
     @StateObject private var settingsStore: SettingsStore
-
-    // MARK: - Stores
-
+    @Environment(\.openWindow) private var openWindow
     @ObservedObject private var countdownStore = CountdownStore()
     @StateObject private var presetsStore = PresetTimersStore()
-
-    // MARK: - Services
-
     private var timerPolicy = StandardTimerPolicy()
     private var audioIndication = AudioIndication()
 
@@ -77,40 +70,50 @@ struct TaskitoApp: App {
                 timerPolicy: timerPolicy,
                 presetsStore: presetsStore
             )
-            .onAppear {
-                countdownStore.onTimerCompleted {
-                    if settingsStore.soundEnabled {
-                        audioIndication.play()
-                    }
-                }
-            }
-            .background(
-                KeyboardShortcutRegistrationView(settingsStore: settingsStore)
-            )
         } label: {
             MenuBarLabel(
                 countdownStore: countdownStore,
                 timerPolicy: timerPolicy
             )
+            .task {
+                // Register keyboard shortcut handler on app launch
+                KeyboardShortcutHandler.shared.register(
+                    openWindow: { id in
+                        openWindow(id: id)
+                    },
+                    settingsStore: settingsStore
+                )
+
+                // Register audio completion handler
+                countdownStore.onTimerCompleted { [weak settingsStore] in
+                    if settingsStore?.soundEnabled == true {
+                        audioIndication.play()
+                    }
+                }
+            }
         }
         .menuBarExtraStyle(.window)
 
+        // Settings window
         WindowGroup(id: WindowIdentifier.settingsMenu) {
             PreferencesWindow(
                 presetStore: presetsStore,
                 settingsStore: settingsStore,
                 timerPolicy: timerPolicy
             )
+            .windowIdentifier(WindowIdentifier.settingsMenu)
         }
         .windowResizability(.contentSize)
         .defaultPosition(.center)
         .handlesExternalEvents(matching: Set([WindowIdentifier.settingsMenu]))
 
+        // Quick timer window opened through the global shortcut
         WindowGroup(id: WindowIdentifier.quickTimer) {
             QuickTimerView(
                 countdownStore: countdownStore,
                 timerPolicy: timerPolicy
             )
+            .windowIdentifier(WindowIdentifier.quickTimer)
         }
         .windowResizability(.contentSize)
         .defaultPosition(.center)
@@ -118,25 +121,3 @@ struct TaskitoApp: App {
         .commandsRemoved() // Prevent multiple windows via menu commands
     }
 }
-
-// MARK: - Keyboard Shortcut Registration View
-
-private struct KeyboardShortcutRegistrationView: View {
-    @Environment(\.openWindow) private var openWindow
-    @ObservedObject var settingsStore: SettingsStore
-
-    var body: some View {
-        Color.clear
-            .frame(width: 0, height: 0)
-            .task {
-                // Register the keyboard shortcut handler once using .task
-                KeyboardShortcutHandler.shared.register(
-                    openWindow: { id in
-                        openWindow(id: id)
-                    },
-                    settingsStore: settingsStore
-                )
-            }
-    }
-}
-
