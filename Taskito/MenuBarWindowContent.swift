@@ -35,12 +35,20 @@ struct MenuBarWindowContent: View {
                  .running:
                 CountdownView(
                     secondsRemaining: countdownStore.secondsRemaining,
-                    onPlayPause: withAnimation(.interactiveSpring(duration: 0.2)) {
-                        countdownStore.togglePlayPauseTimer
+                    onPlayPause: {
+                        withAnimation(.interactiveSpring(duration: 0.2)) {
+                            _ = countdownStore.togglePlayPauseTimer()
+                        }
                     },
-                    onReset: countdownStore.cancelTimer,
-                    onRestart: countdownStore.restartTimer,
-                    onAddTime: countdownStore.addTime,
+                    onReset: {
+                        countdownStore.cancelTimer()
+                    },
+                    onRestart: {
+                        countdownStore.restartTimer()
+                    },
+                    onAddTime: { seconds in
+                        countdownStore.addTime(seconds: seconds)
+                    },
                     isTimerRunning: countdownStore.timerState == .running,
                     timerPolicy: timerPolicy
                 )
@@ -51,7 +59,7 @@ struct MenuBarWindowContent: View {
                 VStack {
                     FormView(
                         onSubmit: {
-                            countdownStore.startNewTimer(minutes: minutes, seconds: seconds)
+                            _ = countdownStore.startNewTimer(minutes: minutes, seconds: seconds)
                         },
                         minutes: $minutes,
                         seconds: $seconds,

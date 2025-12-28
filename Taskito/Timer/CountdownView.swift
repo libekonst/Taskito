@@ -26,29 +26,38 @@ struct CountdownView: View {
             Spacer()
             VStack(spacing: 0) {
                 Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                    .font(.system(size: 146, weight: .thin, design: .rounded))
+                    .font(.system(size: 152, weight: .thin, design: .rounded))
                     .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
                     .scaleEffect({
-                        let baseScale = isTimerRunning ? 1.0 : 0.8
+                        let baseScale = isTimerRunning ? 1.0 : 0.7
                         return timeAddedTrigger ? baseScale + 0.04 : baseScale
                     }())
                     .animation(.spring(response: 0.25, dampingFraction: 0.7), value: timeAddedTrigger)
-                    .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
-                    .padding(.bottom, -12)
+                    .animation(.spring(response: 0.4, dampingFraction: isTimerRunning ? 0.75 : 0.9), value: isTimerRunning)
+                    .padding(.bottom, -4)
+                    .overlay(alignment: .bottom) {
+                        Text("PAUSED")
+                            .font(.system(size: 12, weight: .semibold, design: .rounded))
+                            .foregroundStyle(.secondary)
+                            .offset(y: -14)
+                            .opacity(isTimerRunning ? 0 : 0.6)
+                            .scaleEffect(isTimerRunning ? 0.8 : 1, anchor: .bottom)
+                            .animation(.spring(response: 0.3, dampingFraction: 0.9), value: isTimerRunning)
+                    }
 
                 // Time adjustment buttons - visually grouped with timer
                 HStack(spacing: 12) {
                     TimeAdjustButton(
                         label: "+1 min",
                         tooltip: "Add 1 Minute (+)",
-                        shortcut: KeyboardShortcuts.addOneMinute,
+                        shortcut: AppKeyboardShortcuts.addOneMinute,
                         action: { addTimeWithAnimation(60) }
                     )
 
                     TimeAdjustButton(
                         label: "+3 min",
                         tooltip: "Add 3 Minutes (⇧+)",
-                        shortcut: KeyboardShortcuts.addThreeMinutes,
+                        shortcut: AppKeyboardShortcuts.addThreeMinutes,
                         action: { addTimeWithAnimation(180) }
                     )
                 }
@@ -137,7 +146,7 @@ private struct PlayPauseButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(KeyboardShortcuts.playPause)
+            .appKeyboardShortcut(AppKeyboardShortcuts.playPause)
             .hidden()
         )
     }
@@ -185,7 +194,7 @@ private struct TimeAdjustButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(shortcut)
+            .appKeyboardShortcut(shortcut)
             .hidden()
         )
     }
@@ -217,7 +226,7 @@ private struct ResetButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(KeyboardShortcuts.cancelTimer)
+            .appKeyboardShortcut(AppKeyboardShortcuts.cancelTimer)
             .hidden()
         )
     }
@@ -248,7 +257,7 @@ private struct RestartButton: View {
             Button("") {
                 action()
             }
-            .keyboardShortcut(KeyboardShortcuts.restartTimer)
+            .appKeyboardShortcut(AppKeyboardShortcuts.restartTimer)
             .hidden()
         )
     }
@@ -256,7 +265,7 @@ private struct RestartButton: View {
 
 #Preview {
     struct StatefulPreview: View {
-        @State var isTimerRunning = true
+        @State var isTimerRunning = false
         @State var timeRemaining = 90
 
         var body: some View {

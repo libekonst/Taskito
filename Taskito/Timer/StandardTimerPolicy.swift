@@ -8,20 +8,33 @@
 import Foundation
 
 class StandardTimerPolicy: TimerPolicy {
-    var limits: Limits {
+    var minutesLimits: Limits {
         return Limits(min: 0, max: 99, digitCount: 2)
+    }
+
+    var secondsLimits: Limits {
+        return Limits(min: 0, max: 59, digitCount: 2)
     }
 
     func toReadableTime(seconds: Int) -> String {
         return Duration.seconds(seconds).formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
     }
 
-    private(set) lazy var formatter: Formatter = {
+    private(set) lazy var minutesFormatter: Formatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
-        formatter.minimumIntegerDigits = limits.digitCount
-        formatter.maximum = limits.max as NSNumber
-        formatter.minimum = limits.min as NSNumber
+        formatter.minimumIntegerDigits = minutesLimits.digitCount
+        formatter.maximum = minutesLimits.max as NSNumber
+        formatter.minimum = minutesLimits.min as NSNumber
+        return formatter
+    }()
+
+    private(set) lazy var secondsFormatter: Formatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.minimumIntegerDigits = secondsLimits.digitCount
+        formatter.maximum = secondsLimits.max as NSNumber
+        formatter.minimum = secondsLimits.min as NSNumber
         return formatter
     }()
 }

@@ -15,92 +15,33 @@ struct FormView: View {
     var timerPolicy: TimerPolicy
     @ObservedObject var presetsStore: PresetTimersStore
 
-    @FocusState private var focus: FocusedField?
-
     var body: some View {
         VStack {
             // Preset Buttons
             PresetButtonsView(
                 presets: presetsStore.presets,
                 onPresetSelected: { preset in
-                    minutes = preset.minutes
-                    seconds = preset.seconds
+                    // Clamp values to valid range for defense against corrupted data
+                    minutes = max(timerPolicy.minutesLimits.min, min(timerPolicy.minutesLimits.max, preset.minutes))
+                    seconds = max(timerPolicy.secondsLimits.min, min(timerPolicy.secondsLimits.max, preset.seconds))
                     onSubmit()
                 }
             )
             .padding(.top, 14)
 
             Spacer()
-            Form {
-                VStack {
-                    // Input
-                    HStack(alignment: .top, content: {
-                        TextField(
-                            "Minutes",
-                            value: $minutes,
-                            formatter: timerPolicy.formatter
-                        )
-                        .textFieldStyle(PlainNumericInputStyle(justify: .trailing))
-                        .focused($focus, equals: .minutes)
 
-                        Text(":")
-                            .font(.system(size: 120, weight: .thin, design: .rounded))
-                            .frame(height: 120)
-                            .padding(.horizontal, -8)
-
-                        TextField(
-                            "Seconds",
-                            value: $seconds,
-                            formatter: timerPolicy.formatter
-                        )
-                        .textFieldStyle(PlainNumericInputStyle())
-                        .focused($focus, equals: .seconds)
-                    })
-
-                    // Submit
-                    HStack {
-                        Spacer()
-
-                        StartButton(action: onSubmit)
-
-                        Spacer()
-                    }
-                    .padding(.top, 4)
-                }
-            }
-            .onChange(of: minutes) {
-                if String(minutes).count >= timerPolicy.limits.digitCount {
-                    focus = .seconds
-                }
-            }
-            .onSubmit {
+            TimerFormView(
+                minutes: $minutes,
+                seconds: $seconds,
+                timerPolicy: timerPolicy,
+                variant: .large
+            ) {
                 onSubmit()
             }
 
             Spacer()
         }
-        .onAppear {
-            // Delay to ensure TextField is ready before setting focus
-            DispatchQueue.main.async {
-                focus = .minutes
-            }
-        }
-    }
-}
-
-private enum FocusedField: Hashable {
-    case minutes, seconds
-}
-
-private struct PlainNumericInputStyle: TextFieldStyle {
-    var justify: TextAlignment = .leading
-
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-            .labelsHidden()
-            .textFieldStyle(.plain)
-            .font(.system(size: 120, weight: .thin, design: .rounded))
-            .multilineTextAlignment(justify)
     }
 }
 
@@ -153,11 +94,11 @@ private struct PresetButtonsView: View {
                 .background(
                     Group {
                         // Hidden button for preset keyboard shortcut
-                        if let shortcut = KeyboardShortcuts.preset(at: index) {
+                        if let shortcut = AppKeyboardShortcuts.preset(at: index) {
                             Button("") {
                                 onPresetSelected(preset)
                             }
-                            .keyboardShortcut(shortcut)
+                            .appKeyboardShortcut(shortcut)
                             .hidden()
                         }
                     }
@@ -172,73 +113,6 @@ private struct PresetButtonsView: View {
         } else {
             return "\(preset.minutes)m \(preset.seconds)s"
         }
-    }
-}
-
-private struct StartButton: View {
-    let action: () -> Void
-    @State private var isHovered = false
-    @FocusState private var isFocused: Bool
-
-    @Environment(\.colorScheme) private var colorScheme
-
-    private var activeGradientColors: [Color] {
-        if colorScheme == .dark {
-            return [
-                Color(red: 90/255, green: 159/255, blue: 134/255), // #5A9F86
-                Color(red: 94/255, green: 127/255, blue: 154/255), // #5E7F9A
-                Color(red: 81/255, green: 64/255, blue: 168/255)   // #5140A8
-
-            ]
-        } else {
-            return [
-                Color(red: 167/255, green: 220/255, blue: 201/255), // #A7DCC9
-                Color(red: 169/255, green: 199/255, blue: 226/255), // #A9C7E2
-                Color(red: 180/255, green: 169/255, blue: 242/255)  // #B4A9F2
-
-            ]
-        }
-    }
-
-    var body: some View {
-        Button(action: action) {
-            Text("START")
-                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                .tracking(0.6)
-                .padding(.vertical, 12)
-                .padding(.horizontal, 56)
-                .background(
-                    Capsule(style: .continuous)
-                        .fill(
-                            (isHovered || isFocused) ?
-                                LinearGradient(
-                                    colors: activeGradientColors,
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ) :
-                                LinearGradient(
-                                    colors: [
-                                        Color.primary.opacity(0.09),
-                                        Color.primary.opacity(0.09)
-                                    ],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                        )
-                        .animation(.easeInOut(duration: 0.2), value: isFocused)
-                        .animation(.easeInOut(duration: 0.15), value: isHovered)
-                )
-                .shadow(color: Color.black.opacity(0.04), radius: 3, x: 0, y: 1)
-        }
-        .keyboardShortcut(.defaultAction)
-        .buttonStyle(.plain)
-        .focused($isFocused)
-        .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovered = hovering
-            }
-        }
-        .help("Start Timer (Enter)")
     }
 }
 

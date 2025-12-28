@@ -9,9 +9,11 @@ import Foundation
 
 /** A set of rules and guidelines that dictate a behavior for application countdowns. */
 protocol TimerPolicy {
-    var limits: Limits { get }
+    var minutesLimits: Limits { get }
+    var secondsLimits: Limits { get }
     func toReadableTime(seconds: Int) -> String
-    var formatter: Formatter { get }
+    var minutesFormatter: Formatter { get }
+    var secondsFormatter: Formatter { get }
 }
 
 struct Limits {
