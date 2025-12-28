@@ -26,14 +26,14 @@ struct CountdownView: View {
             Spacer()
             VStack(spacing: 0) {
                 Text(timerPolicy.toReadableTime(seconds: secondsRemaining))
-                    .font(.system(size: 146, weight: .thin, design: .rounded))
+                    .font(.system(size: 152, weight: .thin, design: .rounded))
                     .foregroundStyle(Color.primary.opacity(isTimerRunning ? 1 : 0.6))
                     .scaleEffect({
-                        let baseScale = isTimerRunning ? 1.0 : 0.8
+                        let baseScale = isTimerRunning ? 1.0 : 0.7
                         return timeAddedTrigger ? baseScale + 0.04 : baseScale
                     }())
                     .animation(.spring(response: 0.25, dampingFraction: 0.7), value: timeAddedTrigger)
-                    .animation(.spring(response: isTimerRunning ? 0.45 : 0.6, dampingFraction: isTimerRunning ? 0.7 : 0.8), value: isTimerRunning)
+                    .animation(.spring(response: isTimerRunning ? 0.5 : 0.6, dampingFraction: isTimerRunning ? 0.75 : 0.9), value: isTimerRunning)
                     .padding(.bottom, -4)
                     .overlay(alignment: .bottom) {
                         // Paused indicator (positioned absolutely to not affect layout)
