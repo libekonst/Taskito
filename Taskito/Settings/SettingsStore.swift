@@ -14,17 +14,17 @@ class SettingsStore: ObservableObject {
     // MARK: - Sound Settings
 
     /// Whether to play sound when timer completes
-    @AppStorage("settings.soundEnabled") var soundEnabled: Bool = true
+    @AppStorage(AppStorageKeys.Settings.soundEnabled) var soundEnabled: Bool = true
 
     // MARK: - Global Shortcut Settings
 
     /// Whether global keyboard shortcut is enabled
-    @AppStorage("settings.globalShortcutEnabled") var globalShortcutEnabled: Bool = true
+    @AppStorage(AppStorageKeys.Settings.globalShortcutEnabled) var globalShortcutEnabled: Bool = true
 
     // MARK: - General Settings
 
     /// Whether to launch app on system startup
-    @AppStorage("settings.startOnStartup") var startOnStartup: Bool = false {
+    @AppStorage(AppStorageKeys.Settings.startOnStartup) var startOnStartup: Bool = false {
         didSet {
             // Only update system if we're not syncing from system state
             guard !isSyncingFromSystem else { return }

@@ -11,7 +11,7 @@ import SwiftUI
 
 /// Manages preset timer storage and retrieval
 class PresetTimersStore: ObservableObject {
-    @AppStorage("presetTimers") private var presetsData: Data = Data()
+    @AppStorage(AppStorageKeys.presetTimers) private var presetsData: Data = Data()
 
     @Published var presets: [PresetTimer] = []
 

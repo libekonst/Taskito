@@ -13,8 +13,8 @@ struct MenuBarWindowContent: View {
     var timerPolicy: TimerPolicy
     @ObservedObject var presetsStore: PresetTimersStore
 
-    @AppStorage("latestMinutesSelection") private var minutes = 25
-    @AppStorage("latestSecondsSelection") private var seconds = 00
+    @AppStorage(AppStorageKeys.latestMinutes) private var minutes = 25
+    @AppStorage(AppStorageKeys.latestSeconds) private var seconds = 00
 
     // Variables are available here. Don't move further up.
     @Environment(\.openWindow) private var openWindow

@@ -14,8 +14,8 @@ struct QuickTimerView: View {
 
     @Environment(\.dismiss) private var dismiss
 
-    @AppStorage("latestMinutesSelection") private var minutes = 25
-    @AppStorage("latestSecondsSelection") private var seconds = 0
+    @AppStorage(AppStorageKeys.latestMinutes) private var minutes = 25
+    @AppStorage(AppStorageKeys.latestSeconds) private var seconds = 0
 
     var body: some View {
         VStack {
