@@ -98,7 +98,8 @@ struct TaskitoApp: App {
         WindowGroup(id: WindowIdentifier.settingsMenu) {
             PreferencesWindow(
                 presetStore: presetsStore,
-                settingsStore: settingsStore
+                settingsStore: settingsStore,
+                timerPolicy: timerPolicy
             )
         }
         .windowResizability(.contentSize)

@@ -11,6 +11,7 @@ import KeyboardShortcuts
 struct SettingsView: View {
     @ObservedObject var presetStore: PresetTimersStore
     @ObservedObject var settingsStore: SettingsStore
+    var timerPolicy: TimerPolicy
 
     @State private var showingShortcutRecorder = false
 
@@ -146,7 +147,10 @@ struct SettingsView: View {
 
                 // Preset timers section
                 SettingsSectionView(title: "Preset Timers") {
-                    PresetTimersSettingsView(presetStore: presetStore)
+                    PresetTimersSettingsView(
+                        presetStore: presetStore,
+                        timerPolicy: timerPolicy
+                    )
                 }
             }
 
@@ -211,7 +215,8 @@ private struct SettingsSectionView<Content: View>: View {
     ScrollView{
         SettingsView(
             presetStore: PresetTimersStore(),
-            settingsStore: SettingsStore(loginItemManager: LoginItemManager())
+            settingsStore: SettingsStore(loginItemManager: LoginItemManager()),
+            timerPolicy: StandardTimerPolicy()
         )}
     .frame(width: 600, height: 400)
 }

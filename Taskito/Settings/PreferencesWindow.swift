@@ -11,6 +11,7 @@ import AppKit
 struct PreferencesWindow: View {
     @ObservedObject var presetStore: PresetTimersStore
     @ObservedObject var settingsStore: SettingsStore
+    var timerPolicy: TimerPolicy
     @State private var selectedTab: PreferencesTab = .settings
 
     var body: some View {
@@ -42,7 +43,8 @@ struct PreferencesWindow: View {
                     case .settings:
                         SettingsView(
                             presetStore: presetStore,
-                            settingsStore: settingsStore
+                            settingsStore: settingsStore,
+                            timerPolicy: timerPolicy
                         )
                         .transition(.opacity)
                     case .keyboardShortcuts:
@@ -146,6 +148,7 @@ private struct WindowAccessor: NSViewRepresentable {
 #Preview {
     PreferencesWindow(
         presetStore: PresetTimersStore(),
-        settingsStore: SettingsStore(loginItemManager: LoginItemManager())
+        settingsStore: SettingsStore(loginItemManager: LoginItemManager()),
+        timerPolicy: StandardTimerPolicy()
     )
 }

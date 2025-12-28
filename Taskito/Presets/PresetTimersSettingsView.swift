@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PresetTimersSettingsView: View {
     @ObservedObject var presetStore: PresetTimersStore
+    var timerPolicy: TimerPolicy
     @State private var editingPreset: PresetTimer?
     @State private var showingAddSheet = false
 
@@ -88,6 +89,7 @@ struct PresetTimersSettingsView: View {
         .sheet(item: $editingPreset) { preset in
             PresetEditorSheet(
                 preset: preset,
+                timerPolicy: timerPolicy,
                 onSave: { updated in
                     presetStore.updatePreset(updated)
                     editingPreset = nil
@@ -100,6 +102,7 @@ struct PresetTimersSettingsView: View {
         .sheet(isPresented: $showingAddSheet) {
             PresetEditorSheet(
                 preset: nil,
+                timerPolicy: timerPolicy,
                 onSave: { newPreset in
                     presetStore.addPreset(newPreset)
                     showingAddSheet = false
@@ -162,6 +165,7 @@ private struct PresetTimerRow: View {
 
 private struct PresetEditorSheet: View {
     let preset: PresetTimer? // nil for new preset
+    let timerPolicy: TimerPolicy
     let onSave: (PresetTimer) -> Void
     let onCancel: () -> Void
 
@@ -169,8 +173,9 @@ private struct PresetEditorSheet: View {
     @State private var minutes: Int
     @State private var seconds: Int
 
-    init(preset: PresetTimer?, onSave: @escaping (PresetTimer) -> Void, onCancel: @escaping () -> Void) {
+    init(preset: PresetTimer?, timerPolicy: TimerPolicy, onSave: @escaping (PresetTimer) -> Void, onCancel: @escaping () -> Void) {
         self.preset = preset
+        self.timerPolicy = timerPolicy
         self.onSave = onSave
         self.onCancel = onCancel
         _name = State(initialValue: preset?.name ?? "")
@@ -246,8 +251,8 @@ private struct PresetEditorSheet: View {
                     let updatedPreset = PresetTimer(
                         id: preset?.id ?? UUID(),
                         name: name.trimmingCharacters(in: .whitespaces),
-                        minutes: max(0, minutes),
-                        seconds: max(0, min(59, seconds))
+                        minutes: max(timerPolicy.limits.min, min(timerPolicy.limits.max, minutes)),
+                        seconds: max(timerPolicy.limits.min, min(timerPolicy.limits.max, seconds))
                     )
                     onSave(updatedPreset)
                 }
@@ -261,5 +266,8 @@ private struct PresetEditorSheet: View {
 }
 
 #Preview {
-    PresetTimersSettingsView(presetStore: PresetTimersStore())
+    PresetTimersSettingsView(
+        presetStore: PresetTimersStore(),
+        timerPolicy: StandardTimerPolicy()
+    )
 }
