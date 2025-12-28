@@ -67,7 +67,7 @@ struct TimerFormView: View {
                     TextField(
                         "Minutes",
                         value: $minutes,
-                        formatter: timerPolicy.formatter
+                        formatter: timerPolicy.minutesFormatter
                     )
                     .labelsHidden()
                     .textFieldStyle(.plain)
@@ -83,7 +83,7 @@ struct TimerFormView: View {
                     TextField(
                         "Seconds",
                         value: $seconds,
-                        formatter: timerPolicy.formatter
+                        formatter: timerPolicy.secondsFormatter
                     )
                     .labelsHidden()
                     .textFieldStyle(.plain)
@@ -99,7 +99,7 @@ struct TimerFormView: View {
                 }
                 .onChange(of: minutes) {
                     // Switch to seconds field when minutes reaches digit limit
-                    if String(minutes).count >= timerPolicy.limits.digitCount {
+                    if String(minutes).count >= timerPolicy.minutesLimits.digitCount {
                         focusedField = .seconds
                     }
                 }

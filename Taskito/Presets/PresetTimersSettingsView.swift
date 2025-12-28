@@ -251,8 +251,8 @@ private struct PresetEditorSheet: View {
                     let updatedPreset = PresetTimer(
                         id: preset?.id ?? UUID(),
                         name: name.trimmingCharacters(in: .whitespaces),
-                        minutes: max(timerPolicy.limits.min, min(timerPolicy.limits.max, minutes)),
-                        seconds: max(timerPolicy.limits.min, min(timerPolicy.limits.max, seconds))
+                        minutes: max(timerPolicy.minutesLimits.min, min(timerPolicy.minutesLimits.max, minutes)),
+                        seconds: max(timerPolicy.secondsLimits.min, min(timerPolicy.secondsLimits.max, seconds))
                     )
                     onSave(updatedPreset)
                 }

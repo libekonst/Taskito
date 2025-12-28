@@ -22,8 +22,8 @@ struct FormView: View {
                 presets: presetsStore.presets,
                 onPresetSelected: { preset in
                     // Clamp values to valid range for defense against corrupted data
-                    minutes = max(timerPolicy.limits.min, min(timerPolicy.limits.max, preset.minutes))
-                    seconds = max(timerPolicy.limits.min, min(timerPolicy.limits.max, preset.seconds))
+                    minutes = max(timerPolicy.minutesLimits.min, min(timerPolicy.minutesLimits.max, preset.minutes))
+                    seconds = max(timerPolicy.secondsLimits.min, min(timerPolicy.secondsLimits.max, preset.seconds))
                     onSubmit()
                 }
             )
