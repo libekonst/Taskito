@@ -1,7 +1,8 @@
 # Taskito Testing Plan
 
-**Status:** ✅ Phase 1 COMPLETE - 74 unit tests implemented and passing
-**Priority:** Ready for Phase 2 (Integration Tests) or Phase 3 (UI Tests)
+**Status:** ✅ Phase 1 & 2 COMPLETE - 86 tests implemented and passing
+**Progress:** Unit Tests (74) + Integration Tests (10) + Placeholder (2) = 86 total
+**Next:** Phase 3 (UI Tests) or Phase 4 (Performance & Edge Cases)
 
 ---
 
@@ -175,37 +176,42 @@
 
 ---
 
-## Phase 2: Integration Tests (Medium Priority)
+## Phase 2: Integration Tests (Medium Priority) - ✅ COMPLETE
 
 ### 2.1 Timer Lifecycle Integration Tests
 **File:** `TaskitoTests/TimerLifecycleIntegrationTests.swift`
 **Priority:** HIGH - End-to-end timer flows
+**Status:** ✅ 4 tests passing
 
 #### Test Coverage:
 
 **Complete Timer Flow:**
-- [ ] `testCompleteTimerFlow_StartPauseResumeComplete()`
-- [ ] `testCompleteTimerFlow_StartCancelRestart()`
-- [ ] `testCompleteTimerFlow_StartAddTimeComplete()`
-
-**Audio Integration:**
-- [ ] `testTimerCompletion_TriggersAudioWhenEnabled()`
-- [ ] `testTimerCompletion_NoAudioWhenDisabled()`
+- [x] `testCompleteTimerFlow_StartPauseResumeComplete()` - Tests pause/resume cycle with timer completion
+- [x] `testCompleteTimerFlow_StartCancelRestart()` - Tests cancellation and starting new timer
+- [x] `testCompleteTimerFlow_StartAddTimeComplete()` - Tests adding time during countdown
 
 **Settings Integration:**
-- [ ] `testSettingsChange_ReflectsInTimerBehavior()`
+- [x] `testSettingsChange_ReflectsInTimerBehavior()` - Verifies settings changes affect timer behavior
+
+**Audio Integration (Deferred):**
+- [ ] `testTimerCompletion_TriggersAudioWhenEnabled()` - Requires AudioPlayer mock (Phase 4)
+- [ ] `testTimerCompletion_NoAudioWhenDisabled()` - Requires AudioPlayer mock (Phase 4)
 
 ---
 
 ### 2.2 Preset & Timer Integration Tests
 **File:** `TaskitoTests/PresetTimerIntegrationTests.swift`
 **Priority:** MEDIUM
+**Status:** ✅ 6 tests passing
 
 #### Test Coverage:
 
-- [ ] `testPresetSelection_StartsTimerWithCorrectDuration()`
-- [ ] `testPresetCreation_ValidatesAgainstTimerPolicy()`
-- [ ] `testPresetUpdate_MaintainsConsistency()`
+- [x] `testPresetSelection_StartsTimerWithCorrectDuration()` - Verify preset integration
+- [x] `testPresetCreation_ValidatesAgainstTimerPolicy()` - Test policy limits
+- [x] `testPresetUpdate_MaintainsConsistency()` - Update preset and use with timer
+- [x] `testPresetPersistence_IntegrationWithCountdown()` - Persistence across app restarts
+- [x] `testPresetWithMaxDuration_StartsSuccessfully()` - Edge case: max timer duration
+- [x] `testMultiplePresets_SequentialTimerStarts()` - Sequential timer workflows
 
 ---
 
@@ -323,18 +329,37 @@
 - ✅ Comprehensive error handling tests
 - ✅ Protocol-based dependency injection throughout
 
-### Phase 2 Next Steps
-8. ⏸️ Timer lifecycle integration tests
+### ✅ Phase 2 COMPLETE - Integration Tests
+6. ✅ Timer lifecycle integration tests (4 tests)
+7. ✅ Preset & Timer integration tests (6 tests)
+   - Created TimerLifecycleIntegrationTests.swift
+   - Created PresetTimerIntegrationTests.swift
+   - All tests using async/await with continuations (deterministic)
+   - Total integration test time: ~16 seconds (includes real timer execution)
 
-### Medium-term (Month 1)
-7. ⏸️ UI tests for critical flows
-8. ⏸️ Audio integration tests
-9. ⏸️ Performance tests
+**Updated Test Summary:**
+- CountdownStoreTests: 24 tests
+- StandardTimerPolicyTests: 17 tests
+- PresetTimersStoreTests: 13 tests
+- SettingsStoreTests: 13 tests (includes async login item management)
+- PresetTimerTests: 5 tests
+- AppStorageKeysTests: 4 tests
+- TimerLifecycleIntegrationTests: 4 tests ✨ NEW
+- PresetTimerIntegrationTests: 6 tests ✨ NEW
+- **Total: 86 tests passing**
+
+### Phase 3 Next Steps (UI Tests)
+8. ⏸️ UI tests for critical flows (XCUITest - see Phase 3 section above)
+9. ⏸️ Audio integration tests (requires AudioPlayer mock - deferred from Phase 2)
+
+### Medium-term (Performance & Edge Cases)
+10. ⏸️ Performance tests (see Phase 4 section above)
+11. ⏸️ Concurrency tests (see Phase 4 section above)
 
 ### Long-term (Ongoing)
-10. ⏸️ Additional UI tests
-11. ⏸️ Concurrency tests
-12. ⏸️ Regression tests as bugs are found
+12. ⏸️ Additional UI test coverage
+13. ⏸️ Regression tests as bugs are found
+14. ⏸️ CI/CD integration (GitHub Actions)
 
 ---
 

@@ -10,14 +10,17 @@ import XCTest
 
 final class CountdownStoreTests: XCTestCase {
     var sut: CountdownStore!
+    var mockClock: MockClock!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = CountdownStore()
+        mockClock = MockClock()
+        sut = CountdownStore(clock: mockClock)
     }
 
     override func tearDownWithError() throws {
         sut = nil
+        mockClock = nil
         try super.tearDownWithError()
     }
 
@@ -372,11 +375,11 @@ final class CountdownStoreTests: XCTestCase {
     // MARK: - Timer Completion Tests
 
     func testTimerCountdown_CompletesWhenSecondsElapsedReachesTotal() async {
-        // Given - Very short timer (2 seconds for reliability)
+        // Given - Very short timer (2 seconds, but with MockClock ticks every 10ms)
         _ = sut.startNewTimer(minutes: 0, seconds: 2)
 
-        // When - Wait for timer to complete using async
-        await waitForTimerCompletion(sut, timeout: 4.0)
+        // When - Wait for timer to complete (MockClock makes this ~20ms instead of 2s)
+        await waitForTimerCompletion(sut, timeout: 0.5)
 
         // Then - Timer should be completed
         XCTAssertEqual(sut.timerState, .completed, "Timer state should be completed")
@@ -391,20 +394,20 @@ final class CountdownStoreTests: XCTestCase {
             handlerWasCalled = true
         }
 
-        // When - Start and wait for timer to complete
+        // When - Start and wait for timer to complete (MockClock makes this ~10ms)
         _ = sut.startNewTimer(minutes: 0, seconds: 1)
-        await waitForTimerCompletion(sut, timeout: 2.0)
+        await waitForTimerCompletion(sut, timeout: 0.5)
 
         // Then - Handler should be called
         XCTAssertTrue(handlerWasCalled, "Completion handler should have been called")
     }
 
     func testTimerCompletion_SetsStateToCompleted() async {
-        // Given - Very short timer
+        // Given - Very short timer (MockClock makes this ~10ms)
         _ = sut.startNewTimer(minutes: 0, seconds: 1)
 
         // When - Wait for completion
-        await waitForTimerCompletion(sut, timeout: 2.0)
+        await waitForTimerCompletion(sut, timeout: 0.5)
 
         // Then - State should be completed
         XCTAssertEqual(sut.timerState, .completed, "State should be .completed")

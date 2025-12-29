@@ -27,3 +27,38 @@ final class SystemClock: ClockProtocol {
     }
 }
 
+// MARK: - Mock Clock (Testing)
+
+/// Mock clock for testing - ticks much faster than real time
+/// Allows tests to run in milliseconds instead of seconds
+final class MockClock: ClockProtocol {
+    /// How often the mock timer fires (default: 10ms for fast tests)
+    var tickInterval: TimeInterval = 0.01
+
+    /// How much simulated time passes per tick (default: 1 second)
+    var simulatedSecondsPerTick: TimeInterval = 1.0
+
+    private var currentSimulatedTime = Date()
+
+    func createTimer(interval: TimeInterval) -> AnyPublisher<Date, Never> {
+        // Validate interval matches what we simulate
+        // In practice, CountdownStore uses 1-second intervals
+        assert(interval == simulatedSecondsPerTick,
+               "MockClock configured for \(simulatedSecondsPerTick)s ticks but got \(interval)s")
+
+        return Timer.publish(every: tickInterval, on: .main, in: .common)
+            .autoconnect()
+            .map { [weak self] _ in
+                guard let self = self else { return Date() }
+                // Advance simulated time by the configured amount
+                self.currentSimulatedTime.addTimeInterval(self.simulatedSecondsPerTick)
+                return self.currentSimulatedTime
+            }
+            .eraseToAnyPublisher()
+    }
+
+    /// Reset the mock clock to current time
+    func reset() {
+        currentSimulatedTime = Date()
+    }
+}
