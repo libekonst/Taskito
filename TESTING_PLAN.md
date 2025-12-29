@@ -1,7 +1,7 @@
 # Taskito Testing Plan
 
-**Status:** Phase 1 Week 1 Complete - 51 unit tests implemented and passing
-**Priority:** Medium - Continue with Phase 1 Week 2-3 tests (SettingsStore, advanced CountdownStore, integration tests)
+**Status:** Phase 1 Week 1-2 In Progress - 62 unit tests implemented and passing
+**Priority:** Medium - Continue with Phase 1 remaining tests (PresetTimer Model, AppStorageKeys, timer completion tests)
 
 ---
 
@@ -126,23 +126,25 @@
 #### Test Coverage:
 
 **Sound Settings:**
-- [ ] `testSoundEnabled_DefaultsToTrue()`
-- [ ] `testSoundEnabled_PersistsChanges()`
+- [x] `testSoundEnabled_DefaultsToTrue()`
+- [x] `testSoundEnabled_PersistsChanges()`
 
 **Keyboard Shortcut Settings:**
-- [ ] `testGlobalShortcutEnabled_DefaultsToTrue()`
-- [ ] `testGlobalShortcutEnabled_PersistsChanges()`
+- [x] `testGlobalShortcutEnabled_DefaultsToTrue()`
+- [x] `testGlobalShortcutEnabled_PersistsChanges()`
 
 **Startup Settings:**
-- [ ] `testStartOnStartup_DefaultsToFalse()`
-- [ ] `testStartOnStartup_SyncsWithSystemState()`
-- [ ] `testStartOnStartup_HandlesLoginItemFailure()`
-- [ ] `testStartOnStartup_RevertsOnError()`
+- [x] `testStartOnStartup_DefaultsToFalse()`
+- [x] `testStartOnStartup_SyncsWithSystemState()`
+- [x] `testStartOnStartup_EnabledCallsLoginItemManager()`
+- [x] `testStartOnStartup_DisabledCallsLoginItemManager()`
+- [x] `testStartOnStartup_HandlesLoginItemFailure()`
+- [x] `testStartOnStartup_RevertsOnError()`
 
 **System Sync:**
-- [ ] `testSyncWithSystemState_UpdatesFromSystem()`
-- [ ] `testAppDidBecomeActive_SyncsState()`
-- [ ] `testIsSyncingFlag_PreventsRecursiveUpdates()`
+- [x] `testSyncWithSystemState_UpdatesFromSystem()`
+- [x] `testAppDidBecomeActive_SyncsState()`
+- [x] `testIsSyncingFlag_PreventsRecursiveUpdates()`
 
 ---
 
@@ -288,10 +290,24 @@
 - PresetTimersStoreTests: 13 tests (all implemented)
 - **Total: 51 tests passing**
 
-### Short-term (Week 2-3)
+### Short-term (Week 2-3) - ✅ SettingsStore COMPLETE
+5. ✅ SettingsStore tests (sound, shortcuts, startup settings with async operations)
+   - Created LoginItemManaging protocol for testability
+   - Implemented MockLoginItemManager for testing
+   - 11 tests covering all settings and system sync behavior
+
+**Updated Test Summary:**
+- CountdownStoreTests: 21 tests
+- StandardTimerPolicyTests: 17 tests
+- PresetTimersStoreTests: 13 tests
+- SettingsStoreTests: 11 tests
+- **Total: 62 unit tests passing**
+
+### Remaining Week 2-3
 4. ⏸️ CountdownStore timer completion tests (requires time mocking framework)
-5. ⏸️ SettingsStore tests (sound, shortcuts, startup settings)
-6. ⏸️ Timer lifecycle integration tests
+6. ⏸️ PresetTimer Model tests (low priority - simple Codable/Equatable)
+7. ⏸️ AppStorageKeys tests (low priority - constant validation)
+8. ⏸️ Timer lifecycle integration tests
 
 ### Medium-term (Month 1)
 7. ⏸️ UI tests for critical flows
