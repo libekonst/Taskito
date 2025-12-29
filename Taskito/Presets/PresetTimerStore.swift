@@ -15,6 +15,9 @@ class PresetTimersStore: ObservableObject {
 
     @Published var presets: [PresetTimer] = []
 
+    /// Maximum number of presets allowed
+    static let maxPresets = 5
+
     init() {
         loadPresets()
     }
@@ -41,9 +44,19 @@ class PresetTimersStore: ObservableObject {
         }
     }
 
-    func addPreset(_ preset: PresetTimer) {
+    enum PresetError: Error, Equatable {
+        case maxPresetsReached
+    }
+
+    @discardableResult
+    func addPreset(_ preset: PresetTimer) -> Result<Void, PresetError> {
+        guard presets.count < Self.maxPresets else {
+            return .failure(.maxPresetsReached)
+        }
+
         presets.append(preset)
         savePresets()
+        return .success(())
     }
 
     func updatePreset(_ preset: PresetTimer) {

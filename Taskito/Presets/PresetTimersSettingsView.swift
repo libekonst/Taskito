@@ -12,10 +12,10 @@ struct PresetTimersSettingsView: View {
     var timerPolicy: TimerPolicy
     @State private var editingPreset: PresetTimer?
     @State private var showingAddSheet = false
+    @State private var showingLimitAlert = false
 
-    private let maxPresets = 5
     private var isAtLimit: Bool {
-        presetStore.presets.count >= maxPresets
+        presetStore.presets.count >= PresetTimersStore.maxPresets
     }
 
     private var hasModifiedPresets: Bool {
@@ -55,7 +55,7 @@ struct PresetTimersSettingsView: View {
             HStack(spacing: 1) {
                 // Show limit message when at maximum
                 if isAtLimit {
-                    Text("Maximum \(maxPresets) preset timers.")
+                    Text("Maximum \(PresetTimersStore.maxPresets) preset timers.")
                         .font(.system(size: 11, weight: .regular, design: .rounded))
                         .foregroundStyle(.secondary)
                 }
@@ -104,13 +104,24 @@ struct PresetTimersSettingsView: View {
                 preset: nil,
                 timerPolicy: timerPolicy,
                 onSave: { newPreset in
-                    presetStore.addPreset(newPreset)
+                    let result = presetStore.addPreset(newPreset)
+                    if case .failure = result {
+                        showingLimitAlert = true
+                    }
                     showingAddSheet = false
                 },
                 onCancel: {
                     showingAddSheet = false
                 }
             )
+        }
+        .alert(
+            "Maximum Presets Reached",
+            isPresented: $showingLimitAlert
+        ) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("You can have a maximum of \(PresetTimersStore.maxPresets) preset timers. Delete an existing preset to add a new one.")
         }
     }
 }

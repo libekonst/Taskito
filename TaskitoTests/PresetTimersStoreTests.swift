@@ -100,6 +100,40 @@ final class PresetTimersStoreTests: XCTestCase {
         XCTAssertTrue(newStore.presets.contains(where: { $0.id == newPreset.id }))
     }
 
+    func testAddPreset_RespectsMaxLimit() {
+        // Given - Store starts with 3 defaults
+        XCTAssertEqual(sut.presets.count, 3, "Should start with 3 default presets")
+
+        // When - Add 2 more presets (total = 5, which is the max)
+        let preset1 = PresetTimer(name: "Preset 4", minutes: 20, seconds: 0)
+        let preset2 = PresetTimer(name: "Preset 5", minutes: 30, seconds: 0)
+
+        let result1 = sut.addPreset(preset1)
+        let result2 = sut.addPreset(preset2)
+
+        // Then - Both should succeed
+        if case .failure(let error) = result1 {
+            XCTFail("Expected success, got failure: \(error)")
+        }
+        if case .failure(let error) = result2 {
+            XCTFail("Expected success, got failure: \(error)")
+        }
+        XCTAssertEqual(sut.presets.count, 5, "Should have 5 presets (max)")
+
+        // When - Try to add one more (exceeds max)
+        let preset6 = PresetTimer(name: "Preset 6", minutes: 40, seconds: 0)
+        let result3 = sut.addPreset(preset6)
+
+        // Then - Should fail with maxPresetsReached error
+        guard case .failure(let error) = result3 else {
+            XCTFail("Expected failure, got success")
+            return
+        }
+        XCTAssertEqual(error, .maxPresetsReached, "Should fail with maxPresetsReached")
+        XCTAssertEqual(sut.presets.count, 5, "Should still have 5 presets (not 6)")
+        XCTAssertFalse(sut.presets.contains(where: { $0.id == preset6.id }), "Preset 6 should not be added")
+    }
+
     // MARK: - Update Preset Tests
 
     func testUpdatePreset_UpdatesExistingPreset() {
