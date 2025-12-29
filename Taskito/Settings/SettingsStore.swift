@@ -23,25 +23,16 @@ class SettingsStore: ObservableObject {
 
     // MARK: - General Settings
 
-    /// Whether to launch app on system startup
-    @AppStorage(AppStorageKeys.Settings.startOnStartup) var startOnStartup: Bool = false {
-        didSet {
-            // Only update system if we're not syncing from system state
-            guard !isSyncingFromSystem else { return }
-            handleStartupToggle(enabled: startOnStartup)
-        }
-    }
+    /// Whether to launch app on system startup (read-only from UI perspective)
+    @AppStorage(AppStorageKeys.Settings.startOnStartup) var startOnStartup: Bool = false
 
     /// Published error message for displaying alerts
     @Published var startupError: LoginItemManager.LoginItemError?
 
     // MARK: - Private Properties
 
-    /// Flag to prevent recursive updates when syncing from system
-    private var isSyncingFromSystem = false
-
     /// Login item manager for handling startup settings
-    private let loginItemManager: LoginItemManager
+    private let loginItemManager: LoginItemManaging
 
     // MARK: - Future Settings (placeholders)
 
@@ -50,11 +41,13 @@ class SettingsStore: ObservableObject {
 
     // MARK: - Initialization
 
-    init(loginItemManager: LoginItemManager) {
+    init(loginItemManager: LoginItemManaging) {
         self.loginItemManager = loginItemManager
 
-        // Initial sync with system state
-        syncWithSystemState()
+        // Initial sync with system state (async, happens in background)
+        Task { @MainActor in
+            await self.syncWithSystemState()
+        }
 
         // Monitor app becoming active to detect external changes
         NotificationCenter.default.addObserver(
@@ -69,44 +62,43 @@ class SettingsStore: ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // MARK: - Public API
+
+    /// Set whether the app should launch on system startup
+    /// - Parameter enabled: true to enable startup on login, false to disable
+    @MainActor
+    func setStartOnStartup(_ enabled: Bool) async {
+        let result = await loginItemManager.setStartOnLogin(enabled: enabled)
+
+        switch result {
+        case .success:
+            // Update stored value on success
+            startOnStartup = enabled
+            startupError = nil
+            print("✅ Startup setting updated: \(enabled)")
+        case .failure(let error):
+            // Don't update stored value, keep previous state
+            startupError = error
+            print("❌ Failed to set startup: \(error.localizedDescription)")
+        }
+    }
+
     // MARK: - System State Synchronization
 
     /// Sync the stored preference with actual system login item status
-    private func syncWithSystemState() {
-        Task { @MainActor in
-            let systemIsEnabled = await loginItemManager.isEnabled()
-            if startOnStartup != systemIsEnabled {
-                // Set flag to prevent didSet from triggering system update
-                isSyncingFromSystem = true
-                startOnStartup = systemIsEnabled
-                isSyncingFromSystem = false
-                print("🔄 Synced login item status with system state: \(systemIsEnabled)")
-            }
+    @MainActor
+    func syncWithSystemState() async {
+        let systemIsEnabled = await loginItemManager.isEnabled()
+        if startOnStartup != systemIsEnabled {
+            startOnStartup = systemIsEnabled
+            print("🔄 Synced login item status with system state: \(systemIsEnabled)")
         }
     }
 
     /// Called when app becomes active - check if login item status changed externally
     @objc private func appDidBecomeActive() {
-        syncWithSystemState()
-    }
-
-    /// Handle startup toggle changes with proper error handling
-    private func handleStartupToggle(enabled: Bool) {
         Task { @MainActor in
-            let result = await loginItemManager.setStartOnLogin(enabled: enabled)
-
-            switch result {
-            case .success:
-                // Success - clear any previous errors
-                startupError = nil
-            case .failure(let error):
-                // Failed - revert the toggle and show error
-                print("❌ Failed to set startup: \(error.localizedDescription)")
-                isSyncingFromSystem = true
-                startOnStartup = !enabled // Revert to previous state
-                isSyncingFromSystem = false
-                startupError = error // This will trigger the alert in the view
-            }
+            await syncWithSystemState()
         }
     }
 

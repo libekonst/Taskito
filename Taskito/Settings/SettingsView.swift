@@ -15,6 +15,18 @@ struct SettingsView: View {
 
     @State private var showingShortcutRecorder = false
 
+    /// Custom binding for startup setting that calls async method
+    private var startOnStartupBinding: Binding<Bool> {
+        Binding(
+            get: { settingsStore.startOnStartup },
+            set: { newValue in
+                Task { @MainActor in
+                    await settingsStore.setStartOnStartup(newValue)
+                }
+            }
+        )
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
@@ -38,7 +50,7 @@ struct SettingsView: View {
 
                         Spacer()
 
-                        Toggle("", isOn: $settingsStore.startOnStartup)
+                        Toggle("", isOn: startOnStartupBinding)
                             .toggleStyle(.switch)
                             .labelsHidden()
                     }

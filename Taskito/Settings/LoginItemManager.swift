@@ -8,8 +8,14 @@
 import Foundation
 import ServiceManagement
 
+/// Protocol for managing login items - allows for testing
+protocol LoginItemManaging {
+    func isEnabled() async -> Bool
+    func setStartOnLogin(enabled: Bool) async -> Result<Void, LoginItemManager.LoginItemError>
+}
+
 /// Manages the app's login item status using ServiceManagement framework
-final class LoginItemManager {
+final class LoginItemManager: LoginItemManaging {
     init() {}
 
     /// Check if the app is currently set to launch on login
