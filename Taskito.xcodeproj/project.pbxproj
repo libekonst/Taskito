@@ -635,7 +635,7 @@
 		84CAB7CB2BA0F8DE002350A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 4";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 5";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Taskito/Taskito.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -664,7 +664,7 @@
 		84CAB7CC2BA0F8DE002350A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 4";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 5";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Taskito/Taskito.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
