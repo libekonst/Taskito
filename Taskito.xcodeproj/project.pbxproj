@@ -50,6 +50,7 @@
 		84D97CED2F02D861008AEDC6 /* PresetTimerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D97CEA2F02D861008AEDC6 /* PresetTimerIntegrationTests.swift */; };
 		84D97CEE2F02D861008AEDC6 /* TimerSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D97CEC2F02D861008AEDC6 /* TimerSmokeTests.swift */; };
 		84D97CEF2F02D861008AEDC6 /* TimerLifecycleIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D97CEB2F02D861008AEDC6 /* TimerLifecycleIntegrationTests.swift */; };
+		84D97CF72F02E08A008AEDC6 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D97CF62F02E087008AEDC6 /* TestHelpers.swift */; };
 		84E67CBC2EEA62FA00772892 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBB2EEA62F500772892 /* SettingsStore.swift */; };
 		84E67CBE2EEA7C2400772892 /* AppKeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBD2EEA7C1D00772892 /* AppKeyboardShortcuts.swift */; };
 		84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */; };
@@ -119,6 +120,7 @@
 		84D97CEA2F02D861008AEDC6 /* PresetTimerIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetTimerIntegrationTests.swift; sourceTree = "<group>"; };
 		84D97CEB2F02D861008AEDC6 /* TimerLifecycleIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLifecycleIntegrationTests.swift; sourceTree = "<group>"; };
 		84D97CEC2F02D861008AEDC6 /* TimerSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSmokeTests.swift; sourceTree = "<group>"; };
+		84D97CF62F02E087008AEDC6 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		84E67CBB2EEA62F500772892 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		84E67CBD2EEA7C1D00772892 /* AppKeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeyboardShortcuts.swift; sourceTree = "<group>"; };
 		84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarLabel.swift; path = Taskito/MenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
@@ -222,6 +224,7 @@
 		84CAB7B92BA0F8DE002350A9 /* TaskitoTests */ = {
 			isa = PBXGroup;
 			children = (
+				84D97CF82F02E0CC008AEDC6 /* Helpers */,
 				84D97CEA2F02D861008AEDC6 /* PresetTimerIntegrationTests.swift */,
 				84D97CEB2F02D861008AEDC6 /* TimerLifecycleIntegrationTests.swift */,
 				84D97CEC2F02D861008AEDC6 /* TimerSmokeTests.swift */,
@@ -291,6 +294,14 @@
 				84D389B52EEF7981002CEF2B /* SystemMenuView.swift */,
 			);
 			path = SystemActions;
+			sourceTree = "<group>";
+		};
+		84D97CF82F02E0CC008AEDC6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				84D97CF62F02E087008AEDC6 /* TestHelpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,6 +481,7 @@
 				84D97CD82F01EEEB008AEDC6 /* CountdownStoreTests.swift in Sources */,
 				84D97CD92F01EEEB008AEDC6 /* StandardTimerPolicyTests.swift in Sources */,
 				84D97CDE2F02C2CA008AEDC6 /* PresetTimerTests.swift in Sources */,
+				84D97CF72F02E08A008AEDC6 /* TestHelpers.swift in Sources */,
 				84D97CDF2F02C2CA008AEDC6 /* AppStorageKeysTests.swift in Sources */,
 				84D97CED2F02D861008AEDC6 /* PresetTimerIntegrationTests.swift in Sources */,
 				84D97CEE2F02D861008AEDC6 /* TimerSmokeTests.swift in Sources */,

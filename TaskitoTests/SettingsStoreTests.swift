@@ -15,10 +15,12 @@ final class SettingsStoreTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
 
-        // Clean UserDefaults before each test
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.Settings.soundEnabled)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.Settings.globalShortcutEnabled)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.Settings.startOnStartup)
+        // Clean UserDefaults before each test to ensure isolation
+        TestHelpers.cleanUserDefaults(keys: [
+            AppStorageKeys.Settings.soundEnabled,
+            AppStorageKeys.Settings.globalShortcutEnabled,
+            AppStorageKeys.Settings.startOnStartup
+        ])
 
         // Create mock and store
         mockLoginItemManager = MockLoginItemManager()
@@ -26,13 +28,16 @@ final class SettingsStoreTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Clean up
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.Settings.soundEnabled)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.Settings.globalShortcutEnabled)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.Settings.startOnStartup)
-
         sut = nil
         mockLoginItemManager = nil
+
+        // Clean UserDefaults after test to prevent pollution
+        TestHelpers.cleanUserDefaults(keys: [
+            AppStorageKeys.Settings.soundEnabled,
+            AppStorageKeys.Settings.globalShortcutEnabled,
+            AppStorageKeys.Settings.startOnStartup
+        ])
+
         try super.tearDownWithError()
     }
 

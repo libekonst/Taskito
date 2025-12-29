@@ -10,19 +10,22 @@ import XCTest
 
 final class PresetTimersStoreTests: XCTestCase {
     var sut: PresetTimersStore!
-    let testKey = AppStorageKeys.presetTimers
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        // Clean UserDefaults before each test
-        UserDefaults.standard.removeObject(forKey: testKey)
+
+        // Clean UserDefaults before each test to ensure isolation
+        TestHelpers.cleanUserDefaults(key: AppStorageKeys.presetTimers)
+
         sut = PresetTimersStore()
     }
 
     override func tearDownWithError() throws {
-        // Clean up after test
-        UserDefaults.standard.removeObject(forKey: testKey)
         sut = nil
+
+        // Clean UserDefaults after test to prevent pollution
+        TestHelpers.cleanUserDefaults(key: AppStorageKeys.presetTimers)
+
         try super.tearDownWithError()
     }
 
@@ -45,7 +48,7 @@ final class PresetTimersStoreTests: XCTestCase {
         // Given - Save custom presets
         let customPreset = PresetTimer(name: "Custom", minutes: 15, seconds: 30)
         let encoded = try! JSONEncoder().encode([customPreset])
-        UserDefaults.standard.set(encoded, forKey: testKey)
+        UserDefaults.standard.set(encoded, forKey: AppStorageKeys.presetTimers)
 
         // When - Initialize store
         let store = PresetTimersStore()
@@ -60,7 +63,7 @@ final class PresetTimersStoreTests: XCTestCase {
     func testInit_CorruptedData_FallsBackToDefaults() {
         // Given - Corrupted data in UserDefaults
         let corruptedData = "corrupted".data(using: .utf8)!
-        UserDefaults.standard.set(corruptedData, forKey: testKey)
+        UserDefaults.standard.set(corruptedData, forKey: AppStorageKeys.presetTimers)
 
         // When - Initialize store
         let store = PresetTimersStore()

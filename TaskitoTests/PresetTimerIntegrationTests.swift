@@ -16,6 +16,10 @@ final class PresetTimerIntegrationTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
+
+        // Clean UserDefaults before each test to ensure isolation
+        TestHelpers.cleanUserDefaults(key: AppStorageKeys.presetTimers)
+
         mockClock = MockClock()
         countdownStore = CountdownStore(clock: mockClock)
         presetStore = PresetTimersStore()
@@ -27,6 +31,10 @@ final class PresetTimerIntegrationTests: XCTestCase {
         mockClock = nil
         presetStore = nil
         timerPolicy = nil
+
+        // Clean UserDefaults after test to prevent pollution
+        TestHelpers.cleanUserDefaults(key: AppStorageKeys.presetTimers)
+
         try super.tearDownWithError()
     }
 

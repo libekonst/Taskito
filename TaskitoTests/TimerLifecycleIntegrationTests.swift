@@ -16,6 +16,14 @@ final class TimerLifecycleIntegrationTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
+
+        // Clean UserDefaults before each test to ensure isolation
+        TestHelpers.cleanUserDefaults(keys: [
+            AppStorageKeys.Settings.soundEnabled,
+            AppStorageKeys.Settings.globalShortcutEnabled,
+            AppStorageKeys.Settings.startOnStartup
+        ])
+
         mockClock = MockClock()
         sut = CountdownStore(clock: mockClock)
         mockLoginItemManager = MockLoginItemManager()
@@ -27,6 +35,14 @@ final class TimerLifecycleIntegrationTests: XCTestCase {
         mockClock = nil
         settingsStore = nil
         mockLoginItemManager = nil
+
+        // Clean UserDefaults after test to prevent pollution
+        TestHelpers.cleanUserDefaults(keys: [
+            AppStorageKeys.Settings.soundEnabled,
+            AppStorageKeys.Settings.globalShortcutEnabled,
+            AppStorageKeys.Settings.startOnStartup
+        ])
+
         try super.tearDownWithError()
     }
 
