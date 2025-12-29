@@ -25,9 +25,6 @@
 		84CAB7AB2BA0F8DC002350A9 /* MenuBarWindowContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7AA2BA0F8DC002350A9 /* MenuBarWindowContent.swift */; };
 		84CAB7AD2BA0F8DD002350A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */; };
 		84CAB7B02BA0F8DD002350A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CAB7AF2BA0F8DD002350A9 /* Preview Assets.xcassets */; };
-		84CAB7BB2BA0F8DE002350A9 /* TaskitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7BA2BA0F8DE002350A9 /* TaskitoTests.swift */; };
-		84CAB7C52BA0F8DE002350A9 /* TaskitoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */; };
-		84CAB7C72BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */; };
 		84D389B42EEDF35C002CEF2B /* AppKeyboardShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B32EEDF357002CEF2B /* AppKeyboardShortcutsView.swift */; };
 		84D389B62EEF7981002CEF2B /* SystemMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B52EEF7981002CEF2B /* SystemMenuView.swift */; };
 		84D389B82EEF7B3B002CEF2B /* WindowIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */; };
@@ -95,10 +92,7 @@
 		84CAB7AF2BA0F8DD002350A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		84CAB7B12BA0F8DD002350A9 /* Taskito.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taskito.entitlements; sourceTree = "<group>"; };
 		84CAB7B62BA0F8DE002350A9 /* TaskitoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskitoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		84CAB7BA2BA0F8DE002350A9 /* TaskitoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoTests.swift; sourceTree = "<group>"; };
 		84CAB7C02BA0F8DE002350A9 /* TaskitoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskitoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITests.swift; sourceTree = "<group>"; };
-		84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskitoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		84D389B32EEDF357002CEF2B /* AppKeyboardShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeyboardShortcutsView.swift; sourceTree = "<group>"; };
 		84D389B52EEF7981002CEF2B /* SystemMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMenuView.swift; sourceTree = "<group>"; };
 		84D389B72EEF7B3B002CEF2B /* WindowIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowIdentifier.swift; sourceTree = "<group>"; };
@@ -236,7 +230,6 @@
 				84D97CD42F01EEEB008AEDC6 /* CountdownStoreTests.swift */,
 				84D97CD52F01EEEB008AEDC6 /* PresetTimersStoreTests.swift */,
 				84D97CD62F01EEEB008AEDC6 /* StandardTimerPolicyTests.swift */,
-				84CAB7BA2BA0F8DE002350A9 /* TaskitoTests.swift */,
 			);
 			path = TaskitoTests;
 			sourceTree = "<group>";
@@ -244,8 +237,6 @@
 		84CAB7C32BA0F8DE002350A9 /* TaskitoUITests */ = {
 			isa = PBXGroup;
 			children = (
-				84CAB7C42BA0F8DE002350A9 /* TaskitoUITests.swift */,
-				84CAB7C62BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift */,
 			);
 			path = TaskitoUITests;
 			sourceTree = "<group>";
@@ -478,7 +469,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D97CDB2F01F651008AEDC6 /* SettingsStoreTests.swift in Sources */,
-				84CAB7BB2BA0F8DE002350A9 /* TaskitoTests.swift in Sources */,
 				84D97CD72F01EEEB008AEDC6 /* PresetTimersStoreTests.swift in Sources */,
 				84D97CD82F01EEEB008AEDC6 /* CountdownStoreTests.swift in Sources */,
 				84D97CD92F01EEEB008AEDC6 /* StandardTimerPolicyTests.swift in Sources */,
@@ -495,8 +485,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CAB7C72BA0F8DE002350A9 /* TaskitoUITestsLaunchTests.swift in Sources */,
-				84CAB7C52BA0F8DE002350A9 /* TaskitoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,7 +683,6 @@
 		84CAB7CE2BA0F8DE002350A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -713,7 +700,6 @@
 		84CAB7CF2BA0F8DE002350A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -731,7 +717,6 @@
 		84CAB7D12BA0F8DE002350A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -747,7 +732,6 @@
 		84CAB7D22BA0F8DE002350A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
