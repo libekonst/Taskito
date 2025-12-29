@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "5DDFF7E7-49D8-4A7F-8179-9C1CCE78476C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Taskito.xcodeproj",
+      "identifier" : "84CAB7A42BA0F8DC002350A9",
+      "name" : "Taskito"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Taskito.xcodeproj",
+        "identifier" : "84CAB7B52BA0F8DE002350A9",
+        "name" : "TaskitoTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Taskito.xcodeproj",
+        "identifier" : "84CAB7BF2BA0F8DE002350A9",
+        "name" : "TaskitoUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
