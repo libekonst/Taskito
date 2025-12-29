@@ -12,6 +12,7 @@ private let SECONDS_IN_MINUTE = 60
 
 class CountdownStore: ObservableObject {
     private var timer: Cancellable?
+    private let clock: ClockProtocol
 
     @Published var timerState: TimerState = .idle
 
@@ -34,6 +35,12 @@ class CountdownStore: ObservableObject {
     /** The timer has finished counting down to 0. */
     private var isTimerDepleted: Bool {
         return secondsElapsed >= secondsTotal
+    }
+
+    // MARK: - Initialization
+
+    init(clock: ClockProtocol = SystemClock()) {
+        self.clock = clock
     }
 
     /** Creates a fresh timer instance and immediately starts counting down. */
@@ -128,8 +135,7 @@ class CountdownStore: ObservableObject {
         guard timerState != .running else { return }
 
         timerState = .running
-        timer = Timer.publish(every: 1, on: .main, in: .common)
-            .autoconnect()
+        timer = clock.createTimer(interval: 1)
             .sink { [self] _ in
                 if self.timerState == .running, self.isTimerDepleted {
                     self.completeTimer()
