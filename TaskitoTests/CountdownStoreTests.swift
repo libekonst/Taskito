@@ -368,4 +368,72 @@ final class CountdownStoreTests: XCTestCase {
         XCTAssertEqual(sut.secondsTotal, originalTotal + 180)
         XCTAssertEqual(sut.timerState, .paused) // Should remain paused
     }
+
+    // MARK: - Timer Completion Tests
+
+    func testTimerCountdown_CompletesWhenSecondsElapsedReachesTotal() async {
+        // Given - Very short timer (2 seconds for reliability)
+        _ = sut.startNewTimer(minutes: 0, seconds: 2)
+
+        // When - Wait for timer to complete using async
+        await waitForTimerCompletion(sut, timeout: 4.0)
+
+        // Then - Timer should be completed
+        XCTAssertEqual(sut.timerState, .completed, "Timer state should be completed")
+        XCTAssertEqual(sut.secondsRemaining, 0, "Seconds remaining should be 0")
+    }
+
+    func testTimerCompletion_CallsOnTimerCompletedHandler() async {
+        // Given - Short timer with completion handler
+        var handlerWasCalled = false
+
+        sut.onTimerCompleted {
+            handlerWasCalled = true
+        }
+
+        // When - Start and wait for timer to complete
+        _ = sut.startNewTimer(minutes: 0, seconds: 1)
+        await waitForTimerCompletion(sut, timeout: 2.0)
+
+        // Then - Handler should be called
+        XCTAssertTrue(handlerWasCalled, "Completion handler should have been called")
+    }
+
+    func testTimerCompletion_SetsStateToCompleted() async {
+        // Given - Very short timer
+        _ = sut.startNewTimer(minutes: 0, seconds: 1)
+
+        // When - Wait for completion
+        await waitForTimerCompletion(sut, timeout: 2.0)
+
+        // Then - State should be completed
+        XCTAssertEqual(sut.timerState, .completed, "State should be .completed")
+        XCTAssertEqual(sut.secondsTotal, 0, "Total seconds should be cleared")
+        XCTAssertEqual(sut.secondsElapsed, 0, "Elapsed seconds should be cleared")
+    }
+
+    // MARK: - Helper Methods
+
+    /// Waits for timer completion using async/await
+    private func waitForTimerCompletion(_ store: CountdownStore, timeout: TimeInterval) async {
+        await withCheckedContinuation { continuation in
+            var completed = false
+
+            // Register completion handler
+            store.onTimerCompleted {
+                if !completed {
+                    completed = true
+                    continuation.resume()
+                }
+            }
+
+            // Timeout fallback
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
+                if !completed {
+                    completed = true
+                    continuation.resume()
+                }
+            }
+        }
+    }
 }
