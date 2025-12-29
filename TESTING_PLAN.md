@@ -1,7 +1,7 @@
 # Taskito Testing Plan
 
-**Status:** Phase 1 Week 1-2 In Progress - 62 unit tests implemented and passing
-**Priority:** Medium - Continue with Phase 1 remaining tests (PresetTimer Model, AppStorageKeys, timer completion tests)
+**Status:** Phase 1 Almost Complete - 71 unit tests implemented and passing
+**Priority:** Low - Only timer completion tests remain (3 tests requiring time mocking)
 
 ---
 
@@ -154,10 +154,11 @@
 
 #### Test Coverage:
 
-- [ ] `testPresetTimer_Codable_EncodesCorrectly()`
-- [ ] `testPresetTimer_Codable_DecodesCorrectly()`
-- [ ] `testPresetTimer_Equatable_ComparesById()`
-- [ ] `testDefaults_ContainsExpectedPresets()` // Pomodoro, Short Break, Long Break
+- [x] `testPresetTimer_Codable_EncodesCorrectly()`
+- [x] `testPresetTimer_Codable_DecodesCorrectly()`
+- [x] `testPresetTimer_Equatable_ComparesAllFields()` (synthesized Equatable)
+- [x] `testDefaults_ContainsExpectedPresets()` // Pomodoro, Short Break, Long Break
+- [x] `testTotalSeconds_CalculatesCorrectly()` (bonus test)
 
 ---
 
@@ -167,9 +168,10 @@
 
 #### Test Coverage:
 
-- [ ] `testAppStorageKeys_AllKeysAreUnique()`
-- [ ] `testAppStorageKeys_NoEmptyStrings()`
-- [ ] `testSettingsKeys_FollowNamingConvention()` // "settings." prefix
+- [x] `testAppStorageKeys_AllKeysAreUnique()`
+- [x] `testAppStorageKeys_NoEmptyStrings()`
+- [x] `testSettingsKeys_FollowNamingConvention()` // "settings." prefix
+- [x] `testAppStorageKeys_HaveExpectedValues()` (bonus test - prevents accidental changes)
 
 ---
 
@@ -303,10 +305,19 @@
 - SettingsStoreTests: 11 tests
 - **Total: 62 unit tests passing**
 
-### Remaining Week 2-3
-4. ⏸️ CountdownStore timer completion tests (requires time mocking framework)
-6. ⏸️ PresetTimer Model tests (low priority - simple Codable/Equatable)
-7. ⏸️ AppStorageKeys tests (low priority - constant validation)
+### Remaining Phase 1 Unit Tests
+4. ⏸️ CountdownStore timer completion tests (3 tests - requires time mocking framework)
+
+**Phase 1 Complete Except Timer Completion:**
+- CountdownStoreTests: 21 tests
+- StandardTimerPolicyTests: 17 tests
+- PresetTimersStoreTests: 13 tests
+- SettingsStoreTests: 11 tests
+- PresetTimerTests: 5 tests ✨ **NEW**
+- AppStorageKeysTests: 4 tests ✨ **NEW**
+- **Total: 71 unit tests passing**
+
+### Phase 2 Next Steps
 8. ⏸️ Timer lifecycle integration tests
 
 ### Medium-term (Month 1)
