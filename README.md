@@ -4,6 +4,16 @@ Taskito is a tiny MacOS utility app that helps combat procrastination and finish
 
 It's a focus timer that is simple, fast, poses no disruptions, and exists on the Mac's menu bar for quick access.
 
+## Features
+
+- **Tiny Menu Bar Application** - Lives in your menu bar, always accessible but never in the way
+- **No Distractions** - No Dock icon, no fancy animations, no ads. Just a timer when you need it
+- **Use It Your Way** - No forced Pomodoro technique or rigid workflows. Set any duration you want
+- **Full Keyboard Support** - Comprehensive keyboard shortcuts for power users who hate reaching for the mouse
+- **Global Shortcut** - Open Taskito from anywhere with a customizable system-wide keyboard shortcut
+- **Preset Timers** - Save up to 5 frequently-used timer durations for one-click access
+- **Privacy First** - All data stays on your Mac. No analytics, no tracking, no cloud sync
+
 ## Installation
 
 The app is unsigned, so macOS requires these steps:
@@ -96,6 +106,76 @@ The repository includes a GitHub Action that automatically builds and creates a 
 2. Select "Build and Release macOS App" workflow
 3. Click "Run workflow"
 4. Once complete, download the DMG from the workflow run's "Artifacts" section
+
+## Usage
+
+### Starting a Timer
+
+**From the Menu Bar:**
+1. Click the Taskito icon in your menu bar
+2. Enter minutes and seconds (or click a preset button)
+3. Press Enter or click START
+
+**With Global Shortcut:**
+1. Press your configured global shortcut (default: unset, configure in Settings)
+2. Opens Quick Timer window from anywhere
+3. Enter duration and press Enter
+
+### Managing Running Timers
+
+- **Play/Pause** - Space bar or click the play/pause button
+- **Add Time** - Press `+` for 1 minute, `Shift +` for 3 minutes
+- **Restart** - `⌘R` to restart from original duration
+- **Cancel** - `⌃C` or click the X button
+
+### Preset Timers
+
+Save frequently-used durations in Settings:
+- Maximum 5 presets
+- Access with `⌘1` through `⌘5`
+- Click to start immediately
+
+## Keyboard Shortcuts
+
+### Global (System-Wide)
+| Shortcut | Action |
+|----------|--------|
+| Custom (set in Settings) | Open Taskito Quick Timer window |
+
+### Timer Setup
+| Shortcut | Action |
+|----------|--------|
+| `⌘1` - `⌘5` | Start preset timer (if configured) |
+| `Enter` | Start timer with current values |
+
+### Active Timer
+| Shortcut | Action |
+|----------|--------|
+| `Space` | Play/Pause timer |
+| `+` | Add 1 minute |
+| `Shift +` | Add 3 minutes |
+| `⌘R` | Restart timer |
+| `⌃C` | Cancel timer |
+
+See the full shortcuts reference in the app's Settings window.
+
+## Settings
+
+Access settings by clicking the gear icon in the menu bar interface:
+
+- **Start on system startup** - Launch Taskito automatically when you log in
+- **Play sound when timer completes** - Audio notification when countdown reaches zero
+- **Enable global shortcut** - Toggle system-wide keyboard shortcut on/off
+- **Customize shortcut** - Set your preferred global keyboard combination
+- **Preset timers** - Configure up to 5 quick-access timer durations
+
+## Credits
+
+Taskito uses [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts) by [Sindre Sorhus](https://github.com/sindresorhus) for global keyboard shortcut registration.
+
+## Testing
+
+This project includes comprehensive unit and integration tests. See [TaskitoTests/TESTING_SUMMARY.md](TaskitoTests/TESTING_SUMMARY.md) for details on the testing strategy and implementation.
 
 ## Roadmap
 
