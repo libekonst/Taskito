@@ -5,13 +5,14 @@
 //  Created by Konstantinos Liberopoulos on 23/12/25.
 //
 
-import SwiftUI
 import KeyboardShortcuts
+import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var presetStore: PresetTimersStore
     @ObservedObject var settingsStore: SettingsStore
     var timerPolicy: TimerPolicy
+    var onNavigateToShortcuts: () -> Void
 
     @State private var showingShortcutRecorder = false
 
@@ -156,6 +157,8 @@ struct SettingsView: View {
                         }
                     )
                 }
+                
+                KeyboardShortcutsLinkButton(action: onNavigateToShortcuts)
 
                 // Preset timers section
                 SettingsSectionView(title: "Preset Timers") {
@@ -165,7 +168,6 @@ struct SettingsView: View {
                     )
                 }
             }
-
             Spacer()
         }
         .padding(32)
@@ -223,12 +225,45 @@ private struct SettingsSectionView<Content: View>: View {
     }
 }
 
+private struct KeyboardShortcutsLinkButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                Image(systemName: "keyboard")
+                    .font(.system(size: 13, weight: .medium))
+                Text("View All Keyboard Shortcuts")
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.tertiary)
+            }
+            .foregroundStyle(.primary)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .fill(Color.primary.opacity(0.03))
+            )
+        }
+        .buttonStyle(.plain)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.5)
+        )
+    }
+}
+
 #Preview {
-    ScrollView{
+    ScrollView {
         SettingsView(
             presetStore: PresetTimersStore(),
             settingsStore: SettingsStore(loginItemManager: LoginItemManager()),
-            timerPolicy: StandardTimerPolicy()
-        )}
+            timerPolicy: StandardTimerPolicy(),
+            onNavigateToShortcuts: {}
+        )
+    }
     .frame(width: 600, height: 400)
 }
