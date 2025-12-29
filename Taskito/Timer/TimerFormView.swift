@@ -64,32 +64,47 @@ struct TimerFormView: View {
         Form {
             VStack {
                 HStack(alignment: .top, spacing: config.spacing) {
-                    TextField(
-                        "Minutes",
-                        value: $minutes,
-                        formatter: timerPolicy.minutesFormatter
-                    )
-                    .labelsHidden()
-                    .textFieldStyle(.plain)
-                    .font(.system(size: config.fontSize, weight: config.fontWeight, design: .rounded))
-                    .multilineTextAlignment(.trailing)
-                    .focused($focusedField, equals: .minutes)
+                    VStack(spacing: 4) {
+                        Text("Minutes")
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+
+                        TextField(
+                            "Minutes",
+                            value: $minutes,
+                            formatter: timerPolicy.minutesFormatter
+                        )
+                        .labelsHidden()
+                        .textFieldStyle(.plain)
+                        .font(.system(size: config.fontSize, weight: config.fontWeight, design: .rounded))
+                        .multilineTextAlignment(.trailing)
+                        .focused($focusedField, equals: .minutes)
+                    }
 
                     Text(":")
                         .font(.system(size: config.fontSize, weight: .thin, design: .rounded))
                         .foregroundStyle(.secondary)
                         .frame(height: config.fontSize)
+                        .padding(.top, 15)
 
-                    TextField(
-                        "Seconds",
-                        value: $seconds,
-                        formatter: timerPolicy.secondsFormatter
-                    )
-                    .labelsHidden()
-                    .textFieldStyle(.plain)
-                    .font(.system(size: config.fontSize, weight: config.fontWeight, design: .rounded))
-                    .multilineTextAlignment(.leading)
-                    .focused($focusedField, equals: .seconds)
+                    VStack(spacing: 4) {
+                        Text("Seconds")
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        TextField(
+                            "Seconds",
+                            value: $seconds,
+                            formatter: timerPolicy.secondsFormatter
+                        )
+                        .labelsHidden()
+                        .textFieldStyle(.plain)
+                        .font(.system(size: config.fontSize, weight: config.fontWeight, design: .rounded))
+                        .multilineTextAlignment(.leading)
+                        .focused($focusedField, equals: .seconds)
+                    }
                 }
                 .onAppear {
                     // Auto-focus minutes field when view appears
