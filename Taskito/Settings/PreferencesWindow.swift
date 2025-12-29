@@ -38,21 +38,19 @@ struct PreferencesWindow: View {
             
             // Content area
             ScrollView{
-                Group {
-                    switch selectedTab {
-                    case .settings:
-                        SettingsView(
-                            presetStore: presetStore,
-                            settingsStore: settingsStore,
-                            timerPolicy: timerPolicy
-                        )
-                        .transition(.opacity)
-                    case .keyboardShortcuts:
-                        AppKeyboardShortcutsView()
-                            .transition(.opacity)
-                    }
+                switch selectedTab {
+                case .settings:
+                    SettingsView(
+                        presetStore: presetStore,
+                        settingsStore: settingsStore,
+                        timerPolicy: timerPolicy,
+                        onNavigateToShortcuts: {
+                            selectedTab = .keyboardShortcuts
+                        }
+                    )
+                case .keyboardShortcuts:
+                    AppKeyboardShortcutsView()
                 }
-                .animation(.easeInOut(duration: 0.2), value: selectedTab)
             }
         }
         .frame(width: 600, height: 500)
