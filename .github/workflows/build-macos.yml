@@ -47,6 +47,43 @@ jobs:
       - name: Verify App Existence
         run: ls -la build/Build/Products/Release/
 
+      - name: Generate Icon Fallback
+        run: |
+          ICON_NAME=$(grep -A1 "ASSETCATALOG_COMPILER_APPICON_NAME" Taskito.xcodeproj/project.pbxproj | grep "=" | head -1 | sed 's/.*= "\(.*\)";/\1/')
+          ICON_PATH="build/Build/Products/Release/Taskito.app/Contents/Resources/${ICON_NAME}.icns"
+
+          echo "🔍 Checking for icon: ${ICON_NAME}.icns"
+
+          if [ ! -f "$ICON_PATH" ]; then
+            echo "⚠️  Icon not found. Building AppIcon.appiconset as fallback..."
+
+            # Temporarily change to AppIcon, build assets only
+            sed -i '' 's/ASSETCATALOG_COMPILER_APPICON_NAME = TaskitoIconComposer;/ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;/' Taskito.xcodeproj/project.pbxproj
+
+            # Compile asset catalog with AppIcon
+            xcrun actool Taskito/Assets.xcassets \
+              --compile build/FallbackIcon \
+              --platform macosx \
+              --minimum-deployment-target 14.2 \
+              --app-icon AppIcon \
+              --output-partial-info-plist /tmp/partial.plist
+
+            # Restore original configuration
+            sed -i '' 's/ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;/ASSETCATALOG_COMPILER_APPICON_NAME = TaskitoIconComposer;/' Taskito.xcodeproj/project.pbxproj
+
+            # Copy generated icon to expected location
+            FALLBACK_ICON="build/FallbackIcon/AppIcon.icns"
+            if [ -f "$FALLBACK_ICON" ]; then
+              cp "$FALLBACK_ICON" "$ICON_PATH"
+              echo "✅ Fallback icon generated and copied successfully"
+            else
+              echo "❌ Failed to generate fallback icon"
+              exit 1
+            fi
+          else
+            echo "✅ Icon found at: $ICON_PATH"
+          fi
+
       - name: Verify App Bundle Contents
         run: |
           echo "📦 Checking app bundle structure..."
