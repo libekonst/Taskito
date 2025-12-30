@@ -20,7 +20,7 @@ struct TimerFormView: View {
     private enum FocusedField: Hashable {
         case minutes, seconds
     }
-    
+
     struct Variant {
         enum ButtonSize { case small, large }
         let fontSize: CGFloat
@@ -44,7 +44,6 @@ struct TimerFormView: View {
             buttonSize: .small
         )
     }
-
 
     init(
         minutes: Binding<Int>,
@@ -144,15 +143,13 @@ private struct StartButton: View {
     private var activeGradientColors: [Color] {
         if colorScheme == .dark {
             return [
-                Color(red: 90/255, green: 159/255, blue: 134/255), // #5A9F86
-                Color(red: 94/255, green: 127/255, blue: 154/255), // #5E7F9A
-                Color(red: 81/255, green: 64/255, blue: 168/255) // #5140A8
+                Color(red: 106/255, green: 86/255, blue: 163/255), // #6A56A3
+                Color(red: 58/255, green: 138/255, blue: 122/255) // #3A8A7A
             ]
         } else {
             return [
-                Color(red: 167/255, green: 220/255, blue: 201/255), // #A7DCC9
-                Color(red: 169/255, green: 199/255, blue: 226/255), // #A9C7E2
-                Color(red: 180/255, green: 169/255, blue: 242/255) // #B4A9F2
+                Color(red: 220/255, green: 198/255, blue: 250/255), // #DCC6FA
+                Color(red: 190/255, green: 237/255, blue: 226/255) // #BEEDE2
             ]
         }
     }
@@ -198,4 +195,3 @@ private struct StartButton: View {
         .help("Start Timer (Enter)")
     }
 }
-
