@@ -2,17 +2,33 @@
 
 Taskito is a tiny MacOS utility app that helps combat procrastination and finish your tasks.
 
-It's a focus timer that is simple, fast, poses no disruptions, and exists on the Mac's menu bar for quick access.
+It's a focus timer that is simple, fast, poses no disruptions, and lives on the Mac's menu bar for quick access.
 
 ## Features
 
-- **Tiny Menu Bar Application** - Lives in your menu bar, always accessible but never in the way
-- **No Distractions** - No Dock icon, no fancy animations, no ads. Just a timer when you need it
-- **Use It Your Way** - No forced Pomodoro technique or rigid workflows. Set any duration you want
-- **Full Keyboard Support** - Comprehensive keyboard shortcuts for power users who hate reaching for the mouse
-- **Global Shortcut** - Open Taskito from anywhere with a customizable system-wide keyboard shortcut
-- **Preset Timers** - Save up to 5 frequently-used timer durations for one-click access
-- **Privacy First** - All data stays on your Mac. No analytics, no tracking, no cloud sync
+### Core Functionality
+⏱️ Simple countdown timer with minutes and seconds
+🧘 No forced Pomodoro technique or rigid workflows. Set any duration you want
+📍 Lives in your Mac's menu bar. No Dock icon, no distractions
+⚡ Fast and lightweight with zero setup required
+🎯 Preset timers—save up to 5 frequently-used durations
+
+### Keyboard-First Design
+⌨️ Full keyboard support for power users
+🌐 Global keyboard shortcut to open Taskito from anywhere (customizable)
+🔢 Quick access to presets with ⌘1-⌘5
+⏯️ Space to play/pause, ⌘R to restart, ⌃C to cancel
+➕ Add time on the fly: + for 1 minute, Shift + for 3 minutes
+
+#### Privacy & Simplicity
+🔒 All data stays on your Mac—no cloud, no analytics, no tracking
+🎨 Clean, minimal interface that stays out of your way
+🔕 Optional sound notification when timer completes
+🚀 Launch on startup option
+
+## System Requirements
+macOS 14.2 or later
+Apple Silicon or Intel Mac
 
 ## Installation
 
