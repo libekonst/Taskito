@@ -51,6 +51,7 @@
 		84E67CBC2EEA62FA00772892 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBB2EEA62F500772892 /* SettingsStore.swift */; };
 		84E67CBE2EEA7C2400772892 /* AppKeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E67CBD2EEA7C1D00772892 /* AppKeyboardShortcuts.swift */; };
 		84F1B58D2BDDB8F10000EF8C /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */; };
+		84F80F952F03878A001D05DA /* TaskitoIconComposer.icon in Resources */ = {isa = PBXBuildFile; fileRef = 84F80F942F03878A001D05DA /* TaskitoIconComposer.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		84F80F8F2F032792001D05DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		84F80F902F032792001D05DA /* TESTING_PLAN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TESTING_PLAN.md; sourceTree = "<group>"; };
 		84F80F922F032850001D05DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		84F80F942F03878A001D05DA /* TaskitoIconComposer.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = TaskitoIconComposer.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			children = (
 				84F80F8F2F032792001D05DA /* README.md */,
 				84D97CF92F02E502008AEDC6 /* Taskito.xctestplan */,
+				84F80F942F03878A001D05DA /* TaskitoIconComposer.icon */,
 				841933D42CA2091D00109E5E /* appdmg.json */,
 				841933D22CA1FBDC00109E5E /* ExportOptions.plist */,
 				84F80F932F032850001D05DA /* TaskitoUITests */,
@@ -415,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				844F92132C5D9C8600A35334 /* timer-finished.mp3 in Resources */,
+				84F80F952F03878A001D05DA /* TaskitoIconComposer.icon in Resources */,
 				84CAB7B02BA0F8DD002350A9 /* Preview Assets.xcassets in Resources */,
 				84CAB7AD2BA0F8DD002350A9 /* Assets.xcassets in Resources */,
 				841933D32CA1FBDC00109E5E /* ExportOptions.plist in Resources */,
@@ -635,7 +639,7 @@
 		84CAB7CB2BA0F8DE002350A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 5";
+				ASSETCATALOG_COMPILER_APPICON_NAME = TaskitoIconComposer;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Taskito/Taskito.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -664,7 +668,7 @@
 		84CAB7CC2BA0F8DE002350A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 5";
+				ASSETCATALOG_COMPILER_APPICON_NAME = TaskitoIconComposer;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Taskito/Taskito.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
