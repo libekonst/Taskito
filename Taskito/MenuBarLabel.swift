@@ -38,7 +38,7 @@ struct MenuBarLabel: View {
 private struct IdleView: View {
     var body: some View {
         HStack {
-            Text("(｡◕‿◕｡)")
+            Text("(◕‿◕)")
         }
     }
 }
