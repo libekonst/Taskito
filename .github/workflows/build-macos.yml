@@ -49,16 +49,17 @@ jobs:
 
       - name: Generate Icon Fallback
         run: |
-          ICON_NAME=$(grep -A1 "ASSETCATALOG_COMPILER_APPICON_NAME" Taskito.xcodeproj/project.pbxproj | grep "=" | head -1 | sed 's/.*= "\(.*\)";/\1/')
+          ICON_NAME=$(grep "ASSETCATALOG_COMPILER_APPICON_NAME" Taskito.xcodeproj/project.pbxproj | head -1 | sed 's/.*= //;s/;//' | tr -d ' ')
           ICON_PATH="build/Build/Products/Release/Taskito.app/Contents/Resources/${ICON_NAME}.icns"
 
           echo "🔍 Checking for icon: ${ICON_NAME}.icns"
+          echo "📁 Icon path: ${ICON_PATH}"
 
           if [ ! -f "$ICON_PATH" ]; then
             echo "⚠️  Icon not found. Building AppIcon.appiconset as fallback..."
 
-            # Temporarily change to AppIcon, build assets only
-            sed -i '' 's/ASSETCATALOG_COMPILER_APPICON_NAME = TaskitoIconComposer;/ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;/' Taskito.xcodeproj/project.pbxproj
+            # Create output directory
+            mkdir -p build/FallbackIcon
 
             # Compile asset catalog with AppIcon
             xcrun actool Taskito/Assets.xcassets \
@@ -68,16 +69,18 @@ jobs:
               --app-icon AppIcon \
               --output-partial-info-plist /tmp/partial.plist
 
-            # Restore original configuration
-            sed -i '' 's/ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;/ASSETCATALOG_COMPILER_APPICON_NAME = TaskitoIconComposer;/' Taskito.xcodeproj/project.pbxproj
+            echo "📦 Checking actool output:"
+            ls -la build/FallbackIcon/ || echo "Directory is empty"
 
             # Copy generated icon to expected location
             FALLBACK_ICON="build/FallbackIcon/AppIcon.icns"
             if [ -f "$FALLBACK_ICON" ]; then
               cp "$FALLBACK_ICON" "$ICON_PATH"
               echo "✅ Fallback icon generated and copied successfully"
+              ls -lh "$ICON_PATH"
             else
               echo "❌ Failed to generate fallback icon"
+              echo "❌ Expected file not found at: $FALLBACK_ICON"
               exit 1
             fi
           else
