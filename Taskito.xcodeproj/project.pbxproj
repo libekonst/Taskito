@@ -179,7 +179,6 @@
 			children = (
 				84F80F8F2F032792001D05DA /* README.md */,
 				84D97CF92F02E502008AEDC6 /* Taskito.xctestplan */,
-				84F80F942F03878A001D05DA /* TaskitoIconComposer.icon */,
 				841933D42CA2091D00109E5E /* appdmg.json */,
 				841933D22CA1FBDC00109E5E /* ExportOptions.plist */,
 				84F80F932F032850001D05DA /* TaskitoUITests */,
@@ -212,6 +211,7 @@
 				84F1B58C2BDDB8F10000EF8C /* MenuBarLabel.swift */,
 				84CAB7AA2BA0F8DC002350A9 /* MenuBarWindowContent.swift */,
 				84CAB7AC2BA0F8DD002350A9 /* Assets.xcassets */,
+				84F80F942F03878A001D05DA /* TaskitoIconComposer.icon */,
 				84CAB7B12BA0F8DD002350A9 /* Taskito.entitlements */,
 				84CAB7AE2BA0F8DD002350A9 /* Preview Content */,
 			);
