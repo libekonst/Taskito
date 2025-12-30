@@ -24,6 +24,15 @@ jobs:
         with:
           xcode-version: "latest-stable"
 
+      - name: Clean build directory
+        run: |
+          xcodebuild clean -project Taskito.xcodeproj -scheme Taskito
+          rm -rf build
+
+      - name: Resolve Package Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies -project Taskito.xcodeproj -scheme Taskito
+
       - name: Build the app
         run: |
           xcodebuild -project Taskito.xcodeproj \
@@ -32,7 +41,8 @@ jobs:
             -derivedDataPath build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            -verbose
 
       - name: Verify App Existence
         run: ls -la build/Build/Products/Release/
