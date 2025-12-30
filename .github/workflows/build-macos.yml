@@ -22,7 +22,7 @@ jobs:
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: "16.0"
+          xcode-version: "16.1"
 
       - name: Clean build directory
         run: |
