@@ -1,6 +1,6 @@
 <p align="center">
  <br>
-   <img src=".github/assets/logo.png" alt="Taskito Logo" width="128">
+   <img src=".github/assets/logo.png" alt="Taskito Logo" width="340" style="border-radius: 60px">
     <br> <br>
 </p>
 
@@ -11,32 +11,32 @@ A tiny macOS menu bar timer that helps you stay focused and finish your tasks.
 Simple, fast, and distraction-free. No forced workflows, no tracking, no cloud sync. Just a timer that lives quietly in your menu bar until you need it.
 
 <p align="center">
-  <img src=".github/assets/first-screen.png" alt="Setting timer duration" width="600"><br>
+  <img src=".github/assets/first-screen.png" alt="Setting timer duration" width="600" style="border-radius: 20px"><br>
   <sub>Enter timer duration</sub>
 </p>
 <br>
 
 <p align="center">
-  <img src=".github/assets/timer-running.png" alt="Active countdown in window and menu bar" width="600"><br>
+  <img src=".github/assets/timer-running.png" alt="Active countdown in window and menu bar" width="600" style="border-radius: 20px"><br>
   <sub>Active countdown in window and menu bar</sub>
 </p>
 <br>
 
 <p align="center">
-  <img src=".github/assets/timer-background-cropped.png" alt="Timer continues in menu bar" width="600"><br>
+  <img src=".github/assets/timer-background.png" alt="Timer continues in menu bar" width="600" style="border-radius: 20px"><br>
   <sub>Timer continues in menu bar</sub>
 </p>
 <br>
 
 <p align="center">
-  <img src=".github/assets/timer-paused.png" alt="Timer paused" width="600"><br>
+  <img src=".github/assets/timer-paused.png" alt="Timer paused" width="600" style="border-radius: 20px"><br>
   <sub>Pause timer anytime</sub>
 </p>
 <br>
 
 <p align="center">
-  <img src=".github/assets/quick-launch.png" alt="Quick start with keyboard shortcut" width="600"><br>
-  <sub>Quick start with keyboard shortcut</sub>
+  <img src=".github/assets/quick-launch.png" alt="Quick start with keyboard shortcut" width="600" style="border-radius: 20px"><br>
+  <sub>Quick start from anywhere with keyboard shortcut</sub>
 </p>
 <br>
 
