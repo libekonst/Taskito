@@ -10,6 +10,36 @@ A tiny macOS menu bar timer that helps you stay focused and finish your tasks.
 
 Simple, fast, and distraction-free. No forced workflows, no tracking, no cloud sync. Just a timer that lives quietly in your menu bar until you need it.
 
+<p align="center">
+  <img src=".github/assets/first-screen.png" alt="Setting timer duration" width="600"><br>
+  <sub>Enter timer duration</sub>
+</p>
+<br>
+
+<p align="center">
+  <img src=".github/assets/timer-running.png" alt="Active countdown in window and menu bar" width="600"><br>
+  <sub>Active countdown in window and menu bar</sub>
+</p>
+<br>
+
+<p align="center">
+  <img src=".github/assets/timer-background-cropped.png" alt="Timer continues in menu bar" width="600"><br>
+  <sub>Timer continues in menu bar</sub>
+</p>
+<br>
+
+<p align="center">
+  <img src=".github/assets/timer-paused.png" alt="Timer paused" width="600"><br>
+  <sub>Pause timer anytime</sub>
+</p>
+<br>
+
+<p align="center">
+  <img src=".github/assets/quick-launch.png" alt="Quick start with keyboard shortcut" width="600"><br>
+  <sub>Quick start with keyboard shortcut</sub>
+</p>
+<br>
+
 ## Features
 
 - ⏱️ **Simple countdown timer** - Set any duration, no forced Pomodoro technique.
