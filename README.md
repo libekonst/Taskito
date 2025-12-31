@@ -1,50 +1,46 @@
+<p align="center">
+ <br>
+   <img src=".github/assets/logo.png" alt="Taskito Logo" width="128">
+    <br> <br>
+</p>
+
 # Taskito
 
-Taskito is a tiny MacOS utility app that helps combat procrastination and finish your tasks.
+A tiny macOS menu bar timer that helps you stay focused and finish your tasks.
 
-It's a focus timer that is simple, fast, poses no disruptions, and lives on the Mac's menu bar for quick access.
+Simple, fast, and distraction-free. No forced workflows, no tracking, no cloud sync. Just a timer that lives quietly in your menu bar until you need it.
 
 ## Features
 
-### Core Functionality
-⏱️ Simple countdown timer with minutes and seconds
-🧘 No forced Pomodoro technique or rigid workflows. Set any duration you want
-📍 Lives in your Mac's menu bar. No Dock icon, no distractions
-⚡ Fast and lightweight with zero setup required
-🎯 Preset timers—save up to 5 frequently-used durations
-
-### Keyboard-First Design
-⌨️ Full keyboard support for power users
-🌐 Global keyboard shortcut to open Taskito from anywhere (customizable)
-🔢 Quick access to presets with ⌘1-⌘5
-⏯️ Space to play/pause, ⌘R to restart, ⌃C to cancel
-➕ Add time on the fly: + for 1 minute, Shift + for 3 minutes
-
-#### Privacy & Simplicity
-🔒 All data stays on your Mac—no cloud, no analytics, no tracking
-🎨 Clean, minimal interface that stays out of your way
-🔕 Optional sound notification when timer completes
-🚀 Launch on startup option
+- ⏱️ **Simple countdown timer** - Set any duration, no forced Pomodoro technique.
+- 📍 **Menu bar only** - No Dock icon, no distractions.
+- ⚡ **Zero setup** - Fast and lightweight, works immediately.
+- ⌨️ **Keyboard-first** - Full keyboard support with global shortcuts.
+- 🎯 **Preset timers** - Save up to 5 frequently-used durations. Access with ⌘1-⌘5.
+- ⏯️ **Timer controls** - Space to play/pause, ⌘R to restart, ⌃C to cancel.
+- ➕ **Add time on the fly** - + for 1 minute, Shift + for 3 minutes
+- 🔒 **Privacy-focused** - All data stays on your Mac, no cloud, no tracking.
+- 🔕 **Optional sound** - Audio notification when timer completes.
+- 🚀 **Launch on startup** - Optionally start with macOS.
 
 ## System Requirements
-macOS 14.2 or later
-Apple Silicon or Intel Mac
+
+- macOS 14.2 or later
+- Apple Silicon or Intel Mac
 
 ## Installation
 
-The app is unsigned, so macOS requires these steps:
-
-1. Download the DMG build artifact from the **latest release** at [the releases page](https://github.com/libekonst/Taskito/releases)
-2. **Mount the DMG** and drag Taskito to Applications
-3. **Remove quarantine flag** - Open Terminal and run:
+1. **Download** the latest release from the [releases page](https://github.com/libekonst/Taskito/releases)
+2. **Mount the DMG** and drag Taskito to your Applications folder
+3. **Remove the quarantine flag** by opening Terminal and running:
 
    ```bash
    xattr -cr /Applications/Taskito.app
    ```
 
-4. **Launch the app** - You can now open it normally from Applications
+4. **Launch Taskito** from your Applications folder
 
-**Note:** If you get "damaged and can't be opened", you skipped step 3. The app isn't actually damaged, it's just macOS blocking unsigned apps.
+> **Note:** If you see "Taskito is damaged and can't be opened", you skipped step 3. The app isn't actually damaged—this is macOS Gatekeeper blocking unsigned apps. Run the command above to fix it.
 
 ### Why the "damaged" Error?
 
@@ -58,81 +54,23 @@ macOS has three security levels:
 
 When you download files from the internet, macOS adds a "quarantine" flag. The `xattr -cr` command removes this flag, allowing the unsigned app to run.
 
-The xattr -cr command:
+**About the xattr command:**
 
-- -c = Clear all extended attributes (including quarantine)
-- -r = Recursive (entire app bundle)
-
-## Building
-
-### Local Build
-
-#### Prerequisites
-
-- Xcode 15.3+
-- macOS 14.2+
-- Node.js (for creating DMG installers)
-
-1. **Build the app:**
-
-   ```bash
-   xcodebuild -project Taskito.xcodeproj \
-     -scheme Taskito \
-     -configuration Release \
-     -derivedDataPath build \
-     CODE_SIGN_IDENTITY="" \
-     CODE_SIGNING_REQUIRED=NO \
-     CODE_SIGNING_ALLOWED=NO
-   ```
-
-2. **Create a DMG installer:**
-
-   ```bash
-   # Install appdmg (first time only)
-   npm install -g appdmg
-
-   # Create the DMG
-   mkdir -p dist
-   appdmg appdmg.json dist/Taskito.dmg
-   ```
-
-3. **Verify the DMG (optional):**
-
-   ```bash
-   hdiutil verify dist/Taskito.dmg
-   ```
-
-The built app will be at `build/Build/Products/Release/Taskito.app` and the installer at `dist/Taskito.dmg`.
-
-### GitHub Action Build
-
-The repository includes a GitHub Action that automatically builds and creates a DMG. You can trigger it two ways:
-
-**Option 1: Create a Release (Recommended)**
-
-1. Go to the GitHub repository
-2. Click "Releases" → "Create a new release"
-3. Tag version (e.g., `v1.0.0`)
-4. Click "Publish release"
-5. The action will run automatically and upload `Taskito.dmg` to the release
-
-**Option 2: Manual Trigger**
-
-1. Go to "Actions" tab in the GitHub repository
-2. Select "Build and Release macOS App" workflow
-3. Click "Run workflow"
-4. Once complete, download the DMG from the workflow run's "Artifacts" section
+- `-c` clears all extended attributes (including quarantine)
+- `-r` applies recursively to the entire app bundle
 
 ## Usage
 
 ### Starting a Timer
 
 **From the Menu Bar:**
+
 1. Click the Taskito icon in your menu bar
 2. Enter minutes and seconds (or click a preset button)
 3. Press Enter or click START
 
 **With Global Shortcut:**
+
 1. Press your configured global shortcut (default: unset, configure in Settings)
 2. Opens Quick Timer window from anywhere
 3. Enter duration and press Enter
@@ -147,6 +85,7 @@ The repository includes a GitHub Action that automatically builds and creates a 
 ### Preset Timers
 
 Save frequently-used durations in Settings:
+
 - Maximum 5 presets
 - Access with `⌘1` through `⌘5`
 - Click to start immediately
@@ -154,24 +93,27 @@ Save frequently-used durations in Settings:
 ## Keyboard Shortcuts
 
 ### Global (System-Wide)
-| Shortcut | Action |
-|----------|--------|
+
+| Shortcut                 | Action                          |
+| ------------------------ | ------------------------------- |
 | Custom (set in Settings) | Open Taskito Quick Timer window |
 
 ### Timer Setup
-| Shortcut | Action |
-|----------|--------|
+
+| Shortcut    | Action                             |
+| ----------- | ---------------------------------- |
 | `⌘1` - `⌘5` | Start preset timer (if configured) |
-| `Enter` | Start timer with current values |
+| `Enter`     | Start timer with current values    |
 
 ### Active Timer
-| Shortcut | Action |
-|----------|--------|
-| `Space` | Play/Pause timer |
-| `+` | Add 1 minute |
-| `Shift +` | Add 3 minutes |
-| `⌘R` | Restart timer |
-| `⌃C` | Cancel timer |
+
+| Shortcut  | Action           |
+| --------- | ---------------- |
+| `Space`   | Play/Pause timer |
+| `+`       | Add 1 minute     |
+| `Shift +` | Add 3 minutes    |
+| `⌘R`      | Restart timer    |
+| `⌃C`      | Cancel timer     |
 
 See the full shortcuts reference in the app's Settings window.
 
@@ -188,11 +130,3 @@ Access settings by clicking the gear icon in the menu bar interface:
 ## Credits
 
 Taskito uses [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts) by [Sindre Sorhus](https://github.com/sindresorhus) for global keyboard shortcut registration.
-
-## Testing
-
-This project includes comprehensive unit and integration tests. See [TaskitoTests/TESTING_SUMMARY.md](TaskitoTests/TESTING_SUMMARY.md) for details on the testing strategy and implementation.
-
-## Roadmap
-
-<https://github.com/users/libekonst/projects/2/views/1>
