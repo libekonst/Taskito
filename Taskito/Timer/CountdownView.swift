@@ -200,19 +200,29 @@ private struct TimeAdjustButton: View {
     }
 }
 
-private struct ResetButton: View {
+private struct IconLabelButton: View {
+    let systemImage: String
+    let title: String
+    let role: ButtonRole?
+    let help: String
     let action: () -> Void
     @State private var isHovered = false
 
     var body: some View {
-        Button(role: .cancel, action: action) {
-            Image(systemName: "xmark")
-                .font(.system(size: 14, weight: .medium))
-                .frame(width: 32, height: 32)
-                .background(
-                    Circle()
-                        .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
-                )
+        Button(role: role, action: action) {
+            HStack(spacing: 4) {
+                Image(systemName: systemImage)
+                    .font(.system(size: 14, weight: .medium))
+
+                Text(title)
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
+            )
         }
         .buttonStyle(.plain)
         .onHover { hovering in
@@ -220,7 +230,21 @@ private struct ResetButton: View {
                 isHovered = hovering
             }
         }
-        .help("Cancel Timer (⌃C)")
+        .help(help)
+    }
+}
+
+private struct ResetButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        IconLabelButton(
+            systemImage: "xmark",
+            title: "Cancel",
+            role: .cancel,
+            help: "Cancel Timer (⌃C)",
+            action: action
+        )
         .background(
             // Hidden button for cancel timer
             Button("") {
@@ -234,25 +258,15 @@ private struct ResetButton: View {
 
 private struct RestartButton: View {
     let action: () -> Void
-    @State private var isHovered = false
 
     var body: some View {
-        Button(action: action) {
-            Image(systemName: "arrow.clockwise")
-                .font(.system(size: 14, weight: .medium))
-                .frame(width: 32, height: 32)
-                .background(
-                    Circle()
-                        .fill(Color.primary.opacity(isHovered ? 0.06 : 0))
-                )
-        }
-        .buttonStyle(.plain)
-        .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovered = hovering
-            }
-        }
-        .help("Restart Timer (⌘R)")
+        IconLabelButton(
+            systemImage: "arrow.clockwise",
+            title: "Restart",
+            role: nil,
+            help: "Restart Timer (⌘R)",
+            action: action
+        )
         .background(
             Button("") {
                 action()
@@ -291,3 +305,4 @@ private struct RestartButton: View {
 
     return StatefulPreview()
 }
+
