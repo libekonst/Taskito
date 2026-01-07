@@ -1,14 +1,14 @@
 //
-//  ShortcutRecorderSheet.swift
+//  GlobalShortcutRecorderSheetView.swift
 //  Taskito
 //
 //  Created by Konstantinos Liberopoulos on 27/12/25.
 //
 
-import SwiftUI
 import KeyboardShortcuts
+import SwiftUI
 
-struct ShortcutRecorderSheet: View {
+struct GlobalShortcutRecorderSheetView: View {
     let onCancel: () -> Void
     let onSave: () -> Void
 
@@ -70,7 +70,7 @@ struct ShortcutRecorderSheet: View {
 }
 
 #Preview {
-    ShortcutRecorderSheet(
+    GlobalShortcutRecorderSheetView(
         onCancel: {},
         onSave: {}
     )

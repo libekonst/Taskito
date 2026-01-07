@@ -5,7 +5,6 @@
 //  Created by Konstantinos Liberopoulos on 23/12/25.
 //
 
-import KeyboardShortcuts
 import SwiftUI
 
 struct SettingsView: View {
@@ -113,9 +112,8 @@ struct SettingsView: View {
 
                                     Spacer()
 
-                                    // Display current shortcut
-                                    if let shortcut = KeyboardShortcuts.getShortcut(for: .toggleAppWindow) {
-                                        Text(shortcut.description)
+                                    if let shortcutDescription = GlobalShortcut.getDescription() {
+                                        Text(shortcutDescription)
                                             .font(.system(size: 13, weight: .medium, design: .monospaced))
                                             .foregroundStyle(.primary)
                                             .padding(.horizontal, 8)
@@ -148,7 +146,7 @@ struct SettingsView: View {
                     }
                 }
                 .sheet(isPresented: $showingShortcutRecorder) {
-                    ShortcutRecorderSheet(
+                    GlobalShortcutRecorderSheetView(
                         onCancel: {
                             showingShortcutRecorder = false
                         },
@@ -157,7 +155,7 @@ struct SettingsView: View {
                         }
                     )
                 }
-                
+
                 KeyboardShortcutsLinkButton(action: onNavigateToShortcuts)
 
                 // Preset timers section
@@ -267,3 +265,4 @@ private struct KeyboardShortcutsLinkButton: View {
     }
     .frame(width: 600, height: 400)
 }
+
